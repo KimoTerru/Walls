@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home"
+    >
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="it.kimoterru.walls.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home"
+        android:label="Home">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_download"
+        android:name="it.kimoterru.walls.ui.download.DownloadFragment"
+        tools:layout="@layout/fragment_download"
+        android:label="Home"/>
+
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile"
+        android:label="Home"/>
+
+</navigation>

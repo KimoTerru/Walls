@@ -2,6 +2,9 @@ package it.kimoterru.walls.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,5 +15,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupBottomNav()
+    }
+
+    private fun setupBottomNav() {
+        binding.mainBottomNav.setupWithNavController(findNavController(R.id.nav_host))
     }
 }
