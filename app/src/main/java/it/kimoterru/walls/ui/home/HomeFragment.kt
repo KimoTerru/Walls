@@ -11,10 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.MyAdapter
-import it.kimoterru.walls.adapter.WallpaperClickListener
+import it.kimoterru.walls.adapter.CategoriesAdapter
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.model.Wallpaper
+import it.kimoterru.walls.ui.home.categories.Categories
 import it.kimoterru.walls.util.Status
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -22,6 +24,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding get() = _binding!!
 
     private var viewModel: HomeViewModel? = null
+
+    private var categories: ArrayList<Categories> = ArrayList<Categories>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater)
@@ -33,6 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         initObservers()
+        setInitialDataCategories()
     }
 
     override fun onResume() {
@@ -58,6 +63,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun displayData(response: Wallpaper?) {
         binding.recyclerBestOfTheMonth.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)
         binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_color) // TODO: 24.07.2021
-        binding.recyclerCategories.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_categories)
+        binding.recyclerCategories.adapter = CategoriesAdapter(context, categories)
+    }
+
+    private fun setInitialDataCategories() {
+        categories.add(Categories(R.drawable.abstrack, "Abstrack"))
+        categories.add(Categories(R.drawable.anime, "Anime"))
+        categories.add(Categories(R.drawable.architecture, "Architecture"))
+        categories.add(Categories(R.drawable.beach, "Beach"))
+        categories.add(Categories(R.drawable.cars, "Cars"))
+        categories.add(Categories(R.drawable.cats, "Cats"))
+        categories.add(Categories(R.drawable.dogs, "Dogs"))
+        categories.add(Categories(R.drawable.landscape, "Landscape"))
+        categories.add(Categories(R.drawable.movies, "Movies"))
+        categories.add(Categories(R.drawable.nature, "Nature"))
+        categories.add(Categories(R.drawable.space, "Space"))
+        categories.add(Categories(R.drawable.sunset, "Sunset"))
+        categories.add(Categories(R.drawable.video_game, "Video games"))
+        categories.add(Categories(R.drawable.women, "Women"))
     }
 }

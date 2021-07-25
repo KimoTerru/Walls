@@ -13,13 +13,26 @@
         >
 
         <ImageView
-            android:id="@+id/card_wallpaper"
+            android:id="@+id/card_categories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/pre_view"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/categories"
+            android:textSize="26sp"
+            android:textColor="@color/white"
+            app:layout_constraintRight_toRightOf="@id/card_categories"
+            app:layout_constraintLeft_toLeftOf="@id/card_categories"
+            app:layout_constraintTop_toTopOf="@id/card_categories"
+            app:layout_constraintBottom_toBottomOf="@id/card_categories"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
