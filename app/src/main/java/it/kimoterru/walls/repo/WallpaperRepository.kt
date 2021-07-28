@@ -15,4 +15,10 @@ class WallpaperRepository @Inject constructor(private var service: ApiService) {
     ): Wallpaper {
         return service.listTopListWallpapers(category, purity, topRange, sorting, order, page)
     }
+
+    suspend fun getLatestWallpapers(
+        page: Int
+    ): Wallpaper {
+        return service.listLatestWallpapers(page)
+    }
 }

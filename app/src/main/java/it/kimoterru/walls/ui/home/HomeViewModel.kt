@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(private val repository: WallpaperReposit
         homeResponseLiveData.postValue(Resource.loading())
         viewModelScope.launch {
             try {
-                val result = repository.getTopWallpapers("Anime", "0", "1d", "toplist", "asc", 1)
+                val result = repository.getLatestWallpapers(1)
                 homeResponseLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()

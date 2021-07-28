@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/main_bottom_menu"
+        android:background="@color/selago"
         app:itemIconSize="30dp"
         app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"

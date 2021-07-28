@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.MyAdapter
 import it.kimoterru.walls.adapter.CategoriesAdapter
+import it.kimoterru.walls.adapter.MyAdapter
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.model.Wallpaper
 import it.kimoterru.walls.ui.home.categories.Categories
@@ -37,6 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         initObservers()
+        findWallpaper()
         setInitialDataCategories()
     }
 
@@ -48,6 +50,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun initObservers() {
         viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {
             binding.progressBar.isVisible = it.status == Status.LOADING
+            binding.latestWallpapers.isVisible = it.status == Status.SUCCESS
+            binding.theColorTone.isVisible = it.status == Status.SUCCESS
+            binding.categories.isVisible = it.status == Status.SUCCESS
             when (it.status) {
                 Status.SUCCESS -> {
                     displayData(it.data)
@@ -61,10 +66,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun displayData(response: Wallpaper?) {
-        binding.recyclerBestOfTheMonth.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)
+        binding.recyclerLatestWallpapers.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)
         binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_color) // TODO: 24.07.2021
         binding.recyclerCategories.adapter = CategoriesAdapter(context, categories)
     }
+
+    private fun findWallpaper() {
+        binding.findImage.addTextChangedListener {
+            binding.searchImage.isVisible = it.toString().isNotEmpty()
+            binding.searchImage.setOnClickListener {
+                binding.findImage.setText("Let's try again!")
+            }
+            /*if (it.toString().isNotEmpty()) {
+                binding.searchImage.setImageResource(R.drawable.close)
+            }*/
+        }
+    } // TODO: 28.07.2021
 
     private fun setInitialDataCategories() {
         categories.add(Categories(R.drawable.abstrack, "Abstrack"))
