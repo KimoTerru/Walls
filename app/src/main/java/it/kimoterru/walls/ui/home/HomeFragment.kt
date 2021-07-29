@@ -68,7 +68,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun displayData(response: Wallpaper?) {
         binding.recyclerLatestWallpapers.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)
         binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_color) // TODO: 24.07.2021
-        binding.recyclerCategories.adapter = CategoriesAdapter(context, categories)
+        binding.recyclerCategories.adapter = CategoriesAdapter(categories)
     }
 
     private fun findWallpaper() {
