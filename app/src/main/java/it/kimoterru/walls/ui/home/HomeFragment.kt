@@ -14,7 +14,7 @@ import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.CategoriesAdapter
 import it.kimoterru.walls.adapter.MyAdapter
 import it.kimoterru.walls.databinding.FragmentHomeBinding
-import it.kimoterru.walls.model.Wallpaper
+import it.kimoterru.walls.model.unsplash.PhotoItem
 import it.kimoterru.walls.ui.home.categories.Categories
 import it.kimoterru.walls.util.Status
 import java.util.*
@@ -65,9 +65,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
     }
 
-    private fun displayData(response: Wallpaper?) {
-        binding.recyclerLatestWallpapers.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)
-        binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_color) // TODO: 24.07.2021
+    private fun displayData(response: List<PhotoItem>?) {
+        binding.recyclerLatestWallpapers.adapter = MyAdapter(response ?: listOf(), R.layout.card_image)
+        binding.recyclerBestColorTone.adapter = MyAdapter(response ?: listOf(), R.layout.card_color) // TODO: 24.07.2021
         binding.recyclerCategories.adapter = CategoriesAdapter(categories)
     }
 
