@@ -8,10 +8,10 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
-import it.kimoterru.walls.model.Data
+import it.kimoterru.walls.model.unsplash.PhotoItem
 
 class MyAdapter(
-    val data: List<Data>,
+    val data: List<PhotoItem>,
     @LayoutRes val viewId: Int
 ) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
@@ -27,7 +27,7 @@ class MyAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        Glide.with(holder.image).load(item.thumbs.original).into(holder.image)
+        Glide.with(holder.image).load(item.urls.thumb).into(holder.image)
     }
 
     override fun getItemCount() = data.size
