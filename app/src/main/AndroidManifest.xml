@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Walls">
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.image.SelectedImageActivity" />
+        <activity
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

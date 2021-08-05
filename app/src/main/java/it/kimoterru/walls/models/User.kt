@@ -1,5 +1,4 @@
-package it.kimoterru.walls.model.unsplash
-
+package it.kimoterru.walls.models
 
 import com.google.gson.annotations.SerializedName
 

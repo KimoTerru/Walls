@@ -8,4 +8,7 @@
     <string name="profile">Profile</string>
     <string name="find_wallpaper">Find Wallpaper…</string>
     <string name="categories">Categories</string>
+    <string name="apply">Apply</string>
+    <string name="info">Info</string>
+    <string name="save">Save</string>
 </resources>

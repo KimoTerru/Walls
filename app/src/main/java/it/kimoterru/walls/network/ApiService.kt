@@ -1,7 +1,8 @@
 package it.kimoterru.walls.network
 
-import it.kimoterru.walls.model.unsplash.PhotoItem
+import it.kimoterru.walls.models.PhotoItem
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -10,5 +11,22 @@ interface ApiService {
     }
 
     @GET("/photos")
-    suspend fun getLatest(@Query("client_id") clientId: String, @Query("page") page: Int): List<PhotoItem>
+    suspend fun getLatest(
+        @Query("client_id") clientId: String,
+        @Query("page") page: Int,
+    ): List<PhotoItem>
+
+    @GET("/photos")
+    suspend fun getTopList(
+        @Query("client_id") clientId: String,
+        @Query("page") page: Int,
+        @Query("per_page") per_page: Int,
+        @Query("order_by") order_by: String
+    ): List<PhotoItem>
+
+    @GET("/photos/{id}")
+    suspend fun getPhoto(
+        @Path("id") id: String,
+        @Query("client_id") clientId: String
+    ): PhotoItem
 }
