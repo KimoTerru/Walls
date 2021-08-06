@@ -2,7 +2,7 @@ package it.kimoterru.walls.models
 
 import com.google.gson.annotations.SerializedName
 
-data class PhotoUrls(
+data class  PhotoUrls(
     @SerializedName("full")
     val full: String,
     @SerializedName("raw")

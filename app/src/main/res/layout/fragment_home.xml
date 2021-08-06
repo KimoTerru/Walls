@@ -43,7 +43,6 @@
                 android:layout_gravity="end"
                 android:padding="14dp"
                 android:src="@drawable/search" />
-
         </FrameLayout>
 
         <ProgressBar
@@ -67,7 +66,6 @@
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/recycler_latest_wallpapers"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back_find" />
@@ -78,11 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="2dp"
-
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
-
             app:layout_constraintTop_toBottomOf="@id/latest_wallpapers"
             tools:listitem="@layout/card_image" />
 
@@ -96,7 +92,6 @@
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/recycler_best_color_tone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler_latest_wallpapers" />
@@ -107,11 +102,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="2dp"
-
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
-
             app:layout_constraintTop_toBottomOf="@id/the_color_tone"
             tools:listitem="@layout/card_color" />
 
@@ -125,7 +118,6 @@
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/recycler_categories"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler_best_color_tone" />
@@ -136,12 +128,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="2dp"
-
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/categories"
-
             app:spanCount="2"
             tools:listitem="@layout/card_categories" />
 

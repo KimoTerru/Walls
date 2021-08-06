@@ -1,6 +1,7 @@
 package it.kimoterru.walls.network
 
 import it.kimoterru.walls.models.PhotoItem
+import it.kimoterru.walls.models.TopicItem
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -29,4 +30,12 @@ interface ApiService {
         @Path("id") id: String,
         @Query("client_id") clientId: String
     ): PhotoItem
+
+    @GET("/topics")
+    suspend fun getTopicsList(
+        @Query("client_id") clientId: String,
+        @Query("page") page: Int,
+        @Query("per_page") per_page: Int,
+        @Query("order_by") order_by: String
+    ): List<TopicItem>
 }
