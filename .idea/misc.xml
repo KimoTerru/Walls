@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/bg_search.xml" value="0.209375" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.19025641025641027" />

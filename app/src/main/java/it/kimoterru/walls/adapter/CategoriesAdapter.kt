@@ -14,7 +14,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import it.kimoterru.walls.R
 import it.kimoterru.walls.models.TopicItem
-import it.kimoterru.walls.ui.home.categories.Categories
 
 class CategoriesAdapter(private val categories: List<TopicItem>) :
     RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
