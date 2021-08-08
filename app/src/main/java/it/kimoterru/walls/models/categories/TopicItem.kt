@@ -1,6 +1,7 @@
-package it.kimoterru.walls.models
+package it.kimoterru.walls.models.categories
 
 import com.google.gson.annotations.SerializedName
+import it.kimoterru.walls.models.photo.PhotoItem
 
 data class TopicItem(
     var id: String,

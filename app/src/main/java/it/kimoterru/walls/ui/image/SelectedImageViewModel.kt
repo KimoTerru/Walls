@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.models.PhotoItem
+import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.network.ApiService
 import it.kimoterru.walls.util.Constants
 import kotlinx.coroutines.Dispatchers

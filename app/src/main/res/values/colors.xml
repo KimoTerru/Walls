@@ -6,11 +6,11 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+
     <color name="white">#FFFFFFFF</color>
-    
-    <color name="desert_storm">#dfe7ef</color>
-    <color name="selago">#fcf9fc</color>
-    <color name="alice_blue">#eff3f6</color>
+    <color name="selago">#757783</color>
+    <color name="alice_blue">#f0f1f3</color>
+    <color name="blue">#5061D0</color>
 
     <!--Wallpaper colors -->
     <color name="wp_black">#000000</color>

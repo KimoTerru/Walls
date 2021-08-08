@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
-import it.kimoterru.walls.models.PhotoItem
+import it.kimoterru.walls.models.photo.PhotoItem
 
 class MyAdapter(
     val data: List<PhotoItem>,
@@ -28,7 +28,7 @@ class MyAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        Glide.with(holder.image).load(item.urls.thumb).into(holder.image)
+        Glide.with(holder.image).load(item.urls.small).into(holder.image)
         holder.image.setOnClickListener {
             listener.onWallpaperClick(item.id)
         }

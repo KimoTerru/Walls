@@ -32,7 +32,7 @@
             android:id="@+id/back_brush"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/desert_storm"
+            android:background="@color/white"
             >
 
             <ImageView
@@ -75,7 +75,7 @@
             android:id="@+id/back_down"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/desert_storm"
+            android:background="@color/white"
             >
 
             <ImageView
@@ -119,7 +119,7 @@
             android:id="@+id/back_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/desert_storm"
+            android:background="@color/white"
             >
 
             <ImageView

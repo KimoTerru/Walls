@@ -1,7 +1,7 @@
 package it.kimoterru.walls.network
 
-import it.kimoterru.walls.models.PhotoItem
-import it.kimoterru.walls.models.TopicItem
+import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.models.categories.TopicItem
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

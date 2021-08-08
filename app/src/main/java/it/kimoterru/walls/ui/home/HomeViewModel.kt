@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.models.PhotoItem
-import it.kimoterru.walls.models.TopicItem
+import it.kimoterru.walls.models.categories.TopicItem
+import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.repo.WallpaperRepository
 import it.kimoterru.walls.util.Constants
 import it.kimoterru.walls.util.Resource

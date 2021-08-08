@@ -16,8 +16,8 @@ import it.kimoterru.walls.adapter.CategoriesAdapter
 import it.kimoterru.walls.adapter.MyAdapter
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentHomeBinding
-import it.kimoterru.walls.models.PhotoItem
-import it.kimoterru.walls.models.TopicItem
+import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.models.categories.TopicItem
 import it.kimoterru.walls.ui.image.SelectedImageActivity
 import it.kimoterru.walls.util.Status
 import it.kimoterru.walls.util.TopicsOrder
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
         viewModel?.topicsLiveData?.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
-                    displayTopcs(it.data)
+                    displayTopics(it.data)
                 }
                 Status.ERROR -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
@@ -77,13 +77,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
         binding.recyclerLatestWallpapers.adapter = MyAdapter(response ?: listOf(), this, R.layout.card_image)
     }
 
-    private fun displayTopcs(list: List<TopicItem>?) {
+    private fun displayTopics(list: List<TopicItem>?) {
         binding.recyclerCategories.adapter = CategoriesAdapter(list!!)
     }
 
     private fun initSearch() {
         binding.findImage.addTextChangedListener {
-            binding.searchImage.isVisible = it.toString().isNotEmpty()
+            binding.searchImage.isVisible = it.toString().isEmpty()
             binding.searchImage.setOnClickListener {
                 binding.findImage.setText("Let's try again!")
             }
