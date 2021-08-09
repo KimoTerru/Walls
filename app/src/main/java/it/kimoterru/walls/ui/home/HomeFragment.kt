@@ -55,7 +55,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
                     displayLatest(it.data)
                 }
                 Status.ERROR -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    noNetworkConnect()
                 }
                 else -> {}
             }
@@ -71,6 +71,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
                 else -> {}
             }
         })
+    }
+
+    private fun noNetworkConnect() {
+
     }
 
     private fun displayLatest(response: List<PhotoItem>?) {

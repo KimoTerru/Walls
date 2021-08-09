@@ -11,6 +11,9 @@
         android:name="it.kimoterru.walls.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home"
         android:label="Home">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_no_internet3"
+            app:destination="@id/fragment_no_internet" />
     </fragment>
 
     <fragment
@@ -23,6 +26,12 @@
         android:id="@+id/fragment_profile"
         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"
+        android:label="Home"/>
+
+    <fragment
+        android:id="@+id/fragment_no_internet"
+        android:name="it.kimoterru.walls.ui.networkConection.NoInternetConnectionFragment"
+        tools:layout="@layout/fragment_no_internet_connection"
         android:label="Home"/>
 
 </navigation>
