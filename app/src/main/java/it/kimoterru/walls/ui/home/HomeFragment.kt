@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.CategoriesAdapter
@@ -74,7 +75,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
     }
 
     private fun noNetworkConnect() {
-
+        view?.let {
+            Navigation.findNavController(it).navigate(R.id.action_fragment_home_to_fragment_no_internet)
+        }
     }
 
     private fun displayLatest(response: List<PhotoItem>?) {
