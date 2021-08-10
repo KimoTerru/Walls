@@ -11,4 +11,6 @@
     <string name="apply">Apply</string>
     <string name="info">Info</string>
     <string name="save">Save</string>
+    <string name="no_internet_connetction">No internet connetction!</string>
+    <string name="repeat">Repeat</string>
 </resources>
