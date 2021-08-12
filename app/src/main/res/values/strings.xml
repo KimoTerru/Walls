@@ -11,6 +11,15 @@
     <string name="apply">Apply</string>
     <string name="info">Info</string>
     <string name="save">Save</string>
-    <string name="no_internet_connetction">No internet connetction!</string>
+    <string name="no_internet_connection">No internet connection!</string>
     <string name="repeat">Repeat</string>
+    <string name="revolution">it\'s revolution Jonny</string>
+    <string name="jonnyboy">jonnyboy@gmail.com</string>
+    <string name="more">More</string>
+    <string name="you_saved">You Saved</string>
+    <string name="empty">Empty!</string>
+    <string name="about_us">About Us</string>
+    <string name="feedback">Feedback</string>
+    <string name="help_center">Help Center</string>
+    <string name="jonny">Jonny</string>
 </resources>

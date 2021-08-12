@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.networkConection
+package it.kimoterru.walls.ui.networkConnection
 
 import android.os.Bundle
 import android.view.View

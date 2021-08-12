@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_home"
-    >
+    app:startDestination="@id/fragment_home">
 
     <fragment
         android:id="@+id/fragment_home"
         android:name="it.kimoterru.walls.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home"
-        android:label="Home">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_no_internet"
             app:destination="@id/fragment_no_internet" />
@@ -18,28 +16,25 @@
 
     <fragment
         android:id="@+id/fragment_download"
-        android:name="it.kimoterru.walls.ui.download.DownloadFragment"
-        tools:layout="@layout/fragment_download"
-        android:label="Home">
+        android:name="it.kimoterru.walls.ui.save.SavedFragment"
+        tools:layout="@layout/fragment_saved" >
         <action
-            android:id="@+id/action_fragment_download_to_fragment_no_internet"
-            app:destination="@id/fragment_no_internet" />
+            android:id="@+id/action_fragment_download_to_fragment_empty_saved"
+            app:destination="@id/fragment_empty_saved" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_profile"
         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile"
-        android:label="Home">
-        <action
-            android:id="@+id/action_fragment_profile_to_fragment_no_internet"
-            app:destination="@id/fragment_no_internet" />
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/fragment_no_internet"
-        android:name="it.kimoterru.walls.ui.networkConection.NoInternetConnectionFragment"
-        tools:layout="@layout/fragment_no_internet_connection"
-        android:label="Home"/>
+        android:name="it.kimoterru.walls.ui.networkConnection.NoInternetConnectionFragment"
+        tools:layout="@layout/fragment_no_internet_connection" />
+
+    <fragment
+        android:id="@+id/fragment_empty_saved"
+        tools:layout="@layout/fragment_empty_saved_wallpaper" />
 
 </navigation>
