@@ -12,14 +12,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.databinding.ActivitySelectedImageBinding
-import it.kimoterru.walls.network.ApiService
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectedImageActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectedImageBinding
     private lateinit var viewModel: SelectedImageViewModel
-    @Inject lateinit var service: ApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,16 +40,19 @@ class SelectedImageActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
+        binding.progressBar.showProgressBar()
         viewModel.photoLiveData.observe(this) {
             Glide.with(binding.selectedImage).load(it.urls.full).listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                     Toast.makeText(this@SelectedImageActivity, "Load failed", Toast.LENGTH_SHORT).show()
+                    binding.progressBar.showProgressBar()
                     finish()
                     return false
                 }
 
                 override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                     //todo hide progressbar
+                    binding.progressBar.hideProgressBar()
                     return false
                 }
             }).into(binding.selectedImage)

@@ -1,0 +1,573 @@
+Index: app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.home\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.core.view.isVisible\r\nimport androidx.core.widget.addTextChangedListener\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.Navigation\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.CategoriesAdapter\r\nimport it.kimoterru.walls.adapter.MyAdapter\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.databinding.FragmentHomeBinding\r\nimport it.kimoterru.walls.models.categories.TopicItem\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\nimport it.kimoterru.walls.ui.image.SelectedImageFragment\r\nimport it.kimoterru.walls.util.Status\r\nimport it.kimoterru.walls.util.TopicsOrder\r\n\r\n@AndroidEntryPoint\r\nclass HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {\r\n    private var _binding: FragmentHomeBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private var viewModel: HomeViewModel? = null\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {\r\n        _binding = FragmentHomeBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)\r\n\r\n        initObservers()\r\n        initSearch()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        viewModel?.getHomeScreen()\r\n        viewModel?.getTopics(TopicsOrder.POSITION)\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayLatest(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    noNetworkConnect()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n        viewModel?.topicsLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayTopics(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun noNetworkConnect() {\r\n        view?.let {\r\n            Navigation.findNavController(it).navigate(R.id.action_fragment_home_to_fragment_no_internet)\r\n        }\r\n    }\r\n\r\n    private fun displayLatest(response: List<PhotoItem>?) {\r\n        binding.recyclerLatestWallpapers.adapter = MyAdapter(response ?: listOf(), this, R.layout.card_image)\r\n    }\r\n\r\n    private fun displayTopics(list: List<TopicItem>?) {\r\n        binding.recyclerCategories.adapter = CategoriesAdapter(list!!)\r\n    }\r\n\r\n    private fun initSearch() {\r\n        binding.findImage.addTextChangedListener {\r\n            binding.searchImage.isVisible = it.toString().isEmpty()\r\n            binding.searchImage.setOnClickListener {\r\n                binding.findImage.setText(\"Let's try again!\")\r\n            }\r\n            /*if (it.toString().isNotEmpty()) {\r\n                binding.searchImage.setImageResource(R.drawable.close)\r\n            }*/\r\n        }\r\n    } // TODO: 28.07.2021\r\n\r\n    override fun onWallpaperClick(id: String) {\r\n        val nextFragment = SelectedImageFragment()\r\n        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host, nextFragment).commit()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
++++ b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	(date 1629190780743)
+@@ -100,7 +100,8 @@
+     } // TODO: 28.07.2021
+ 
+     override fun onWallpaperClick(id: String) {
+-        val nextFragment = SelectedImageFragment()
+-        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host, nextFragment).commit()
++        view?.let {
++            Navigation.findNavController(it).navigate(R.id.action_fragment_home_to_fragment_no_internet)
++        }
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/it/kimoterru/walls/ui/image/SelectedImageFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.image\r\n\r\nimport android.graphics.drawable.Drawable\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport com.bumptech.glide.Glide\r\nimport com.bumptech.glide.load.DataSource\r\nimport com.bumptech.glide.load.engine.GlideException\r\nimport com.bumptech.glide.request.RequestListener\r\nimport com.bumptech.glide.request.target.Target\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.databinding.FragmentHomeBinding\r\nimport it.kimoterru.walls.databinding.FragmentSelectedImageBinding\r\n\r\n@AndroidEntryPoint\r\nclass SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {\r\n    private var _binding: FragmentSelectedImageBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private lateinit var viewModel: SelectedImageViewModel\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {\r\n        _binding = FragmentSelectedImageBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(SelectedImageViewModel::class.java)\r\n\r\n        initObservers()\r\n    }\r\n\r\n    /*private fun checkIntent() {\r\n        val imageId = intent.getStringExtra(\"key_image\")\r\n        if (imageId?.isNotEmpty() == true) {\r\n            showImageData(imageId)\r\n        } else finish()\r\n    }*/\r\n\r\n    private fun showImageData(imageId: String) {\r\n        viewModel.getPhoto(imageId)\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel.photoLiveData.observe(viewLifecycleOwner) {\r\n            Glide.with(binding.selectedImage).load(it.urls.full).listener(object : RequestListener<Drawable> {\r\n                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {\r\n                    Toast.makeText(context, \"Load failed\", Toast.LENGTH_SHORT).show()\r\n                    onDestroy()\r\n                    return false\r\n                }\r\n\r\n                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {\r\n                    //todo hide progressbar\r\n                    return false\r\n                }\r\n            }).into(binding.selectedImage)\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImageFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImageFragment.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImageFragment.kt	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
++++ b/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImageFragment.kt	(date 1629028127019)
+@@ -15,14 +15,13 @@
+ import com.bumptech.glide.request.target.Target
+ import dagger.hilt.android.AndroidEntryPoint
+ import it.kimoterru.walls.R
+-import it.kimoterru.walls.databinding.FragmentHomeBinding
+ import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
+ 
+ @AndroidEntryPoint
+ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
+     private var _binding: FragmentSelectedImageBinding? = null
+     private val binding get() = _binding!!
+-
++    private lateinit var listener : HideBottomNavigation
+     private lateinit var viewModel: SelectedImageViewModel
+ 
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+@@ -64,4 +63,8 @@
+             }).into(binding.selectedImage)
+         }
+     }
++}
++
++interface HideBottomNavigation {
++    fun onClick()
+ }
+\ No newline at end of file
+Index: app/src/main/res/navigation/nav_graph.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/nav_graph\"\r\n    app:startDestination=\"@id/fragment_home\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_home\"\r\n        android:name=\"it.kimoterru.walls.ui.home.HomeFragment\"\r\n        tools:layout=\"@layout/fragment_home\">\r\n        <action\r\n            android:id=\"@+id/action_fragment_home_to_fragment_no_internet\"\r\n            app:destination=\"@id/fragment_no_internet\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_download\"\r\n        android:name=\"it.kimoterru.walls.ui.save.SavedFragment\"\r\n        tools:layout=\"@layout/fragment_saved\" >\r\n        <action\r\n            android:id=\"@+id/action_fragment_download_to_fragment_empty_saved\"\r\n            app:destination=\"@id/fragment_empty_saved\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_profile\"\r\n        android:name=\"it.kimoterru.walls.ui.profile.ProfileFragment\"\r\n        tools:layout=\"@layout/fragment_profile\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_no_internet\"\r\n        android:name=\"it.kimoterru.walls.ui.networkConnection.NoInternetConnectionFragment\"\r\n        tools:layout=\"@layout/fragment_no_internet_connection\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_empty_saved\"\r\n        tools:layout=\"@layout/fragment_empty_saved_wallpaper\" />\r\n\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/nav_graph.xml b/app/src/main/res/navigation/nav_graph.xml
+--- a/app/src/main/res/navigation/nav_graph.xml	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
++++ b/app/src/main/res/navigation/nav_graph.xml	(date 1629190670562)
+@@ -12,10 +12,13 @@
+         <action
+             android:id="@+id/action_fragment_home_to_fragment_no_internet"
+             app:destination="@id/fragment_no_internet" />
++        <action
++            android:id="@+id/action_fragment_home_to_fragment_selected_image"
++            app:destination="@id/fragment_selected_image" />
+     </fragment>
+ 
+     <fragment
+-        android:id="@+id/fragment_download"
++        android:id="@+id/fragment_saved"
+         android:name="it.kimoterru.walls.ui.save.SavedFragment"
+         tools:layout="@layout/fragment_saved" >
+         <action
+@@ -26,7 +29,11 @@
+     <fragment
+         android:id="@+id/fragment_profile"
+         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
+-        tools:layout="@layout/fragment_profile" />
++        tools:layout="@layout/fragment_profile" >
++        <action
++            android:id="@+id/action_fragment_profile_to_fragment_selected_image"
++            app:destination="@id/fragment_selected_image" />
++    </fragment>
+ 
+     <fragment
+         android:id="@+id/fragment_no_internet"
+@@ -37,4 +44,9 @@
+         android:id="@+id/fragment_empty_saved"
+         tools:layout="@layout/fragment_empty_saved_wallpaper" />
+ 
++    <fragment
++        android:id="@+id/fragment_selected_image"
++        tools:layout="@layout/fragment_selected_image"
++        android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"/>
++
+ </navigation>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35__Default_Changelist_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35__Default_Changelist_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35__Default_Changelist_.xml	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
++++ /dev/null	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_07_08_2021_18_35_[Default_Changelist]" date="1628339751401" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 07.08.2021 18:35 [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35_[Default_Changelist]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35_[Default_Changelist]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_07_08_2021_18_35_[Default_Changelist]/shelved.patch	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
++++ /dev/null	(revision 2b46cc462a875db75da65544e8a6f8845a782c23)
+@@ -1,447 +0,0 @@
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49__Default_Changelist_.xml
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49__Default_Changelist_.xml
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49__Default_Changelist_.xml	(revision d19eab78782bb064bf440790e781f09ab9d32e1c)
+-+++ /dev/null	(revision d19eab78782bb064bf440790e781f09ab9d32e1c)
+-@@ -1,4 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_30_07_2021_18_49_[Default_Changelist]" date="1627649389532" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49_[Default_Changelist]/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 30.07.2021 18:49 [Default Changelist]" />
+--</changelist>
+-\ No newline at end of file
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49_[Default_Changelist]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49_[Default_Changelist]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2021_18_49_[Default_Changelist]/shelved.patch	(revision d19eab78782bb064bf440790e781f09ab9d32e1c)
+-+++ /dev/null	(revision d19eab78782bb064bf440790e781f09ab9d32e1c)
+-@@ -1,428 +0,0 @@
+--Index: app/src/main/java/it/kimoterru/walls/adapter/MyAdapter.kt
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package it.kimoterru.walls.adapter\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ImageView\r\nimport androidx.annotation.LayoutRes\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.model.Data\r\n\r\nclass MyAdapter(\r\n    val data: List<Data>,\r\n    @LayoutRes val viewId: Int\r\n) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {\r\n\r\n    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {\r\n        val image: ImageView = itemView.findViewById(R.id.card_wallpaper)\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n        return ViewHolder(\r\n            LayoutInflater.from(parent.context).inflate(viewId, parent, false)\r\n        )\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n        val item = data[position]\r\n        Glide.with(holder.image).load(item.thumbs.original).into(holder.image)\r\n    }\r\n\r\n    override fun getItemCount() = data.size\r\n}
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/java/it/kimoterru/walls/adapter/MyAdapter.kt b/app/src/main/java/it/kimoterru/walls/adapter/MyAdapter.kt
+----- a/app/src/main/java/it/kimoterru/walls/adapter/MyAdapter.kt	(revision c0333260c2c248c1b8e25e9ad9c390ea916d61dc)
+--+++ b/app/src/main/java/it/kimoterru/walls/adapter/MyAdapter.kt	(date 1627647456069)
+--@@ -12,6 +12,7 @@
+-- 
+-- class MyAdapter(
+--     val data: List<Data>,
+--+    private val listener: WallpaperClickListener,
+--     @LayoutRes val viewId: Int
+-- ) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+-- 
+--@@ -28,6 +29,9 @@
+--     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+--         val item = data[position]
+--         Glide.with(holder.image).load(item.thumbs.original).into(holder.image)
+--+        holder.itemView.setOnClickListener {
+--+            listener.onItemClick(item.thumbs.original)
+--+        }
+--     }
+-- 
+--     override fun getItemCount() = data.size
+--Index: app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package it.kimoterru.walls.ui.home\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.core.view.isVisible\r\nimport androidx.core.widget.addTextChangedListener\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.CategoriesAdapter\r\nimport it.kimoterru.walls.adapter.MyAdapter\r\nimport it.kimoterru.walls.databinding.FragmentHomeBinding\r\nimport it.kimoterru.walls.model.Wallpaper\r\nimport it.kimoterru.walls.ui.home.categories.Categories\r\nimport it.kimoterru.walls.util.Status\r\nimport java.util.*\r\n\r\n@AndroidEntryPoint\r\nclass HomeFragment : Fragment(R.layout.fragment_home) {\r\n    private var _binding: FragmentHomeBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private var viewModel: HomeViewModel? = null\r\n\r\n    private var categories: ArrayList<Categories> = ArrayList<Categories>()\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {\r\n        _binding = FragmentHomeBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)\r\n\r\n        initObservers()\r\n        findWallpaper()\r\n        setInitialDataCategories()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        viewModel?.getHomeScreen()\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {\r\n            binding.progressBar.isVisible = it.status == Status.LOADING\r\n            binding.latestWallpapers.isVisible = it.status == Status.SUCCESS\r\n            binding.theColorTone.isVisible = it.status == Status.SUCCESS\r\n            binding.categories.isVisible = it.status == Status.SUCCESS\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayData(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun displayData(response: Wallpaper?) {\r\n        binding.recyclerLatestWallpapers.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)\r\n        binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_color) // TODO: 24.07.2021\r\n        binding.recyclerCategories.adapter = CategoriesAdapter(categories)\r\n    }\r\n\r\n    private fun findWallpaper() {\r\n        binding.findImage.addTextChangedListener {\r\n            binding.searchImage.isVisible = it.toString().isNotEmpty()\r\n            binding.searchImage.setOnClickListener {\r\n                binding.findImage.setText(\"Let's try again!\")\r\n            }\r\n            /*if (it.toString().isNotEmpty()) {\r\n                binding.searchImage.setImageResource(R.drawable.close)\r\n            }*/\r\n        }\r\n    } // TODO: 28.07.2021\r\n\r\n    private fun setInitialDataCategories() {\r\n        categories.add(Categories(R.drawable.abstrack, \"Abstrack\"))\r\n        categories.add(Categories(R.drawable.anime, \"Anime\"))\r\n        categories.add(Categories(R.drawable.architecture, \"Architecture\"))\r\n        categories.add(Categories(R.drawable.beach, \"Beach\"))\r\n        categories.add(Categories(R.drawable.cars, \"Cars\"))\r\n        categories.add(Categories(R.drawable.cats, \"Cats\"))\r\n        categories.add(Categories(R.drawable.dogs, \"Dogs\"))\r\n        categories.add(Categories(R.drawable.landscape, \"Landscape\"))\r\n        categories.add(Categories(R.drawable.movies, \"Movies\"))\r\n        categories.add(Categories(R.drawable.nature, \"Nature\"))\r\n        categories.add(Categories(R.drawable.space, \"Space\"))\r\n        categories.add(Categories(R.drawable.sunset, \"Sunset\"))\r\n        categories.add(Categories(R.drawable.video_game, \"Video games\"))\r\n        categories.add(Categories(R.drawable.women, \"Women\"))\r\n    }\r\n}
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+----- a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	(revision c0333260c2c248c1b8e25e9ad9c390ea916d61dc)
+--+++ b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	(date 1627554050962)
+--@@ -13,6 +13,7 @@
+-- import it.kimoterru.walls.R
+-- import it.kimoterru.walls.adapter.CategoriesAdapter
+-- import it.kimoterru.walls.adapter.MyAdapter
+--+import it.kimoterru.walls.adapter.WallpaperClickListener
+-- import it.kimoterru.walls.databinding.FragmentHomeBinding
+-- import it.kimoterru.walls.model.Wallpaper
+-- import it.kimoterru.walls.ui.home.categories.Categories
+--@@ -20,7 +21,7 @@
+-- import java.util.*
+-- 
+-- @AndroidEntryPoint
+---class HomeFragment : Fragment(R.layout.fragment_home) {
+--+class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
+--     private var _binding: FragmentHomeBinding? = null
+--     private val binding get() = _binding!!
+-- 
+--@@ -66,8 +67,8 @@
+--     }
+-- 
+--     private fun displayData(response: Wallpaper?) {
+---        binding.recyclerLatestWallpapers.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_image)
+---        binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), R.layout.card_color) // TODO: 24.07.2021
+--+        binding.recyclerLatestWallpapers.adapter = MyAdapter(response?.data ?: listOf(), this, R.layout.card_image)
+--+        binding.recyclerBestColorTone.adapter = MyAdapter(response?.data ?: listOf(), this, R.layout.card_color) // TODO: 24.07.2021
+--         binding.recyclerCategories.adapter = CategoriesAdapter(categories)
+--     }
+-- 
+--@@ -99,4 +100,8 @@
+--         categories.add(Categories(R.drawable.video_game, "Video games"))
+--         categories.add(Categories(R.drawable.women, "Women"))
+--     }
+--+
+--+    override fun onItemClick(original: String) {
+--+        //Toast.makeText(this.context, "onClick$id", Toast.LENGTH_LONG).show()
+--+    }
+-- }
+--\ No newline at end of file
+--Index: .idea/runConfigurations.xml
+--===================================================================
+--diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+--deleted file mode 100644
+----- a/.idea/runConfigurations.xml	(revision c0333260c2c248c1b8e25e9ad9c390ea916d61dc)
+--+++ /dev/null	(revision c0333260c2c248c1b8e25e9ad9c390ea916d61dc)
+--@@ -1,10 +0,0 @@
+---<?xml version="1.0" encoding="UTF-8"?>
+---<project version="4">
+---  <component name="RunConfigurationProducerService">
+---    <option name="ignoredProducers">
+---      <set>
+---        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
+---      </set>
+---    </option>
+---  </component>
+---</project>
+--\ No newline at end of file
+--Index: app/src/main/java/it/kimoterru/walls/util/PagedScrollListener.java
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/java/it/kimoterru/walls/util/PagedScrollListener.java b/app/src/main/java/it/kimoterru/walls/util/PagedScrollListener.java
+--new file mode 100644
+----- /dev/null	(date 1627135042528)
+--+++ b/app/src/main/java/it/kimoterru/walls/util/PagedScrollListener.java	(date 1627135042528)
+--@@ -0,0 +1,32 @@
+--+package it.kimoterru.walls.util;
+--+
+--+import androidx.annotation.NonNull;
+--+import androidx.recyclerview.widget.GridLayoutManager;
+--+import androidx.recyclerview.widget.RecyclerView;
+--+
+--+public abstract class PagedScrollListener extends RecyclerView.OnScrollListener {
+--+    @NonNull
+--+    private final GridLayoutManager layoutManager;
+--+    private static final int PAGE_SIZE = 30;
+--+    public PagedScrollListener(@NonNull GridLayoutManager layoutManager) {
+--+        this.layoutManager = layoutManager;
+--+    }
+--+
+--+    @Override
+--+    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+--+        super.onScrolled(recyclerView, dx, dy);
+--+        int visibleItemCount = layoutManager.getChildCount();
+--+        int totalItemCount = layoutManager.getItemCount();
+--+        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+--+        if (canLoad()) {
+--+            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+--+                    && firstVisibleItemPosition >= 0
+--+                    && totalItemCount >= PAGE_SIZE) {
+--+                loadMoreItems();
+--+            }
+--+        }
+--+    }
+--+
+--+    protected abstract void loadMoreItems();
+--+    public abstract boolean canLoad();
+--+}
+--Index: app/src/main/res/drawable/brush.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/res/drawable/brush.xml b/app/src/main/res/drawable/brush.xml
+--new file mode 100644
+----- /dev/null	(date 1627547989519)
+--+++ b/app/src/main/res/drawable/brush.xml	(date 1627547989519)
+--@@ -0,0 +1,12 @@
+--+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+--+    android:width="512dp"
+--+    android:height="512dp"
+--+    android:viewportWidth="512"
+--+    android:viewportHeight="512">
+--+  <path
+--+      android:fillColor="@color/selago"
+--+      android:pathData="M499.377,46.402c-8.014,-8.006 -18.662,-12.485 -29.985,-12.613c-0.166,-0.002 -0.331,-0.003 -0.496,-0.003c-11.142,0 -21.698,4.229 -29.771,11.945L198.872,275.458c25.716,6.555 47.683,23.057 62.044,47.196c4.376,7.356 7.859,15.143 10.453,23.179l228.691,-239.172C507.759,98.604 512,88.031 512,76.89C512,65.383 507.522,54.56 499.377,46.402z"/>
+--+  <path
+--+      android:fillColor="@color/selago"
+--+      android:pathData="M176.588,302.344c-1.209,-0.051 -2.418,-0.076 -3.626,-0.076c-20.273,0 -40.381,7.05 -56.784,18.851c-19.772,14.225 -27.656,34.656 -42.174,53.27C55.8,397.728 27.795,409.14 0,416.923c16.187,42.781 76.32,60.297 115.752,61.24c1.416,0.034 2.839,0.051 4.273,0.051c44.646,0 97.233,-16.594 118.755,-60.522C262.408,369.468 233.284,304.717 176.588,302.344z"/>
+--+</vector>
+--Index: app/src/main/res/drawable/down.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/res/drawable/down.xml b/app/src/main/res/drawable/down.xml
+--new file mode 100644
+----- /dev/null	(date 1627549839937)
+--+++ b/app/src/main/res/drawable/down.xml	(date 1627549839937)
+--@@ -0,0 +1,12 @@
+--+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+--+    android:width="444dp"
+--+    android:height="496dp"
+--+    android:viewportWidth="444"
+--+    android:viewportHeight="496">
+--+  <path
+--+      android:pathData="M426.667,325C417.241,325 409.6,332.641 409.6,342.067V444.467C409.6,453.893 401.959,461.534 392.533,461.534H51.201C41.775,461.534 34.134,453.893 34.134,444.467V342.067C34.134,332.641 26.493,325 17.067,325C7.641,325 0,332.641 0,342.067V444.467C0,472.744 22.923,495.667 51.2,495.667H392.534C420.811,495.667 443.734,472.744 443.734,444.467V342.067C443.734,332.641 436.093,325 426.667,325Z"
+--+      android:fillColor="#FCF9FC"/>
+--+  <path
+--+      android:pathData="M319.205,295.134C312.591,288.747 302.106,288.747 295.493,295.134L239.258,351.334V17.067C239.258,7.641 231.617,0 222.191,0C212.765,0 205.124,7.641 205.124,17.067V351.335L148.923,295.134C142.143,288.586 131.339,288.774 124.791,295.553C118.403,302.167 118.403,312.652 124.791,319.266L210.124,404.599C216.781,411.272 227.587,411.286 234.26,404.63C234.27,404.62 234.28,404.61 234.291,404.599L319.624,319.266C326.173,312.486 325.985,301.682 319.205,295.134Z"
+--+      android:fillColor="#FCF9FC"/>
+--+</vector>
+--Index: app/src/main/res/drawable/info.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/res/drawable/info.xml b/app/src/main/res/drawable/info.xml
+--new file mode 100644
+----- /dev/null	(date 1627550081038)
+--+++ b/app/src/main/res/drawable/info.xml	(date 1627550081038)
+--@@ -0,0 +1,9 @@
+--+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+--+    android:width="50dp"
+--+    android:height="112dp"
+--+    android:viewportWidth="50"
+--+    android:viewportHeight="112">
+--+  <path
+--+      android:pathData="M47.823,99.536L46.264,105.909C41.587,107.755 37.851,109.16 35.069,110.126C32.284,111.095 29.048,111.577 25.361,111.577C19.699,111.577 15.295,110.19 12.154,107.435C9.013,104.669 7.442,101.164 7.442,96.912C7.442,95.266 7.556,93.573 7.793,91.848C8.032,90.121 8.412,88.176 8.932,86.002L14.777,65.314C15.297,63.333 15.739,61.456 16.093,59.681C16.452,57.917 16.625,56.294 16.625,54.833C16.625,52.191 16.078,50.343 14.989,49.304C13.9,48.268 11.822,47.742 8.737,47.742C7.226,47.742 5.673,47.984 4.09,48.452C2.5,48.922 1.141,49.376 0,49.798L1.563,43.42C5.392,41.861 9.052,40.526 12.553,39.418C16.054,38.307 19.362,37.751 22.491,37.751C28.114,37.751 32.453,39.11 35.5,41.828C38.547,44.548 40.07,48.074 40.07,52.419C40.07,53.318 39.97,54.902 39.755,57.166C39.545,59.435 39.154,61.514 38.584,63.405L32.764,84.01C32.287,85.665 31.858,87.557 31.485,89.686C31.1,91.801 30.916,93.417 30.916,94.501C30.916,97.237 31.526,99.105 32.749,100.098C33.981,101.091 36.103,101.585 39.117,101.585C40.532,101.585 42.142,101.334 43.931,100.841C45.715,100.348 47.016,99.915 47.823,99.536ZM49.299,13.03C49.299,16.62 47.946,19.686 45.227,22.207C42.515,24.737 39.247,26.003 35.424,26.003C31.589,26.003 28.313,24.737 25.57,22.207C22.832,19.685 21.46,16.62 21.46,13.03C21.46,9.447 22.832,6.376 25.57,3.823C28.308,1.274 31.59,0 35.424,0C39.246,0 42.515,1.277 45.227,3.823C47.948,6.376 49.299,9.448 49.299,13.03Z"
+--+      android:fillColor="#FCF9FC"/>
+--+</vector>
+--Index: app/src/main/res/layout/fragment_selected_image.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/res/layout/fragment_selected_image.xml b/app/src/main/res/layout/fragment_selected_image.xml
+--new file mode 100644
+----- /dev/null	(date 1627551274260)
+--+++ b/app/src/main/res/layout/fragment_selected_image.xml	(date 1627551274260)
+--@@ -0,0 +1,146 @@
+--+<?xml version="1.0" encoding="utf-8"?>
+--+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+--+    xmlns:tools="http://schemas.android.com/tools"
+--+    android:layout_width="match_parent"
+--+    android:layout_height="match_parent"
+--+    xmlns:app="http://schemas.android.com/apk/res-auto">
+--+
+--+    <ImageView
+--+        android:id="@+id/selected_image"
+--+        android:layout_width="match_parent"
+--+        android:layout_height="match_parent"
+--+        android:src="@drawable/pre_view"
+--+        android:scaleType="centerCrop"
+--+        tools:ignore="ContentDescription" />
+--+
+--+    <androidx.cardview.widget.CardView
+--+        android:id="@+id/card_brush"
+--+        android:layout_width="60dp"
+--+        android:layout_height="60dp"
+--+        android:layout_weight="1"
+--+        app:cardCornerRadius="16dp"
+--+        app:cardElevation="0dp"
+--+        android:layout_marginBottom="60dp"
+--+        app:layout_constraintRight_toRightOf="parent"
+--+        app:layout_constraintLeft_toRightOf="@id/card_down"
+--+        app:layout_constraintBottom_toBottomOf="parent"
+--+        >
+--+
+--+        <androidx.constraintlayout.widget.ConstraintLayout
+--+            android:id="@+id/back_brush"
+--+            android:layout_width="match_parent"
+--+            android:layout_height="match_parent"
+--+            android:background="@color/desert_storm"
+--+            >
+--+
+--+            <ImageView
+--+                android:id="@+id/brush"
+--+                android:layout_width="match_parent"
+--+                android:layout_height="match_parent"
+--+                android:src="@drawable/brush"
+--+                android:padding="16dp"
+--+                />
+--+
+--+        </androidx.constraintlayout.widget.ConstraintLayout>
+--+
+--+    </androidx.cardview.widget.CardView>
+--+
+--+    <TextView
+--+        android:layout_width="wrap_content"
+--+        android:layout_height="wrap_content"
+--+        android:text="@string/apply"
+--+        android:textColor="@color/selago"
+--+        android:layout_marginTop="10dp"
+--+        app:layout_constraintTop_toBottomOf="@id/card_brush"
+--+        app:layout_constraintRight_toRightOf="@id/card_brush"
+--+        app:layout_constraintLeft_toLeftOf="@id/card_brush"
+--+        />
+--+
+--+    <androidx.cardview.widget.CardView
+--+        android:id="@+id/card_down"
+--+        android:layout_width="60dp"
+--+        android:layout_height="60dp"
+--+        android:layout_weight="1"
+--+        app:cardCornerRadius="16dp"
+--+        app:cardElevation="0dp"
+--+        android:layout_marginBottom="60dp"
+--+        app:layout_constraintRight_toLeftOf="@id/card_brush"
+--+        app:layout_constraintLeft_toRightOf="@id/card_info"
+--+        app:layout_constraintBottom_toBottomOf="parent"
+--+        >
+--+
+--+        <androidx.constraintlayout.widget.ConstraintLayout
+--+            android:id="@+id/back_down"
+--+            android:layout_width="match_parent"
+--+            android:layout_height="match_parent"
+--+            android:background="@color/desert_storm"
+--+            >
+--+
+--+            <ImageView
+--+                android:id="@+id/down"
+--+                android:layout_width="match_parent"
+--+                android:layout_height="match_parent"
+--+                android:src="@drawable/down"
+--+                android:padding="16dp"
+--+                />
+--+
+--+        </androidx.constraintlayout.widget.ConstraintLayout>
+--+
+--+    </androidx.cardview.widget.CardView>
+--+
+--+    <TextView
+--+        android:layout_width="wrap_content"
+--+        android:layout_height="wrap_content"
+--+        android:text="@string/save"
+--+        android:textColor="@color/selago"
+--+        android:layout_marginTop="10dp"
+--+        app:layout_constraintTop_toBottomOf="@id/card_down"
+--+        app:layout_constraintRight_toRightOf="@id/card_down"
+--+        app:layout_constraintLeft_toLeftOf="@id/card_down"
+--+        />
+--+
+--+
+--+    <androidx.cardview.widget.CardView
+--+        android:id="@+id/card_info"
+--+        android:layout_width="60dp"
+--+        android:layout_height="60dp"
+--+        android:layout_weight="1"
+--+        app:cardCornerRadius="16dp"
+--+        app:cardElevation="0dp"
+--+        android:layout_marginBottom="60dp"
+--+        app:layout_constraintLeft_toLeftOf="parent"
+--+        app:layout_constraintRight_toLeftOf="@id/card_down"
+--+        app:layout_constraintBottom_toBottomOf="parent"
+--+        >
+--+
+--+        <androidx.constraintlayout.widget.ConstraintLayout
+--+            android:id="@+id/back_info"
+--+            android:layout_width="match_parent"
+--+            android:layout_height="match_parent"
+--+            android:background="@color/desert_storm"
+--+            >
+--+
+--+            <ImageView
+--+                android:id="@+id/info"
+--+                android:layout_width="match_parent"
+--+                android:layout_height="match_parent"
+--+                android:src="@drawable/info"
+--+                android:padding="16dp"
+--+                />
+--+
+--+        </androidx.constraintlayout.widget.ConstraintLayout>
+--+
+--+    </androidx.cardview.widget.CardView>
+--+
+--+    <TextView
+--+        android:layout_width="wrap_content"
+--+        android:layout_height="wrap_content"
+--+        android:text="@string/info"
+--+        android:textColor="@color/selago"
+--+        android:layout_marginTop="10dp"
+--+        app:layout_constraintTop_toBottomOf="@id/card_info"
+--+        app:layout_constraintRight_toRightOf="@id/card_info"
+--+        app:layout_constraintLeft_toLeftOf="@id/card_info"
+--+        />
+--+
+--+</androidx.constraintlayout.widget.ConstraintLayout>
+--\ No newline at end of file
+--Index: app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt b/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt
+--new file mode 100644
+----- /dev/null	(date 1627554050952)
+--+++ b/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt	(date 1627554050952)
+--@@ -0,0 +1,5 @@
+--+package it.kimoterru.walls.adapter
+--+
+--+interface WallpaperClickListener {
+--+    fun onItemClick(original: String)
+--+}
+--\ No newline at end of file
+--Index: app/src/main/res/values/strings.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><resources>\r\n    <string name=\"app_name\">Walls</string>\r\n    <string name=\"download\">Download</string>\r\n    <string name=\"home\">Home</string>\r\n    <string name=\"best_of_the_month\">Best of the month</string>\r\n    <string name=\"latest_wallpapers\">Latest wallpapers</string>\r\n    <string name=\"the_color_tone\">The color tone</string>\r\n    <string name=\"profile\">Profile</string>\r\n    <string name=\"find_wallpaper\">Find Wallpaper…</string>\r\n    <string name=\"categories\">Categories</string>\r\n</resources>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+----- a/app/src/main/res/values/strings.xml	(revision c0333260c2c248c1b8e25e9ad9c390ea916d61dc)
+--+++ b/app/src/main/res/values/strings.xml	(date 1627550562874)
+--@@ -8,4 +8,7 @@
+--     <string name="profile">Profile</string>
+--     <string name="find_wallpaper">Find Wallpaper…</string>
+--     <string name="categories">Categories</string>
+--+    <string name="apply">Apply</string>
+--+    <string name="info">Info</string>
+--+    <string name="save">Save</string>
+-- </resources>
+--\ No newline at end of file
+--Index: app/src/main/java/it/kimoterru/walls/ui/image/SelectedImage.kt
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImage.kt b/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImage.kt
+--new file mode 100644
+----- /dev/null	(date 1627545095318)
+--+++ b/app/src/main/java/it/kimoterru/walls/ui/image/SelectedImage.kt	(date 1627545095318)
+--@@ -0,0 +1,7 @@
+--+package it.kimoterru.walls.ui.image
+--+
+--+import androidx.fragment.app.Fragment
+--+import it.kimoterru.walls.R
+--+
+--+class SelectedImage : Fragment(R.layout.fragment_selected_image) {
+--+}
+--\ No newline at end of file
+--Index: .idea/gradle.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"11\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+----- a/.idea/gradle.xml	(revision c0333260c2c248c1b8e25e9ad9c390ea916d61dc)
+--+++ b/.idea/gradle.xml	(date 1627644553116)
+--@@ -4,7 +4,7 @@
+--   <component name="GradleSettings">
+--     <option name="linkedExternalProjectsSettings">
+--       <GradleProjectSettings>
+---        <option name="testRunner" value="PLATFORM" />
+--+        <option name="testRunner" value="GRADLE" />
+--         <option name="distributionType" value="DEFAULT_WRAPPED" />
+--         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+--         <option name="gradleJvm" value="11" />
