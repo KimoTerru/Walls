@@ -1,6 +1,5 @@
 package it.kimoterru.walls.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,8 @@ import it.kimoterru.walls.adapter.CategoriesAdapter
 import it.kimoterru.walls.adapter.MyAdapter
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentHomeBinding
-import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.categories.TopicItem
-import it.kimoterru.walls.ui.image.SelectedImageActivity
+import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.util.Status
 import it.kimoterru.walls.util.TopicsOrder
 
@@ -75,9 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
     }
 
     private fun noNetworkConnect() {
-        view?.let {
-            Navigation.findNavController(it).navigate(R.id.action_fragment_home_to_fragment_no_internet)
-        }
+        Navigation.findNavController(requireView()).navigate(R.id.action_fragment_home_to_fragment_no_internet)
     }
 
     private fun displayLatest(response: List<PhotoItem>?) {
@@ -101,8 +97,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
     } // TODO: 28.07.2021
 
     override fun onWallpaperClick(id: String) {
-        val selectedImage = Intent(context, SelectedImageActivity::class.java)
-        selectedImage.putExtra("key_image", id)
-        startActivity(selectedImage)
+        Navigation.findNavController(requireView()).navigate(R.id.action_fragment_home_to_fragment_selected_image)
     }
 }
