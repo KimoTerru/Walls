@@ -7,20 +7,20 @@
     tools:context=".ui.image.SelectedImageActivity">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/back_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@id/card_brush"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/selected_image"
@@ -38,6 +38,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:indicatorColor="@color/blue"
+        app:indicatorHeight="8"
+        app:indicatorRadius="5"
+        app:interval="100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +54,7 @@
         android:layout_weight="1"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/back_image"
         app:layout_constraintLeft_toRightOf="@id/card_down"
         app:layout_constraintRight_toRightOf="parent">
 
@@ -90,7 +93,7 @@
         android:layout_weight="1"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/back_image"
         app:layout_constraintLeft_toRightOf="@id/card_info"
         app:layout_constraintRight_toLeftOf="@id/card_brush">
 
@@ -131,7 +134,7 @@
         android:layout_weight="1"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/back_image"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/card_down">
 
