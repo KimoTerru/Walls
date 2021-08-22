@@ -1,0 +1,100 @@
+Index: app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.home\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.core.view.isVisible\r\nimport androidx.core.widget.addTextChangedListener\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.Navigation\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.CategoriesAdapter\r\nimport it.kimoterru.walls.adapter.MyAdapter\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.databinding.FragmentHomeBinding\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\nimport it.kimoterru.walls.models.categories.TopicItem\r\nimport it.kimoterru.walls.ui.image.SelectedImageActivity\r\nimport it.kimoterru.walls.util.Status\r\nimport it.kimoterru.walls.util.TopicsOrder\r\n\r\n@AndroidEntryPoint\r\nclass HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {\r\n    private var _binding: FragmentHomeBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private var viewModel: HomeViewModel? = null\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {\r\n        _binding = FragmentHomeBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)\r\n\r\n        initObservers()\r\n        initSearch()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        viewModel?.getHomeScreen()\r\n        viewModel?.getTopics(TopicsOrder.POSITION)\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayLatest(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    noNetworkConnect()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n        viewModel?.topicsLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayTopics(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun noNetworkConnect() {\r\n        view?.let {\r\n            Navigation.findNavController(it).navigate(R.id.action_fragment_home_to_fragment_no_internet)\r\n        }\r\n    }\r\n\r\n    private fun displayLatest(response: List<PhotoItem>?) {\r\n        binding.recyclerLatestWallpapers.adapter = MyAdapter(response ?: listOf(), this, R.layout.card_image)\r\n    }\r\n\r\n    private fun displayTopics(list: List<TopicItem>?) {\r\n        binding.recyclerCategories.adapter = CategoriesAdapter(list!!)\r\n    }\r\n\r\n    private fun initSearch() {\r\n        binding.findImage.addTextChangedListener {\r\n            binding.searchImage.isVisible = it.toString().isEmpty()\r\n            binding.searchImage.setOnClickListener {\r\n                binding.findImage.setText(\"Let's try again!\")\r\n            }\r\n            /*if (it.toString().isNotEmpty()) {\r\n                binding.searchImage.setImageResource(R.drawable.close)\r\n            }*/\r\n        }\r\n    } // TODO: 28.07.2021\r\n\r\n    override fun onWallpaperClick(id: String) {\r\n        val selectedImage = Intent(context, SelectedImageActivity::class.java)\r\n        selectedImage.putExtra(\"key_image\", id)\r\n        startActivity(selectedImage)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	(revision e8dc10013c2e3c3a3df0f295e401097e0d1a7dbc)
++++ b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	(date 1629628560431)
+@@ -1,5 +1,6 @@
+ package it.kimoterru.walls.ui.home
+ 
++import android.app.ActivityOptions
+ import android.content.Intent
+ import android.os.Bundle
+ import android.view.LayoutInflater
+@@ -75,9 +76,7 @@
+     }
+ 
+     private fun noNetworkConnect() {
+-        view?.let {
+-            Navigation.findNavController(it).navigate(R.id.action_fragment_home_to_fragment_no_internet)
+-        }
++        Navigation.findNavController(requireView()).navigate(R.id.action_fragment_home_to_fragment_no_internet)
+     }
+ 
+     private fun displayLatest(response: List<PhotoItem>?) {
+@@ -103,6 +102,6 @@
+     override fun onWallpaperClick(id: String) {
+         val selectedImage = Intent(context, SelectedImageActivity::class.java)
+         selectedImage.putExtra("key_image", id)
+-        startActivity(selectedImage)
++        startActivity(selectedImage, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
+     }
+ }
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    ext.kotlin_version = \"1.5.21\"\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n    }\r\n    dependencies {\r\n        classpath \"com.android.tools.build:gradle:4.2.2\"\r\n        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version\"\r\n        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.37'\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n        maven { url \"https://jitpack.io\" }\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision e8dc10013c2e3c3a3df0f295e401097e0d1a7dbc)
++++ b/build.gradle	(date 1629623634900)
+@@ -9,6 +9,7 @@
+         classpath "com.android.tools.build:gradle:4.2.2"
+         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.37'
++        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'kotlin-android'\r\n    id 'kotlin-kapt'\r\n    id 'dagger.hilt.android.plugin'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"it.kimoterru.walls\"\r\n        minSdkVersion 23\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.6.0'\r\n    implementation 'androidx.appcompat:appcompat:1.3.1'\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'\r\n    //noinspection GradleDynamicVersion\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n\r\n    // Fragment\r\n    implementation 'androidx.fragment:fragment-ktx:1.3.6'\r\n\r\n    // ViewModel\r\n    implementation \"androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1\"\r\n\r\n    //Glide\r\n    implementation 'com.github.bumptech.glide:glide:4.12.0'\r\n    implementation('com.github.bumptech.glide:okhttp3-integration:4.11.0') {\r\n        exclude group: 'glide-parent'\r\n    }\r\n\r\n    // Retrofit2\r\n    def retrofit_version = \"2.9.0\"\r\n    implementation \"com.squareup.retrofit2:retrofit:$retrofit_version\"\r\n    implementation \"com.squareup.retrofit2:converter-gson:$retrofit_version\"\r\n    implementation \"com.squareup.okhttp3:logging-interceptor:4.9.1\"\r\n\r\n    // Hilt\r\n    def hilt_version = \"2.37\"\r\n    implementation \"com.google.dagger:hilt-android:$hilt_version\"\r\n    kapt \"com.google.dagger:hilt-compiler:$hilt_version\"\r\n\r\n    // Navigation\r\n    def navigation_version = \"2.3.5\"\r\n    implementation \"androidx.navigation:navigation-fragment-ktx:$navigation_version\"\r\n    implementation \"androidx.navigation:navigation-ui-ktx:$navigation_version\"\r\n\r\n    // Custom View\r\n    implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar\r\n}\r\nkapt {\r\n    correctErrorTypes true\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision e8dc10013c2e3c3a3df0f295e401097e0d1a7dbc)
++++ b/app/build.gradle	(date 1629623596775)
+@@ -3,6 +3,7 @@
+     id 'kotlin-android'
+     id 'kotlin-kapt'
+     id 'dagger.hilt.android.plugin'
++    id 'androidx.navigation.safeargs.kotlin'
+ }
+ 
+ android {
+@@ -76,6 +77,7 @@
+     def navigation_version = "2.3.5"
+     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
++    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version"
+ 
+     // Custom View
+     implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/bg_search.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/brush.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_repeat.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/close.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/down.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/download.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/emptybox.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/feedback.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/helper.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/home.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/next.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_travelling.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi_.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/overlay_gradient_topic.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/search.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_saved.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_no_internet_connection.xml\" value=\"0.16\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_profile.xml\" value=\"0.16\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml\" value=\"0.19025641025641027\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/menu/main_bottom_menu.xml\" value=\"0.19322916666666667\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision e8dc10013c2e3c3a3df0f295e401097e0d1a7dbc)
++++ b/.idea/misc.xml	(date 1629377313684)
+@@ -24,7 +24,7 @@
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/search.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml" value="0.22" />
+-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml" value="0.2" />
++        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml" value="0.15458937198067632" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml" value="0.18" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml" value="0.19322916666666667" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml" value="0.33" />
