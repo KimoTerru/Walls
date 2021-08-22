@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_fragment_download_to_fragment_empty_saved"
             app:destination="@id/fragment_empty_saved" />
+        <action
+            android:id="@+id/action_fragment_saved_to_fragment_selected_image2"
+            app:destination="@id/fragment_selected_image" />
     </fragment>
 
     <fragment
