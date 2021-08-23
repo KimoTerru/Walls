@@ -30,7 +30,7 @@ class HomeAdapter(
         val item = data[position]
         Glide.with(holder.image).load(item.urls.small).into(holder.image)
         holder.image.setOnClickListener {
-            listener.onWallpaperClick(item.urls.full)
+            listener.onWallpaperClick(item.urls.regular)
         }
     }
 

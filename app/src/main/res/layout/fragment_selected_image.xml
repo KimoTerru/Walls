@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:background="@color/alice_blue"
                 tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,7 +63,7 @@
             android:id="@+id/back_brush"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/alice_blue">
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/brush"
@@ -101,7 +102,7 @@
             android:id="@+id/back_down"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/alice_blue">
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/down"
@@ -142,7 +143,7 @@
             android:id="@+id/back_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/alice_blue">
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/info"

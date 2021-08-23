@@ -15,7 +15,11 @@
             app:destination="@id/fragment_no_internet" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image" />
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
     </fragment>
 
     <fragment
