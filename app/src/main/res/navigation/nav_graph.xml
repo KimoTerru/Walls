@@ -8,25 +8,30 @@
     <fragment
         android:id="@+id/fragment_home"
         android:name="it.kimoterru.walls.ui.home.HomeFragment"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_no_internet"
             app:destination="@id/fragment_no_internet" />
         <action
-            android:id="@+id/action_fragment_home_to_activity_selected_image"
-            app:destination="@id/activity_selected_image" />
+            android:id="@+id/action_fragment_home_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_download"
+        android:id="@+id/fragment_saved"
         android:name="it.kimoterru.walls.ui.save.SavedFragment"
         tools:layout="@layout/fragment_saved">
         <action
             android:id="@+id/action_fragment_download_to_fragment_empty_saved"
             app:destination="@id/fragment_empty_saved" />
         <action
-            android:id="@+id/action_fragment_download_to_activity_selected_image"
-            app:destination="@id/activity_selected_image" />
+            android:id="@+id/action_fragment_saved_to_fragment_selected_image2"
+            app:destination="@id/fragment_selected_image" />
     </fragment>
 
     <fragment
@@ -34,8 +39,8 @@
         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_fragment_profile_to_activity_selected_image"
-            app:destination="@id/activity_selected_image" />
+            android:id="@+id/action_fragment_profile_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image" />
     </fragment>
 
     <fragment
@@ -47,9 +52,12 @@
         android:id="@+id/fragment_empty_saved"
         tools:layout="@layout/fragment_empty_saved_wallpaper" />
 
-    <activity
-        android:id="@+id/activity_selected_image"
-        android:name="it.kimoterru.walls.ui.image.SelectedImageActivity"
-        tools:layout="@layout/activity_selected_image" />
+    <fragment
+        android:id="@+id/fragment_selected_image"
+        android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"
+        tools:layout="@layout/fragment_selected_image" >
+        <argument android:name="url_image"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
