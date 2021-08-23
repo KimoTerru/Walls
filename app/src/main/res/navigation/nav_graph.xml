@@ -51,6 +51,9 @@
     <fragment
         android:id="@+id/fragment_selected_image"
         android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"
-        tools:layout="@layout/fragment_selected_image" />
+        tools:layout="@layout/fragment_selected_image" >
+        <argument android:name="url_image"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
