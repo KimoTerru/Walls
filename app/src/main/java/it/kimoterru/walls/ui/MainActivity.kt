@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.ActivityMainBinding
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_profile -> showBottomNav()
 
                 R.id.fragment_selected_image -> hideBottomNav()
+                R.id.fragment_no_internet -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
