@@ -32,13 +32,26 @@ class SelectedImageFragment : Fragment(it.kimoterru.walls.R.layout.fragment_sele
         super.onViewCreated(view, savedInstanceState)
 
         initObservers()
-        otherFunctions()
+        fragmentComponent()
     }
 
-    private fun otherFunctions() {
+    private fun fragmentComponent() {
         binding.cardBrush.setOnClickListener(this)
         binding.cardDown.setOnClickListener(this)
         binding.cardInfo.setOnClickListener(this)
+        hideFragmentComponent()
+    }
+
+    private fun hideFragmentComponent() {
+        binding.cardBrush.visibility = View.GONE
+        binding.cardDown.visibility = View.GONE
+        binding.cardInfo.visibility = View.GONE
+    }
+
+    private fun showFragmentComponent() {
+        binding.cardBrush.visibility = View.VISIBLE
+        binding.cardDown.visibility = View.VISIBLE
+        binding.cardInfo.visibility = View.VISIBLE
     }
 
     private fun initObservers() {
@@ -47,11 +60,13 @@ class SelectedImageFragment : Fragment(it.kimoterru.walls.R.layout.fragment_sele
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                 Toast.makeText(context, "Load failed", Toast.LENGTH_SHORT).show()
                 binding.progressBar.showProgressBar()
+                hideFragmentComponent()
                 return false
             }
 
             override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                 binding.progressBar.hideProgressBar()
+                showFragmentComponent()
                 return false
             }
         }).into(binding.selectedImage)
