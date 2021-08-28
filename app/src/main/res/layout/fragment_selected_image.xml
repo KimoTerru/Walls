@@ -26,8 +26,8 @@
                 android:id="@+id/selected_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:background="@color/alice_blue"
+                android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -51,8 +51,7 @@
         android:id="@+id/card_brush"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="44dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="38dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@id/back_image"
@@ -62,8 +61,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/back_brush"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/brush"
@@ -76,22 +74,11 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/apply"
-        android:textColor="@color/selago"
-        app:layout_constraintLeft_toLeftOf="@id/card_brush"
-        app:layout_constraintRight_toRightOf="@id/card_brush"
-        app:layout_constraintTop_toBottomOf="@id/card_brush" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_down"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="44dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="38dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@id/back_image"
@@ -101,8 +88,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/back_down"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/down"
@@ -115,24 +101,11 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/save"
-        android:textColor="@color/selago"
-        app:layout_constraintLeft_toLeftOf="@id/card_down"
-        app:layout_constraintRight_toRightOf="@id/card_down"
-        app:layout_constraintTop_toBottomOf="@id/card_down" />
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_info"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="44dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="38dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@id/back_image"
@@ -142,8 +115,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/back_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/info"
@@ -155,15 +127,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/info"
-        android:textColor="@color/selago"
-        app:layout_constraintLeft_toLeftOf="@id/card_info"
-        app:layout_constraintRight_toRightOf="@id/card_info"
-        app:layout_constraintTop_toBottomOf="@id/card_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
