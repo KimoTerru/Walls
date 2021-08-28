@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         val navController = findNavController(R.id.nav_host)
-        findViewById<BottomNavigationView>(R.id.main_bottom_nav)
-            .setupWithNavController(navController)
-
         binding.mainBottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
