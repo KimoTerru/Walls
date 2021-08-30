@@ -10,11 +10,11 @@ import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
 import it.kimoterru.walls.models.photo.PhotoItem
 
-class HomeAdapter(
+class LatestAdapter(
     val data: List<PhotoItem>,
     private val listener: WallpaperClickListener,
     @LayoutRes val viewId: Int
-) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.card_wallpaper)
@@ -30,7 +30,7 @@ class HomeAdapter(
         val item = data[position]
         Glide.with(holder.image).load(item.urls.small).into(holder.image)
         holder.image.setOnClickListener {
-            listener.onWallpaperClick(item.urls.regular)
+            listener.onWallpaperClick(item.id, item.urls.regular, item.links.download)
         }
     }
 

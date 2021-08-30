@@ -61,7 +61,13 @@
         android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"
         tools:layout="@layout/fragment_selected_image">
         <argument
+            android:name="id_image"
+            app:argType="string" />
+        <argument
             android:name="url_image"
+            app:argType="string" />
+        <argument
+            android:name="url_download"
             app:argType="string" />
     </fragment>
 

@@ -1,7 +1,12 @@
 package it.kimoterru.walls.ui.image
 
+import android.app.DownloadManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,10 +83,33 @@ class SelectedImageFragment : Fragment(it.kimoterru.walls.R.layout.fragment_sele
                 Toast.makeText(context, "card_brush", Toast.LENGTH_LONG).show()
             }
             it.kimoterru.walls.R.id.card_down -> {
-                Toast.makeText(context, "card_down", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Start download...", Toast.LENGTH_LONG).show()
+
+                val link = args.urlDownload
+                val dm: DownloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                val uri = Uri.parse(link)
+                val fileName = args.idImage + ".jpg"
+                val request = DownloadManager.Request(uri)
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+                request.setTitle(fileName)
+                request.setDescription("Wait a second...")
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+                dm.enqueue(request)
             }
             it.kimoterru.walls.R.id.card_info -> {
                 Toast.makeText(context, "card_info", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 15) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(context, "Great, now select an image", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Allow access to files", Toast.LENGTH_SHORT).show()
             }
         }
     }
