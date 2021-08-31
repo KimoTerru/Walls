@@ -1,5 +1,6 @@
 package it.kimoterru.walls.ui.image
 
+import android.app.Dialog
 import android.app.DownloadManager
 import android.content.Context
 import android.content.pm.PackageManager
@@ -10,6 +11,7 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -19,10 +21,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
+import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
 
 @AndroidEntryPoint
-class SelectedImageFragment : Fragment(it.kimoterru.walls.R.layout.fragment_selected_image), View.OnClickListener {
+class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.OnClickListener {
     private var _binding: FragmentSelectedImageBinding? = null
     private val binding get() = _binding!!
 
@@ -79,17 +82,15 @@ class SelectedImageFragment : Fragment(it.kimoterru.walls.R.layout.fragment_sele
 
     override fun onClick(v: View?) {
         when(v!!.id) {
-            it.kimoterru.walls.R.id.card_brush -> {
+            R.id.card_brush -> {
                 Toast.makeText(context, "card_brush", Toast.LENGTH_LONG).show()
             }
-            it.kimoterru.walls.R.id.card_down -> {
+            R.id.card_down -> {
                 Toast.makeText(context, "Start download...", Toast.LENGTH_LONG).show()
 
-                val link = args.urlDownload
                 val dm: DownloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                val uri = Uri.parse(link)
                 val fileName = args.idImage + ".jpg"
-                val request = DownloadManager.Request(uri)
+                val request = DownloadManager.Request(Uri.parse(args.urlDownload))
                 request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
                 request.setTitle(fileName)
                 request.setDescription("Wait a second...")
@@ -97,8 +98,24 @@ class SelectedImageFragment : Fragment(it.kimoterru.walls.R.layout.fragment_sele
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
                 dm.enqueue(request)
             }
-            it.kimoterru.walls.R.id.card_info -> {
-                Toast.makeText(context, "card_info", Toast.LENGTH_LONG).show()
+            R.id.card_info -> {
+                val dialog = Dialog(requireContext())
+                dialog.setCancelable(true)
+                dialog.setContentView(R.layout.dialog_info_selected_image)
+
+                val id = dialog.findViewById<TextView>(R.id.id)
+                val created = dialog.findViewById<TextView>(R.id.created)
+                val updated = dialog.findViewById<TextView>(R.id.updated)
+                val username = dialog.findViewById<TextView>(R.id.username)
+                val name = dialog.findViewById<TextView>(R.id.name)
+
+                id.text = args.idImage
+                created.text = args.createdImage
+                updated.text = args.updatedImage
+                username.text = args.userNameImage
+                name.text = args.nameImage
+
+                dialog.show()
             }
         }
     }

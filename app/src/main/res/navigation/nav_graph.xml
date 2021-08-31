@@ -69,6 +69,18 @@
         <argument
             android:name="url_download"
             app:argType="string" />
+        <argument
+            android:name="created_Image"
+            app:argType="string" />
+        <argument
+            android:name="updated_Image"
+            app:argType="string" />
+        <argument
+            android:name="userName_image"
+            app:argType="string" />
+        <argument
+            android:name="name_image"
+            app:argType="string" />
     </fragment>
 
 </navigation>

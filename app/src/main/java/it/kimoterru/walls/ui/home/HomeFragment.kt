@@ -96,7 +96,25 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
         }
     } // TODO: 28.07.2021
 
-    override fun onWallpaperClick(id: String, urlImage: String, urlDownload: String) {
-        Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(id, urlImage, urlDownload))
+    override fun onWallpaperClick(
+        id: String,
+        urlImage: String,
+        urlDownload: String,
+        created: String,
+        updated: String,
+        userName: String,
+        name: String
+    ) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
+                    id,
+                    urlImage,
+                    urlDownload,
+                    created,
+                    updated,
+                    userName,
+                    name
+                ))
     }
 }
