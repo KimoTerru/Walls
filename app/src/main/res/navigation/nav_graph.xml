@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_no_internet"
-            app:destination="@id/fragment_no_internet" />
+            app:destination="@id/fragment_no_internet"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
             app:destination="@id/fragment_selected_image"
@@ -55,8 +59,27 @@
     <fragment
         android:id="@+id/fragment_selected_image"
         android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"
-        tools:layout="@layout/fragment_selected_image" >
-        <argument android:name="url_image"
+        tools:layout="@layout/fragment_selected_image">
+        <argument
+            android:name="id_image"
+            app:argType="string" />
+        <argument
+            android:name="url_image"
+            app:argType="string" />
+        <argument
+            android:name="url_download"
+            app:argType="string" />
+        <argument
+            android:name="created_Image"
+            app:argType="string" />
+        <argument
+            android:name="updated_Image"
+            app:argType="string" />
+        <argument
+            android:name="userName_image"
+            app:argType="string" />
+        <argument
+            android:name="name_image"
             app:argType="string" />
     </fragment>
 
