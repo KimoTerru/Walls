@@ -2,8 +2,11 @@ package it.kimoterru.walls.ui.image
 
 import android.app.Dialog
 import android.app.DownloadManager
+import android.app.WallpaperManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -83,7 +86,10 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.O
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.card_brush -> {
-                Toast.makeText(context, "card_brush", Toast.LENGTH_LONG).show()
+                val wallpaperManager = WallpaperManager.getInstance(context)
+                val bitmap = (binding.selectedImage.drawable as BitmapDrawable).bitmap
+                wallpaperManager.setBitmap(bitmap)
+                Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             }
             R.id.card_down -> {
                 Toast.makeText(context, "Start download...", Toast.LENGTH_LONG).show()

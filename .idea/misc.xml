@@ -8,6 +8,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/brush.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_repeat.xml" value="0.209375" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_set_image.xml" value="0.2169230769230769" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/close.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/down.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/download.xml" value="0.209375" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_saved.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info.xml" value="0.25" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml" value="0.25" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml" value="0.5076142131979695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml" value="0.2" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml" value="0.22" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml" value="0.25" />
