@@ -52,6 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayLatest(it.data)
+                    hideShimmerEffectLatestWallpapers()
                 }
                 Status.ERROR -> {
                     noNetworkConnect()
@@ -63,6 +64,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayTopics(it.data)
+                    hideShimmerEffectCategories()
                 }
                 Status.ERROR -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
@@ -70,6 +72,19 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
                 else -> {}
             }
         })
+    }
+
+    private fun hideShimmerEffectLatestWallpapers() {
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+    }
+
+    private fun hideShimmerEffectCategories() {
+        binding.shimmerLayoutCategories.stopShimmer()
+        binding.shimmerLayoutCategories.visibility = View.GONE
+
+        binding.shimmerLayoutColor.stopShimmer()
+        binding.shimmerLayoutColor.visibility = View.GONE
     }
 
     private fun noNetworkConnect() {

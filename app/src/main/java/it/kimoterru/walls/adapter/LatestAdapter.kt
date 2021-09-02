@@ -28,11 +28,11 @@ class LatestAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        Glide.with(holder.image).load(item.urls.small).into(holder.image)
+        Glide.with(holder.image).load(item.urls.thumb).into(holder.image)
         holder.image.setOnClickListener {
             listener.onWallpaperClick(
                 item.id,
-                item.urls.regular,
+                item.urls.full,
                 item.links.download,
                 item.createdAt,
                 item.updatedAt,

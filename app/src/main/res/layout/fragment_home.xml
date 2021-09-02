@@ -67,15 +67,44 @@
         app:layout_constraintTop_toBottomOf="@id/latest_wallpapers"
         tools:listitem="@layout/card_image" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="10dp"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/latest_wallpapers"
+        app:shimmer_repeat_mode="restart"
+        app:shimmer_shape="radial">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <include layout="@layout/card_image_shimmer_effect" />
+
+            <include layout="@layout/card_image_shimmer_effect" />
+
+            <include layout="@layout/card_image_shimmer_effect" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="230dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_latest_wallpapers">
+        app:layout_constraintTop_toBottomOf="@id/latest_wallpapers">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -107,19 +136,56 @@
                 app:layout_constraintTop_toBottomOf="@id/the_color_tone"
                 tools:listitem="@layout/card_color" />
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLayout_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginTop="10dp"
+                android:animateLayoutChanges="true"
+                android:animationCache="true"
+                android:paddingStart="4dp"
+                app:layout_constraintLeft_toLeftOf="@id/recycler_best_color_tone"
+                app:layout_constraintRight_toRightOf="@id/recycler_best_color_tone"
+                app:layout_constraintTop_toBottomOf="@id/the_color_tone"
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_shape="radial">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                    <include layout="@layout/card_color_shimmer_effect" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
             <TextView
                 android:id="@+id/categories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="80dp"
                 android:text="@string/categories"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/recycler_categories"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_best_color_tone" />
+                app:layout_constraintTop_toBottomOf="@+id/the_color_tone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_categories"
@@ -133,6 +199,57 @@
                 app:layout_constraintTop_toBottomOf="@id/categories"
                 app:spanCount="2"
                 tools:listitem="@layout/card_categories" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLayout_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginTop="10dp"
+                android:animateLayoutChanges="true"
+                android:animationCache="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/categories"
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_shape="radial">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/card_categories_shimmer_effect" />
+
+                        <include layout="@layout/card_categories_shimmer_effect" />
+
+                        <include layout="@layout/card_categories_shimmer_effect" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/card_categories_shimmer_effect" />
+
+                        <include layout="@layout/card_categories_shimmer_effect" />
+
+                        <include layout="@layout/card_categories_shimmer_effect" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
