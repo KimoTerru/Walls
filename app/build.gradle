@@ -80,6 +80,7 @@ dependencies {
 
     // Custom View
     implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar
+    implementation 'com.facebook.shimmer:shimmer:0.5.0' //Shimmer effect
 }
 kapt {
     correctErrorTypes true
