@@ -10,4 +10,7 @@ interface WallpaperClickListener {
         userName: String,
         name: String
     )
+    fun onColorClick(
+        name: String
+    )
 }

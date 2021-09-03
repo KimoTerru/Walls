@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.CategoriesAdapter
+import it.kimoterru.walls.adapter.ColorAdapter
 import it.kimoterru.walls.adapter.LatestAdapter
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentHomeBinding
@@ -65,6 +66,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
                 Status.SUCCESS -> {
                     displayTopics(it.data)
                     hideShimmerEffectCategories()
+                    displayColors()
                 }
                 Status.ERROR -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
@@ -93,6 +95,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
 
     private fun displayLatest(response: List<PhotoItem>?) {
         binding.recyclerLatestWallpapers.adapter = LatestAdapter(response ?: listOf(), this, R.layout.card_image)
+    }
+
+    private fun displayColors() {
+        binding.recyclerBestColorTone.adapter = ColorAdapter(this, R.layout.card_color)
     }
 
     private fun displayTopics(list: List<TopicItem>?) {
@@ -131,5 +137,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
                     userName,
                     name
                 ))
+    }
+
+    override fun onColorClick(name: String) {
+        Toast.makeText(context, name, Toast.LENGTH_LONG).show()
     }
 }
