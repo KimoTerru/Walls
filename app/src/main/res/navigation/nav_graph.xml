@@ -52,7 +52,11 @@
     <fragment
         android:id="@+id/fragment_profile"
         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_empty_user_profile"
+            app:destination="@id/fragment_empty_user_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_no_internet"
@@ -129,5 +133,10 @@
             android:name="tittle"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_empty_user_profile"
+        android:name="it.kimoterru.walls.ui.emptyUser.EmptyUserFragment"
+        tools:layout="@layout/fragment_empty_user_profile"/>
 
 </navigation>
