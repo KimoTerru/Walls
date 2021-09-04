@@ -103,6 +103,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     private fun displayTopics(list: List<TopicItem>?) {
         binding.recyclerCategories.adapter = CategoriesAdapter(list!!, this)
+        binding.recyclerCategories.isNestedScrollingEnabled = false
     }
 
     private fun initSearch() {

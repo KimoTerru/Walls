@@ -72,6 +72,7 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
     private fun displayImage(response: List<PhotoItem>?) {
         binding.recyclerImageCategory.adapter =
             CategoryAdapter(response ?: listOf(), this, R.layout.card_image_category)
+        binding.recyclerImageCategory.isNestedScrollingEnabled = false
     }
 
     override fun onWallpaperClick(
