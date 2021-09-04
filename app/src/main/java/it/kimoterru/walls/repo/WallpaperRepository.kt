@@ -2,6 +2,7 @@ package it.kimoterru.walls.repo
 
 import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.categories.TopicItem
+import it.kimoterru.walls.models.color.ColorItem
 import it.kimoterru.walls.network.ApiService
 import retrofit2.http.Query
 import javax.inject.Inject
@@ -29,5 +30,15 @@ class WallpaperRepository @Inject constructor(private var service: ApiService) {
         order_by: String
     ): List<PhotoItem> {
         return service.getTopicImage(id_or_slug, clientId, per_page, order_by)
+    }
+
+    suspend fun getImageColors(
+        query: String,
+        color: String,
+        clientId: String,
+        per_page: Int,
+        order_by: String
+    ): ColorItem {
+        return service.getColorImage(query, color, clientId, per_page, order_by)
     }
 }

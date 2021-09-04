@@ -31,6 +31,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_colors"
+            app:destination="@id/fragment_colors"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
@@ -40,19 +47,12 @@
         <action
             android:id="@+id/action_fragment_download_to_fragment_empty_saved"
             app:destination="@id/fragment_empty_saved" />
-        <action
-            android:id="@+id/action_fragment_saved_to_fragment_selected_image2"
-            app:destination="@id/fragment_selected_image" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_profile"
         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_fragment_profile_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image" />
-    </fragment>
+        tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/fragment_no_internet"
@@ -109,7 +109,24 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_colors"
+        android:name="it.kimoterru.walls.ui.color.ColorsFragment"
+        tools:layout="@layout/fragment_colors">
+
+        <action
+            android:id="@+id/action_fragment_colors_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <argument
+            android:name="tittle"
+            app:argType="string" />
     </fragment>
 
 </navigation>

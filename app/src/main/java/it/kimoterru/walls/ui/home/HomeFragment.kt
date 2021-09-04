@@ -140,7 +140,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     override fun onColorClick(name: String) {
-        Toast.makeText(context, name, Toast.LENGTH_LONG).show()
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentColors(
+                name
+            ))
     }
 
     override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {
