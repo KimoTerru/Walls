@@ -45,7 +45,7 @@
         android:name="it.kimoterru.walls.ui.save.SavedFragment"
         tools:layout="@layout/fragment_saved">
         <action
-            android:id="@+id/action_fragment_download_to_fragment_empty_saved"
+            android:id="@+id/action_fragment_saved_to_fragment_empty_saved"
             app:destination="@id/fragment_empty_saved" />
     </fragment>
 
@@ -61,6 +61,7 @@
 
     <fragment
         android:id="@+id/fragment_empty_saved"
+        android:name="it.kimoterru.walls.ui.emptySaved.EmptySavedFragment"
         tools:layout="@layout/fragment_empty_saved_wallpaper" />
 
     <fragment

@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.fragment_selected_image -> hideBottomNav()
                 R.id.fragment_no_internet -> showBottomNav()
+                R.id.fragment_empty_saved -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
