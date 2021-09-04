@@ -1,4 +1,4 @@
-package it.kimoterru.walls.adapter
+package it.kimoterru.walls.adapter.home
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -13,10 +13,13 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import it.kimoterru.walls.R
+import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.models.categories.TopicItem
 
-class CategoriesAdapter(private val categories: List<TopicItem>) :
-    RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+class CategoriesAdapter(
+    private val categories: List<TopicItem>,
+    private val listener: WallpaperClickListener,
+) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val categoriesView: ImageView = view.findViewById(R.id.card_categories)
@@ -24,7 +27,8 @@ class CategoriesAdapter(private val categories: List<TopicItem>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_categories, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.card_categories, parent, false)
         return ViewHolder(view)
     }
 
@@ -56,6 +60,9 @@ class CategoriesAdapter(private val categories: List<TopicItem>) :
             })
             .into(holder.categoriesView)
         holder.nameView.text = item.title
+        holder.categoriesView.setOnClickListener {
+            listener.onCategoryClick(item.slug, item.title, item.totalPhotos)
+        }
     }
 
     override fun getItemCount() = categories.size

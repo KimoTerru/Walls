@@ -24,6 +24,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_categories"
+            app:destination="@id/fragment_categories"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -81,6 +88,28 @@
         <argument
             android:name="name_image"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_categories"
+        android:name="it.kimoterru.walls.ui.category.CategoryFragment"
+        tools:layout="@layout/fragment_categories">
+        <argument
+            android:name="slug"
+            app:argType="string" />
+        <argument
+            android:name="tittle"
+            app:argType="string" />
+        <argument
+            android:name="totalPhotos"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragment_categories_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
 </navigation>

@@ -38,4 +38,12 @@ interface ApiService {
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
     ): List<TopicItem>
+
+    @GET("/topics/{id_or_slug}/photos")
+    suspend fun getTopicImage(
+        @Path("id_or_slug") id_or_slug: String,
+        @Query("client_id") clientId: String,
+        @Query("per_page") per_page: Int,
+        @Query("order_by") order_by: String
+    ): List<PhotoItem>
 }

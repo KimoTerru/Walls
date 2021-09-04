@@ -35,7 +35,7 @@
             android:text="@string/categories"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="26sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/card_categories"
             app:layout_constraintLeft_toLeftOf="@id/card_categories"
             app:layout_constraintRight_toRightOf="@id/card_categories"
