@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.CategoriesAdapter
-import it.kimoterru.walls.adapter.ColorAdapter
-import it.kimoterru.walls.adapter.LatestAdapter
+import it.kimoterru.walls.adapter.home.CategoriesAdapter
+import it.kimoterru.walls.adapter.home.ColorAdapter
+import it.kimoterru.walls.adapter.home.LatestAdapter
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.models.categories.TopicItem
@@ -23,7 +23,7 @@ import it.kimoterru.walls.util.Status
 import it.kimoterru.walls.util.TopicsOrder
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick, WallpaperClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -102,7 +102,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
     }
 
     private fun displayTopics(list: List<TopicItem>?) {
-        binding.recyclerCategories.adapter = CategoriesAdapter(list!!)
+        binding.recyclerCategories.adapter = CategoriesAdapter(list!!, this)
+        binding.recyclerCategories.isNestedScrollingEnabled = false
     }
 
     private fun initSearch() {
@@ -140,6 +141,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener {
     }
 
     override fun onColorClick(name: String) {
-        Toast.makeText(context, name, Toast.LENGTH_LONG).show()
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentColors(
+                name
+            ))
+    }
+
+    override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(
+                name,
+                tittle,
+                totalPhotos
+            ))
     }
 }

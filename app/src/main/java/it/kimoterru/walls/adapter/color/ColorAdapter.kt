@@ -1,4 +1,4 @@
-package it.kimoterru.walls.adapter
+package it.kimoterru.walls.adapter.color
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +8,17 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
-import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.adapter.WallpaperClickListener
+import it.kimoterru.walls.models.color.ColorItem
 
-class LatestAdapter(
-    val data: List<PhotoItem>,
-    private val listener: WallpaperClickListener,
+class ColorAdapter(
+    private val data: ColorItem,
+    private val listener: WallpaperClickListener.WallpaperClick,
     @LayoutRes val viewId: Int
-) : RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.card_wallpaper)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imageCategory: ImageView = view.findViewById(R.id.card_color_wallpaper)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,9 +28,9 @@ class LatestAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        Glide.with(holder.image).load(item.urls.thumb).into(holder.image)
-        holder.image.setOnClickListener {
+        val item = data.results[position]
+        Glide.with(holder.imageCategory).load(item.urls.small).into(holder.imageCategory)
+        holder.imageCategory.setOnClickListener {
             listener.onWallpaperClick(
                 item.id,
                 item.urls.full,
@@ -42,5 +43,5 @@ class LatestAdapter(
         }
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data.results.size
 }
