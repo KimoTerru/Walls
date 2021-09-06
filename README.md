@@ -5,8 +5,17 @@ Trello - https://trello.com/b/rCojzsRD/walls
 
 #My stack
 1.Navigation Component
+
 2.Dagger - Hilt
+
 3.Retrofit2
-4.Glide
-5.MVVM
-6.viewBinding
+
+4.Gson
+
+5.Glide
+
+6.MVVM
+
+7.viewBinding
+
+8.Kotlin - coroutine
