@@ -13,13 +13,13 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/card_color_wallpaper"
+            android:id="@+id/card_image_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/pre_view"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints, contentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

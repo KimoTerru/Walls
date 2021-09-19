@@ -49,6 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/size_save_wallpaper"
         app:spanCount="2"
-        tools:listitem="@layout/card_image_saved" />
+        tools:listitem="@layout/card_image_display" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

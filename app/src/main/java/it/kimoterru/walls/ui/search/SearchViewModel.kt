@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.color
+package it.kimoterru.walls.ui.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,21 +14,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ColorsViewModel @Inject constructor(private val repository: WallpaperRepository) :
+class SearchViewModel @Inject constructor(private val repository: WallpaperRepository) :
     ViewModel() {
-    val imageColorLiveData = MutableLiveData<Resource<SearchItem>>()
+    val imageLiveData = MutableLiveData<Resource<SearchItem>>()
 
-    fun getImageColors(query: String, color: String, order: TopicsOrder) {
-        imageColorLiveData.postValue(Resource.loading())
+    fun getImageSearch(query: String, order: TopicsOrder) {
+        imageLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = repository.getImageColors(
-                    query, color, Constants.CLIENT_ID, 30, order.query
+                val result = repository.getImageSearch(
+                    query, Constants.CLIENT_ID, 30, order.query
                 )
-                imageColorLiveData.postValue(Resource.success(result))
+                imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
-                imageColorLiveData.postValue(Resource.error(e.message ?: "none"))
+                imageLiveData.postValue(Resource.error(e.message ?: "none"))
             }
         }
     }

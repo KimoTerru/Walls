@@ -37,7 +37,10 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_search"
+            app:destination="@id/fragment_search" />
     </fragment>
 
     <fragment
@@ -45,14 +48,18 @@
         android:name="it.kimoterru.walls.ui.save.SavedFragment"
         tools:layout="@layout/fragment_saved">
         <action
-            android:id="@+id/action_fragment_download_to_fragment_empty_saved"
+            android:id="@+id/action_fragment_saved_to_fragment_empty_saved"
             app:destination="@id/fragment_empty_saved" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_profile"
         android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_empty_user_profile"
+            app:destination="@id/fragment_empty_user_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_no_internet"
@@ -61,6 +68,7 @@
 
     <fragment
         android:id="@+id/fragment_empty_saved"
+        android:name="it.kimoterru.walls.ui.emptySaved.EmptySavedFragment"
         tools:layout="@layout/fragment_empty_saved_wallpaper" />
 
     <fragment
@@ -123,10 +131,27 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="tittle"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_empty_user_profile"
+        android:name="it.kimoterru.walls.ui.emptyUser.EmptyUserFragment"
+        tools:layout="@layout/fragment_empty_user_profile" />
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="it.kimoterru.walls.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search" >
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_search_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image" />
     </fragment>
 
 </navigation>

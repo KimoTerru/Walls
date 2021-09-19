@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.color
+package it.kimoterru.walls.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,33 +12,30 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.color.ColorAdapter
-import it.kimoterru.walls.databinding.FragmentColorsBinding
+import it.kimoterru.walls.adapter.searsh.SearchAdapter
+import it.kimoterru.walls.databinding.FragmentSearchBinding
 import it.kimoterru.walls.models.search.SearchItem
 import it.kimoterru.walls.util.Status
 import it.kimoterru.walls.util.TopicsOrder
 
 @AndroidEntryPoint
-class ColorsFragment : Fragment(R.layout.fragment_categories),
+class SearchFragment : Fragment(R.layout.fragment_search),
     WallpaperClickListener.WallpaperClick {
-    private var _binding: FragmentColorsBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val args: ColorsFragmentArgs by navArgs()
-    private var viewModel: ColorsViewModel? = null
+    private val args: SearchFragmentArgs by navArgs()
+    private var viewModel: SearchViewModel? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentColorsBinding.inflate(inflater)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentSearchBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ColorsViewModel::class.java)
+        binding.search.text = args.query
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         initObservers()
         setFragmentComponent()
@@ -46,15 +43,15 @@ class ColorsFragment : Fragment(R.layout.fragment_categories),
 
     override fun onResume() {
         super.onResume()
-        viewModel?.getImageColors(args.tittle, args.tittle, TopicsOrder.LATEST)
+        viewModel?.getImageSearch(args.query, TopicsOrder.LATEST)
     }
 
     private fun setFragmentComponent() {
-        binding.color.text = args.tittle
+        binding.search.text = args.query
     }
 
     private fun initObservers() {
-        viewModel?.imageColorLiveData?.observe(viewLifecycleOwner, {
+        viewModel?.imageLiveData?.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayImage(it.data!!)
@@ -69,9 +66,9 @@ class ColorsFragment : Fragment(R.layout.fragment_categories),
     }
 
     private fun displayImage(response: SearchItem) {
-        binding.recyclerImageColors.adapter =
-            ColorAdapter(response, this, R.layout.card_image_display)
-        binding.recyclerImageColors.isNestedScrollingEnabled = false
+        binding.recyclerImageSearch.adapter =
+            SearchAdapter(response, this, R.layout.card_image_display)
+        binding.recyclerImageSearch.isNestedScrollingEnabled = false
     }
 
     override fun onWallpaperClick(
@@ -85,7 +82,7 @@ class ColorsFragment : Fragment(R.layout.fragment_categories),
     ) {
         Navigation.findNavController(requireView())
             .navigate(
-                ColorsFragmentDirections.actionFragmentColorsToFragmentSelectedImage(
+                SearchFragmentDirections.actionFragmentSearchToFragmentSelectedImage(
                     id,
                     urlImage,
                     urlDownload,
