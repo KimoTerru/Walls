@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -12,10 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
+import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.adapter.home.CategoriesAdapter
 import it.kimoterru.walls.adapter.home.ColorAdapter
 import it.kimoterru.walls.adapter.home.LatestAdapter
-import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.models.categories.TopicItem
 import it.kimoterru.walls.models.photo.PhotoItem
@@ -115,8 +116,20 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             /*if (it.toString().isNotEmpty()) {
                 binding.searchImage.setImageResource(R.drawable.close)
             }*/
+        } // FIXME: 04.09.2021
+        binding.findImage.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val query: String = binding.findImage.text.toString()
+                if (query.isNotEmpty()) {
+                    Navigation.findNavController(requireView())
+                        .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentSearch(query))
+                } else {
+                    Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show()
+                }
+                true
+            } else false
         }
-    } // TODO: 28.07.2021
+    }
 
     override fun onWallpaperClick(
         id: String,

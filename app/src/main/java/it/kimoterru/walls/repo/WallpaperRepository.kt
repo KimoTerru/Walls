@@ -1,10 +1,10 @@
 package it.kimoterru.walls.repo
 
-import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.categories.TopicItem
 import it.kimoterru.walls.models.color.ColorItem
+import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.models.search.SearchItem
 import it.kimoterru.walls.network.ApiService
-import retrofit2.http.Query
 import javax.inject.Inject
 
 class WallpaperRepository @Inject constructor(private var service: ApiService) {
@@ -40,5 +40,14 @@ class WallpaperRepository @Inject constructor(private var service: ApiService) {
         order_by: String
     ): ColorItem {
         return service.getColorImage(query, color, clientId, per_page, order_by)
+    }
+
+    suspend fun getImageSearch(
+        query: String,
+        clientId: String,
+        per_page: Int,
+        order_by: String,
+    ): SearchItem {
+        return service.getSearchImage(query, clientId, per_page, order_by)
     }
 }

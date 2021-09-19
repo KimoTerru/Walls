@@ -3,6 +3,7 @@ package it.kimoterru.walls.network
 import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.categories.TopicItem
 import it.kimoterru.walls.models.color.ColorItem
+import it.kimoterru.walls.models.search.SearchItem
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -54,6 +55,14 @@ interface ApiService {
         @Query("color") color: String,
         @Query("client_id") clientId: String,
         @Query("per_page") per_page: Int,
-        @Query("order_by") order_by: String //@Body results: PhotoItem
+        @Query("order_by") order_by: String
     ): ColorItem
+
+    @GET("/search/photos")
+    suspend fun getSearchImage(
+        @Query("query") query: String,
+        @Query("client_id") clientId: String,
+        @Query("per_page") per_page: Int,
+        @Query("order_by") order_by: String
+    ): SearchItem
 }
