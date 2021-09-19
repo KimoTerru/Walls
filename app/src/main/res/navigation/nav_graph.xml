@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/fragment_empty_saved"
-        android:name="it.kimoterru.walls.ui.emptySaved.EmptySavedFragment"
+        android:name="it.kimoterru.walls.ui.save.EmptySavedFragment"
         tools:layout="@layout/fragment_empty_saved_wallpaper" />
 
     <fragment
@@ -139,7 +139,7 @@
 
     <fragment
         android:id="@+id/fragment_empty_user_profile"
-        android:name="it.kimoterru.walls.ui.emptyUser.EmptyUserFragment"
+        android:name="it.kimoterru.walls.ui.profile.EmptyUserFragment"
         tools:layout="@layout/fragment_empty_user_profile" />
 
     <fragment

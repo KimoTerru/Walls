@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.emptySaved
+package it.kimoterru.walls.ui.save
 
 import android.os.Bundle
 import android.view.LayoutInflater

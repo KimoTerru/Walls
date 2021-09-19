@@ -18,6 +18,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/helper.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/home.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2203125" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_random.xml" value="0.18076923076923077" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/next.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_travelling.xml" value="0.209375" />
@@ -42,6 +43,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info.xml" value="0.25" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml" value="0.25" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml" value="0.5076142131979695" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragmen_random_mode_greeting.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_colors.xml" value="0.15228426395939088" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml" value="0.2" />
@@ -50,6 +52,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_no_internet_connection.xml" value="0.16" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_random_mode.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.25" />

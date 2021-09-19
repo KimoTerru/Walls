@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.emptyUser
+package it.kimoterru.walls.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
