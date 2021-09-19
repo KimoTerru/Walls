@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.models.color.ColorItem
+import it.kimoterru.walls.models.search.SearchItem
 
 class ColorAdapter(
-    private val data: ColorItem,
+    private val data: SearchItem,
     private val listener: WallpaperClickListener.WallpaperClick,
     @LayoutRes val viewId: Int
 ) : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {

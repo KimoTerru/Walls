@@ -1,7 +1,6 @@
 package it.kimoterru.walls.repo
 
 import it.kimoterru.walls.models.categories.TopicItem
-import it.kimoterru.walls.models.color.ColorItem
 import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.search.SearchItem
 import it.kimoterru.walls.network.ApiService
@@ -38,7 +37,7 @@ class WallpaperRepository @Inject constructor(private var service: ApiService) {
         clientId: String,
         per_page: Int,
         order_by: String
-    ): ColorItem {
+    ): SearchItem {
         return service.getColorImage(query, color, clientId, per_page, order_by)
     }
 

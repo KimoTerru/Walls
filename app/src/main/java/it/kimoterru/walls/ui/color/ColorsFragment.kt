@@ -14,7 +14,7 @@ import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.adapter.color.ColorAdapter
 import it.kimoterru.walls.databinding.FragmentColorsBinding
-import it.kimoterru.walls.models.color.ColorItem
+import it.kimoterru.walls.models.search.SearchItem
 import it.kimoterru.walls.util.Status
 import it.kimoterru.walls.util.TopicsOrder
 
@@ -68,7 +68,7 @@ class ColorsFragment : Fragment(R.layout.fragment_categories),
         })
     }
 
-    private fun displayImage(response: ColorItem) {
+    private fun displayImage(response: SearchItem) {
         binding.recyclerImageColors.adapter =
             ColorAdapter(response, this, R.layout.card_image_display)
         binding.recyclerImageColors.isNestedScrollingEnabled = false
