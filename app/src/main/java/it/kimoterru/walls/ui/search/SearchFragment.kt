@@ -67,7 +67,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
 
     private fun displayImage(response: SearchItem) {
         binding.recyclerImageSearch.adapter =
-            SearchAdapter(response, this, R.layout.card_image_search)
+            SearchAdapter(response, this, R.layout.card_image_display)
         binding.recyclerImageSearch.isNestedScrollingEnabled = false
     }
 

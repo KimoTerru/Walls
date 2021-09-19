@@ -70,7 +70,7 @@ class ColorsFragment : Fragment(R.layout.fragment_categories),
 
     private fun displayImage(response: ColorItem) {
         binding.recyclerImageColors.adapter =
-            ColorAdapter(response, this, R.layout.card_image_color)
+            ColorAdapter(response, this, R.layout.card_image_display)
         binding.recyclerImageColors.isNestedScrollingEnabled = false
     }
 

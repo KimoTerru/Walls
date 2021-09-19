@@ -18,7 +18,7 @@ class SearchAdapter(
 ) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageCategory: ImageView = view.findViewById(R.id.card_image_search)
+        val imageCategory: ImageView = view.findViewById(R.id.card_image_display)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
