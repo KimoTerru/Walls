@@ -58,9 +58,10 @@
         android:id="@+id/recycler_latest_wallpapers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="10dp"
+        android:clipToPadding="false"
         android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -71,7 +72,7 @@
         android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:animateLayoutChanges="true"
         android:animationCache="true"
@@ -79,10 +80,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/latest_wallpapers"
         app:shimmer_repeat_mode="restart"
-        app:shimmer_shape="radial">
+        app:shimmer_shape="linear">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="500dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -127,9 +128,10 @@
                 android:id="@+id/recycler_best_color_tone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -140,19 +142,19 @@
                 android:id="@+id/shimmerLayout_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="6dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:animateLayoutChanges="true"
                 android:animationCache="true"
-                android:paddingStart="4dp"
                 app:layout_constraintLeft_toLeftOf="@id/recycler_best_color_tone"
                 app:layout_constraintRight_toRightOf="@id/recycler_best_color_tone"
                 app:layout_constraintTop_toBottomOf="@id/the_color_tone"
                 app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
+                app:shimmer_shape="linear"
+                tools:ignore="RtlSymmetry">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="406dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -212,7 +214,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/categories"
                 app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
+                app:shimmer_shape="linear">
 
                 <LinearLayout
                     android:layout_width="match_parent"
