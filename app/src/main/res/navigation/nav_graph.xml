@@ -12,32 +12,16 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_no_internet"
-            app:destination="@id/fragment_no_internet"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/fragment_no_internet" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/fragment_selected_image" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_categories"
-            app:destination="@id/fragment_categories"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/fragment_categories" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_colors"
-            app:destination="@id/fragment_colors"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/fragment_colors" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_search"
             app:destination="@id/fragment_search" />
