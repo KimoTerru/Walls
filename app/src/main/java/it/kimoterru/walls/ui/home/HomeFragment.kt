@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -109,14 +108,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     private fun initSearch() {
         binding.findImage.addTextChangedListener {
-            binding.searchImage.isVisible = it.toString().isEmpty()
-            binding.searchImage.setOnClickListener {
-                binding.findImage.setText("Let's try again!")
+            if (it.toString().isNotEmpty()) {
+                binding.searchImage.setImageResource(R.drawable.cancel)
+                binding.searchImage.setOnClickListener {
+                    binding.findImage.text.clear()
+                }
+            } else {
+                binding.searchImage.setImageResource(R.drawable.search)
             }
-            /*if (it.toString().isNotEmpty()) {
-                binding.searchImage.setImageResource(R.drawable.close)
-            }*/
-        } // FIXME: 04.09.2021
+        }
         binding.findImage.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query: String = binding.findImage.text.toString()
