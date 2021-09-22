@@ -124,7 +124,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                     Navigation.findNavController(requireView())
                         .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentSearch(query))
                 } else {
-                    Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Empty!", Toast.LENGTH_LONG).show()
                 }
                 true
             } else false
