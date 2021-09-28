@@ -38,16 +38,11 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         initObservers()
-        setFragmentComponent()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel?.getImageSearch(args.query, TopicsOrder.LATEST)
-    }
-
-    private fun setFragmentComponent() {
-        binding.search.text = args.query
     }
 
     private fun initObservers() {
