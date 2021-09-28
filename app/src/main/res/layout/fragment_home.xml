@@ -27,6 +27,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:paddingStart="14sp"
+            android:paddingEnd="50dp"
             android:textColor="@color/black"
             android:textColorHint="@color/selago"
             tools:ignore="RtlSymmetry" />
