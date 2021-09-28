@@ -30,12 +30,13 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/categories"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
+            android:maxLines="2"
             app:layout_constraintBottom_toBottomOf="@id/card_categories"
             app:layout_constraintLeft_toLeftOf="@id/card_categories"
             app:layout_constraintRight_toRightOf="@id/card_categories"
