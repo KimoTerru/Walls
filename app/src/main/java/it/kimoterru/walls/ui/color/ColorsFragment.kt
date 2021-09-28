@@ -19,7 +19,7 @@ import it.kimoterru.walls.util.Status
 import it.kimoterru.walls.util.TopicsOrder
 
 @AndroidEntryPoint
-class ColorsFragment : Fragment(R.layout.fragment_categories),
+class ColorsFragment : Fragment(R.layout.fragment_colors),
     WallpaperClickListener.WallpaperClick {
     private var _binding: FragmentColorsBinding? = null
     private val binding get() = _binding!!
