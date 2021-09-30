@@ -61,7 +61,7 @@ class CategoriesAdapter(
             .into(holder.categoriesView)
         holder.nameView.text = item.title
         holder.categoriesView.setOnClickListener {
-            listener.onCategoryClick(item.slug, item.title, item.totalPhotos)
+            listener.onCategoryClick(item.slug, item.title, item.description)
         }
     }
 

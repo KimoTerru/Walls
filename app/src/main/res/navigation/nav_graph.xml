@@ -93,8 +93,8 @@
             android:name="tittle"
             app:argType="string" />
         <argument
-            android:name="totalPhotos"
-            app:argType="integer" />
+            android:name="description"
+            app:argType="string" />
         <action
             android:id="@+id/action_fragment_categories_to_fragment_selected_image"
             app:destination="@id/fragment_selected_image"

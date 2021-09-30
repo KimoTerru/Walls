@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -50,8 +51,9 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
     }
 
     private fun setFragmentComponent() {
+        val description = HtmlCompat.fromHtml(args.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
         binding.category.text = args.tittle
-        binding.sizeSaveWallpaper.text = args.totalPhotos.toString()
+        binding.description.text = description.toString()
     }
 
     private fun initObservers() {

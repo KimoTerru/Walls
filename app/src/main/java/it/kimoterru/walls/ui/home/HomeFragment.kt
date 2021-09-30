@@ -160,12 +160,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             ))
     }
 
-    override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {
+    override fun onCategoryClick(name: String, tittle: String, description: String) {
         Navigation.findNavController(requireView())
             .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(
                 name,
                 tittle,
-                totalPhotos
+                description
             ))
     }
 }
