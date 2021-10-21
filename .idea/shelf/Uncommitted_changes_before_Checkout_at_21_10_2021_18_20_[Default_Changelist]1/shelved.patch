@@ -1,0 +1,142 @@
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03__Default_Changelist_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03__Default_Changelist_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03__Default_Changelist_.xml	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_30_09_2021_21_03_[Default_Changelist]" date="1633014218618" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 30.09.2021 21:03 [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03_[Default_Changelist]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03_[Default_Changelist]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_09_2021_21_03_[Default_Changelist]/shelved.patch	
++++ /dev/null	
+@@ -1,19 +0,0 @@
+-Index: app/build.gradle
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>plugins {\r\n    id 'com.android.application'\r\n    id 'kotlin-android'\r\n    id 'kotlin-kapt'\r\n    id 'dagger.hilt.android.plugin'\r\n    id(\"androidx.navigation.safeargs.kotlin\")\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"it.kimoterru.walls\"\r\n        minSdkVersion 23\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.6.0'\r\n    implementation 'androidx.appcompat:appcompat:1.3.1'\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'\r\n    //noinspection GradleDynamicVersion\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n\r\n    // Fragment\r\n    implementation 'androidx.fragment:fragment-ktx:1.3.6'\r\n\r\n    // ViewModel\r\n    implementation \"androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1\"\r\n\r\n    //Glide\r\n    implementation 'com.github.bumptech.glide:glide:4.12.0'\r\n    implementation('com.github.bumptech.glide:okhttp3-integration:4.11.0') {\r\n        exclude group: 'glide-parent'\r\n    }\r\n\r\n    // Retrofit2\r\n    def retrofit_version = \"2.9.0\"\r\n    implementation \"com.squareup.retrofit2:retrofit:$retrofit_version\"\r\n    implementation \"com.squareup.retrofit2:converter-gson:$retrofit_version\"\r\n    implementation \"com.squareup.okhttp3:logging-interceptor:4.9.1\"\r\n\r\n    // Hilt\r\n    def hilt_version = \"2.37\"\r\n    implementation \"com.google.dagger:hilt-android:$hilt_version\"\r\n    kapt \"com.google.dagger:hilt-compiler:$hilt_version\"\r\n\r\n    // Navigation\r\n    def navigation_version = \"2.3.5\"\r\n    implementation \"androidx.navigation:navigation-fragment-ktx:$navigation_version\"\r\n    implementation \"androidx.navigation:navigation-ui-ktx:$navigation_version\"\r\n\r\n    // Custom View\r\n    implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar\r\n    implementation 'com.facebook.shimmer:shimmer:0.5.0' //Shimmer effect\r\n}\r\nkapt {\r\n    correctErrorTypes true\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/build.gradle b/app/build.gradle
+---- a/app/build.gradle	(revision 05f9aac0c0b259dc212547a26daab9cd81b86793)
+-+++ b/app/build.gradle	(date 1633014189551)
+-@@ -81,6 +81,8 @@
+-     // Custom View
+-     implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar
+-     implementation 'com.facebook.shimmer:shimmer:0.5.0' //Shimmer effect
+-+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+-+    implementation project(':bouncy-release') //BouncyNestedScrollView
+- }
+- kapt {
+-     correctErrorTypes true
+Index: app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.adapter\r\n\r\ninterface WallpaperClickListener {\r\n    interface WallpaperClick {\r\n        fun onWallpaperClick(\r\n            id: String,\r\n            urlImage: String,\r\n            urlDownload: String,\r\n            created: String,\r\n            updated: String,\r\n            userName: String,\r\n            name: String,\r\n        )\r\n    }\r\n\r\n    fun onColorClick(\r\n        name: String,\r\n    )\r\n\r\n    fun onCategoryClick(\r\n        name: String,\r\n        tittle: String,\r\n        description: String\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt b/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt
+--- a/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt	
++++ b/app/src/main/java/it/kimoterru/walls/adapter/WallpaperClickListener.kt	
+@@ -20,6 +20,6 @@
+     fun onCategoryClick(
+         name: String,
+         tittle: String,
+-        description: String
++        sizeWallpaper: Int
+     )
+ }
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'kotlin-android'\r\n    id 'kotlin-kapt'\r\n    id 'dagger.hilt.android.plugin'\r\n    id(\"androidx.navigation.safeargs.kotlin\")\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"it.kimoterru.walls\"\r\n        minSdkVersion 23\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.6.0'\r\n    implementation 'androidx.appcompat:appcompat:1.3.1'\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'\r\n    //noinspection GradleDynamicVersion\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n\r\n    // Fragment\r\n    implementation 'androidx.fragment:fragment-ktx:1.3.6'\r\n\r\n    // ViewModel\r\n    implementation \"androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1\"\r\n\r\n    //Glide\r\n    implementation 'com.github.bumptech.glide:glide:4.12.0'\r\n    implementation('com.github.bumptech.glide:okhttp3-integration:4.11.0') {\r\n        exclude group: 'glide-parent'\r\n    }\r\n\r\n    // Retrofit2\r\n    def retrofit_version = \"2.9.0\"\r\n    implementation \"com.squareup.retrofit2:retrofit:$retrofit_version\"\r\n    implementation \"com.squareup.retrofit2:converter-gson:$retrofit_version\"\r\n    implementation \"com.squareup.okhttp3:logging-interceptor:4.9.1\"\r\n\r\n    // Hilt\r\n    def hilt_version = \"2.37\"\r\n    implementation \"com.google.dagger:hilt-android:$hilt_version\"\r\n    kapt \"com.google.dagger:hilt-compiler:$hilt_version\"\r\n\r\n    // Navigation\r\n    def navigation_version = \"2.3.5\"\r\n    implementation \"androidx.navigation:navigation-fragment-ktx:$navigation_version\"\r\n    implementation \"androidx.navigation:navigation-ui-ktx:$navigation_version\"\r\n\r\n    // Custom View\r\n    implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar\r\n    implementation 'com.facebook.shimmer:shimmer:0.5.0' //Shimmer effect\r\n}\r\nkapt {\r\n    correctErrorTypes true\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	
++++ b/app/build.gradle	
+@@ -34,7 +34,7 @@
+         jvmTarget = '1.8'
+     }
+     buildFeatures {
+-        viewBinding = true
++        viewBinding true
+     }
+ }
+ 
+Index: app/src/main/res/layout/card_image_display.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.cardview.widget.CardView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"250dp\"\r\n    android:layout_margin=\"6dp\"\r\n    app:cardCornerRadius=\"16dp\"\r\n    app:cardElevation=\"0dp\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/card_image_display\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:scaleType=\"centerCrop\"\r\n            android:src=\"@drawable/pre_view\"\r\n            tools:ignore=\"MissingConstraints, contentDescription\" />\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n</androidx.cardview.widget.CardView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/card_image_display.xml b/app/src/main/res/layout/card_image_display.xml
+--- a/app/src/main/res/layout/card_image_display.xml	
++++ b/app/src/main/res/layout/card_image_display.xml	
+@@ -1,26 +1,17 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="250dp"
++    android:layout_height="wrap_content"
+     android:layout_margin="6dp"
+     app:cardCornerRadius="16dp"
+     app:cardElevation="0dp">
+ 
+-    <androidx.constraintlayout.widget.ConstraintLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent">
+-
+-        <ImageView
+-            android:id="@+id/card_image_display"
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:adjustViewBounds="true"
+-            android:scaleType="centerCrop"
+-            android:src="@drawable/pre_view"
+-            tools:ignore="MissingConstraints, contentDescription" />
+-
+-    </androidx.constraintlayout.widget.ConstraintLayout>
++    <ImageView
++        android:id="@+id/card_image_display"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:adjustViewBounds="true"
++        android:src="@drawable/pre_view" />
+ 
+ </androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/it/kimoterru/walls/adapter/category/CategoryAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.adapter.category\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ImageView\r\nimport androidx.annotation.LayoutRes\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\n\r\nclass CategoryAdapter(\r\n    private val data: List<PhotoItem>,\r\n    private val listener: WallpaperClickListener.WallpaperClick,\r\n    @LayoutRes val viewId: Int,\r\n) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {\r\n\r\n    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {\r\n        val imageCategory: ImageView = view.findViewById(R.id.card_image_display)\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n        return ViewHolder(\r\n            LayoutInflater.from(parent.context).inflate(viewId, parent, false)\r\n        )\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n        val item = data[position]\r\n        Glide.with(holder.imageCategory).load(item.urls.small).into(holder.imageCategory)\r\n        holder.imageCategory.setOnClickListener {\r\n            listener.onWallpaperClick(\r\n                item.id,\r\n                item.urls.full,\r\n                item.links.download,\r\n                item.createdAt,\r\n                item.updatedAt,\r\n                item.user.username,\r\n                item.user.name\r\n            )\r\n        }\r\n    }\r\n\r\n    override fun getItemCount() = data.size\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/adapter/category/CategoryAdapter.kt b/app/src/main/java/it/kimoterru/walls/adapter/category/CategoryAdapter.kt
+--- a/app/src/main/java/it/kimoterru/walls/adapter/category/CategoryAdapter.kt	
++++ b/app/src/main/java/it/kimoterru/walls/adapter/category/CategoryAdapter.kt	
+@@ -29,7 +29,9 @@
+ 
+     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+         val item = data[position]
+-        Glide.with(holder.imageCategory).load(item.urls.small).into(holder.imageCategory)
++        val iC: ImageView = holder.imageCategory
++        iC.layout(0, 0, 0, 0)
++        Glide.with(iC).load(item.urls.small).into(holder.imageCategory)
+         holder.imageCategory.setOnClickListener {
+             listener.onWallpaperClick(
+                 item.id,
