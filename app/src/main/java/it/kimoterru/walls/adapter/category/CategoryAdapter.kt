@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.util.PlaceHolderDrawableHelper
 
 class CategoryAdapter(
     private val data: List<PhotoItem>,
@@ -18,7 +19,7 @@ class CategoryAdapter(
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageCategory: ImageView = view.findViewById(R.id.card_image_display)
+        val image: ImageView = view.findViewById(R.id.card_image_display)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,8 +30,17 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        Glide.with(holder.imageCategory).load(item.urls.small).into(holder.imageCategory)
-        holder.imageCategory.setOnClickListener {
+
+        val rlp = holder.image.layoutParams
+        val ratio: Int = item.height / item.width
+        rlp.height = (rlp.width * ratio - 1)
+        holder.image.layoutParams = rlp
+
+        Glide.with(holder.image).load(item.urls.small)
+            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+            .into(holder.image)
+
+        holder.image.setOnClickListener {
             listener.onWallpaperClick(
                 item.id,
                 item.urls.full,

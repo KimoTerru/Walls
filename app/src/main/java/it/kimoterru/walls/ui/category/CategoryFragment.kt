@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
@@ -51,9 +51,8 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
     }
 
     private fun setFragmentComponent() {
-        val description = HtmlCompat.fromHtml(args.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
         binding.category.text = args.tittle
-        binding.description.text = description.toString()
+        binding.sizeSaveWallpaper.text = args.totalPhotos.toString()
     }
 
     private fun initObservers() {
@@ -72,9 +71,12 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
     }
 
     private fun displayImage(response: List<PhotoItem>?) {
+        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.recyclerImageCategory.layoutManager = sGrid
+
         binding.recyclerImageCategory.adapter =
             CategoryAdapter(response ?: listOf(), this, R.layout.card_image_display)
-        binding.recyclerImageCategory.isNestedScrollingEnabled = false
     }
 
     override fun onWallpaperClick(

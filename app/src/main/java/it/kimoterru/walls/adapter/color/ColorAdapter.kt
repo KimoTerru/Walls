@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.models.search.SearchItem
+import it.kimoterru.walls.util.PlaceHolderDrawableHelper
 
 class ColorAdapter(
     private val data: SearchItem,
@@ -29,7 +30,16 @@ class ColorAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data.results[position]
-        Glide.with(holder.imageCategory).load(item.urls.small).into(holder.imageCategory)
+
+        val rlp = holder.imageCategory.layoutParams
+        val ratio: Int = item.height / item.width
+        rlp.height = (rlp.width * ratio - 1)
+        holder.imageCategory.layoutParams = rlp
+
+        Glide.with(holder.imageCategory).load(item.urls.small)
+            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+            .into(holder.imageCategory)
+
         holder.imageCategory.setOnClickListener {
             listener.onWallpaperClick(
                 item.id,

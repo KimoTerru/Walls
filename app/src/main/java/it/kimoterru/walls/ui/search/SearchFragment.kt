@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
@@ -61,9 +62,12 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     }
 
     private fun displayImage(response: SearchItem) {
+        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.recyclerImageSearch.layoutManager = sGrid
+
         binding.recyclerImageSearch.adapter =
             SearchAdapter(response, this, R.layout.card_image_display)
-        binding.recyclerImageSearch.isNestedScrollingEnabled = false
     }
 
     override fun onWallpaperClick(

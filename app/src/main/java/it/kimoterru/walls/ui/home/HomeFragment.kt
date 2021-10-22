@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.home.CategoriesAdapter
+import it.kimoterru.walls.adapter.home.CategoryAdapter
 import it.kimoterru.walls.adapter.home.ColorAdapter
 import it.kimoterru.walls.adapter.home.LatestAdapter
 import it.kimoterru.walls.databinding.FragmentHomeBinding
@@ -102,7 +102,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     private fun displayTopics(list: List<TopicItem>?) {
-        binding.recyclerCategories.adapter = CategoriesAdapter(list!!, this)
+        binding.recyclerCategories.adapter = CategoryAdapter(list!!, this)
         binding.recyclerCategories.isNestedScrollingEnabled = false
     }
 
@@ -160,12 +160,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             ))
     }
 
-    override fun onCategoryClick(name: String, tittle: String, description: String) {
+    override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {
         Navigation.findNavController(requireView())
             .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(
                 name,
                 tittle,
-                description
+                totalPhotos
             ))
     }
 }

@@ -20,6 +20,6 @@ interface WallpaperClickListener {
     fun onCategoryClick(
         name: String,
         tittle: String,
-        description: String
+        totalPhotos: Int
     )
 }

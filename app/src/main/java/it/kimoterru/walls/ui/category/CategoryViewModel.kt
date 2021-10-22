@@ -23,7 +23,7 @@ class CategoryViewModel @Inject constructor(private val repository: WallpaperRep
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageTopics(
-                    id_or_slug, Constants.CLIENT_ID, 30, order.query
+                    id_or_slug, Constants.CLIENT_ID, 14, order.query
                 )
                 imageTopicsLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
