@@ -7,7 +7,7 @@
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp">
 
-    <it.kimoterru.walls.util.DynamicHeightImageView
+    <ImageView
         android:id="@+id/card_image_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

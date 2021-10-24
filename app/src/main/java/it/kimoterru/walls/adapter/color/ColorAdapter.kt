@@ -19,7 +19,7 @@ class ColorAdapter(
 ) : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageCategory: ImageView = view.findViewById(R.id.card_image_display)
+        val image: ImageView = view.findViewById(R.id.card_image_display)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,16 +31,12 @@ class ColorAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data.results[position]
 
-        val rlp = holder.imageCategory.layoutParams
-        val ratio: Int = item.height / item.width
-        rlp.height = (rlp.width * ratio - 1)
-        holder.imageCategory.layoutParams = rlp
+        holder.image.measure(item.width, item.height)
+        Glide.with(holder.image).load(item.urls.small)
+            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position, item.color))
+            .into(holder.image)
 
-        Glide.with(holder.imageCategory).load(item.urls.small)
-            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
-            .into(holder.imageCategory)
-
-        holder.imageCategory.setOnClickListener {
+        holder.image.setOnClickListener {
             listener.onWallpaperClick(
                 item.id,
                 item.urls.full,

@@ -31,13 +31,9 @@ class SearchAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data.results[position]
 
-        val rlp = holder.image.layoutParams
-        val ratio: Int = item.height / item.width
-        rlp.height = (rlp.width * ratio - 1)
-        holder.image.layoutParams = rlp
-
+        holder.image.measure(item.width, item.height)
         Glide.with(holder.image).load(item.urls.small)
-            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position))
+            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position, item.color))
             .into(holder.image)
 
         holder.image.setOnClickListener {
