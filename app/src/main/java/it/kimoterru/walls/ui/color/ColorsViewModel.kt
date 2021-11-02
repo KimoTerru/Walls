@@ -23,7 +23,7 @@ class ColorsViewModel @Inject constructor(private val repository: WallpaperRepos
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageColors(
-                    query, color, Constants.CLIENT_ID, 14, order.query
+                    query, color, Constants.CLIENT_ID, 30, order.query
                 )
                 imageColorLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {

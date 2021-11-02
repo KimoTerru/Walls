@@ -23,7 +23,7 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageSearch(
-                    query, Constants.CLIENT_ID, 14, order.query
+                    query, Constants.CLIENT_ID, 30, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
