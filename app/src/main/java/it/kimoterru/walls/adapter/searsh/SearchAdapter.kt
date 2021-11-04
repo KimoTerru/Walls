@@ -37,7 +37,7 @@ class SearchAdapter(
             .into(holder.image)
 
         holder.image.setOnClickListener {
-            listener.onWallpaperClick(item.id, item.user.profileImage.small)
+            listener.onWallpaperClick(item.id, item.user.profileImage.large)
         }
     }
 

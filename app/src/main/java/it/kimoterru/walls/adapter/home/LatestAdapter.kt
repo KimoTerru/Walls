@@ -31,7 +31,7 @@ class LatestAdapter(
         val item = data[position]
         Glide.with(holder.image).load(item.urls.thumb).into(holder.image)
         holder.image.setOnClickListener {
-            listener.onWallpaperClick(item.id, item.user.profileImage.small)
+            listener.onWallpaperClick(item.id, item.user.profileImage.large)
         }
     }
 
