@@ -7,10 +7,15 @@ import it.kimoterru.walls.network.ApiService
 import javax.inject.Inject
 
 class WallpaperRepository @Inject constructor(private var service: ApiService) {
+
     suspend fun getLatestPhotos(
         clientId: String, page: Int,
     ): List<PhotoItem> {
         return service.getLatest(clientId, page)
+    }
+
+    suspend fun getPhoto(id: String, clientId: String): PhotoItem {
+        return service.getPhoto(id, clientId)
     }
 
     suspend fun getTopics(

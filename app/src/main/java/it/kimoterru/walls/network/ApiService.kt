@@ -1,7 +1,7 @@
 package it.kimoterru.walls.network
 
-import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.categories.TopicItem
+import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.models.search.SearchItem
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,7 +30,7 @@ interface ApiService {
     suspend fun getPhoto(
         @Path("id") id: String,
         @Query("client_id") clientId: String
-    ): List<PhotoItem>
+    ): PhotoItem
 
     @GET("/topics")
     suspend fun getTopicsList(
