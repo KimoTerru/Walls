@@ -6,6 +6,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/bg_search.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml" value="0.209375" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/brush.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_repeat.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_set_image.xml" value="0.2169230769230769" />
@@ -30,6 +31,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml" value="0.209375" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml" value="0.12" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml" value="0.25" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.22" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml" value="0.33" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories_shimmer_effect.xml" value="0.40428211586901763" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml" value="0.18" />
@@ -45,7 +47,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml" value="0.25" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml" value="0.5076142131979695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragmen_random_mode_greeting.xml" value="0.1675213675213675" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.5" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.22" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_colors.xml" value="0.15228426395939088" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml" value="0.2" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml" value="0.22" />
@@ -56,7 +58,7 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_random_mode.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml" value="0.2" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.25" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.22" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_splash_screen.xml" value="0.18" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/menu/main_bottom_menu.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2203125" />
