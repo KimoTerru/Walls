@@ -9,6 +9,8 @@ data class PhotoItem(
     val color: String,
     @SerializedName("created_at")
     val createdAt: String,
+    @SerializedName("downloads")
+    val downloads: Int,
     @SerializedName("current_user_collections")
     val currentUserCollections: List<UserCollection>,
     @SerializedName("description")
@@ -23,6 +25,8 @@ data class PhotoItem(
     val likes: Int,
     @SerializedName("links")
     val links: PhotoLinks,
+    @SerializedName("location")
+    val location: Location,
     @SerializedName("updated_at")
     val updatedAt: String,
     @SerializedName("urls")

@@ -1,10 +1,15 @@
 package it.kimoterru.walls.ui.image
 
+import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.app.WallpaperManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,16 +27,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.BottomSheetLayoutBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
+import it.kimoterru.walls.models.photo.PhotoItem
 
 @AndroidEntryPoint
-class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.OnClickListener {
+class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     private var _binding: FragmentSelectedImageBinding? = null
     private val binding get() = _binding!!
 
     private val args: SelectedImageFragmentArgs by navArgs()
     private val viewModel: SelectedImageViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentSelectedImageBinding.inflate(inflater)
         return binding.root
     }
@@ -40,19 +48,12 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.O
         super.onViewCreated(view, savedInstanceState)
 
         initObservers()
-        fragmentComponent()
+        hideFragmentComponent()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.getPhoto(args.idImage)
-    }
-
-    private fun fragmentComponent() {
-        binding.cardBrush.setOnClickListener(this)
-        binding.cardDown.setOnClickListener(this)
-        binding.cardInfo.setOnClickListener(this)
-        hideFragmentComponent()
     }
 
     private fun hideFragmentComponent() {
@@ -91,43 +92,51 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.O
                         return false
                     }
                 }).into(binding.selectedImage)
+            onClick(it)
         })
     }
 
-    override fun onClick(v: View?) {
-        when(v!!.id) {
-            R.id.card_brush -> {
-                val wallpaperManager = WallpaperManager.getInstance(context)
-                val bitmap = (binding.selectedImage.drawable as BitmapDrawable).bitmap
-                wallpaperManager.setBitmap(bitmap)
-                Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
-            }
-            R.id.card_down -> {
-                Toast.makeText(context, "Start download...", Toast.LENGTH_LONG).show()
+    @SuppressLint("SetTextI18n")
+    private fun onClick(data: PhotoItem) {
+        binding.cardBrush.setOnClickListener {
+            val wallpaperManager = WallpaperManager.getInstance(context)
+            val bitmap = (binding.selectedImage.drawable as BitmapDrawable).bitmap
+            wallpaperManager.setBitmap(bitmap)
+            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+        }
+        binding.cardDown.setOnClickListener {
+            Toast.makeText(context, "Start download...", Toast.LENGTH_LONG).show()
 
-                /*val dm: DownloadManager =
-                    requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                val fileName = args.idImage + ".jpg"
-                val request = DownloadManager.Request(Uri.parse(args.urlDownload))
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
-                request.setTitle(fileName)
-                request.setDescription("Wait a second...")
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                request.setDestinationInExternalPublicDir(
-                    Environment.DIRECTORY_PICTURES, "/Walls/$fileName"
-                )
-                dm.enqueue(request)*/
-            }
-            R.id.card_info -> {
-                val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
-                val bindingBottomSheet = BottomSheetLayoutBinding.inflate(layoutInflater)
-                dialog.setContentView(bindingBottomSheet.root)
+            val dm: DownloadManager =
+                requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val fileName = data.id + ".jpg"
+            val request = DownloadManager.Request(Uri.parse(data.links.download))
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+            request.setTitle(fileName)
+            request.setDescription("Wait a second...")
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            request.setDestinationInExternalPublicDir(
+                Environment.DIRECTORY_PICTURES, "/Walls/$fileName"
+            )
+            dm.enqueue(request)
+        }
+        binding.cardInfo.setOnClickListener {
+            val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
+            val bindingBottomSheet = BottomSheetLayoutBinding.inflate(layoutInflater)
+            dialog.setContentView(bindingBottomSheet.root)
 
-                bindingBottomSheet.let {
-                    //all views in bindingBottomSheet
-                }
-                dialog.show()
+            bindingBottomSheet.let {
+                //all views in bindingBottomSheet
+                Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
+                it.infoUser.text = data.user.name
+                it.infoLocation.text = "${data.location.city}/${data.location.country}"
+                it.idImageInfo.text = data.id
+                it.resolutionInfo.text = "${data.width}x${data.height}"
+                it.createdAtInfo.text = data.createdAt
+                it.colorInfo.text = data.color
+                it.downInfo.text = data.downloads.toString()
             }
+            dialog.show()
         }
     }
 
