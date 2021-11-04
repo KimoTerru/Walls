@@ -117,6 +117,12 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     wallpaperManager.setBitmap(bitmap, null, false, WallpaperManager.FLAG_LOCK)
                     dialog.hide()
                 }
+                it.applyToDesktopAndLockScreen.setOnClickListener {
+                    val wallpaperManager = WallpaperManager.getInstance(context)
+                    val bitmap = (binding.selectedImage.drawable as BitmapDrawable).bitmap
+                    wallpaperManager.setBitmap(bitmap)
+                    dialog.hide()
+                }
             }
             dialog.show()
         }
