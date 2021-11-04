@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -26,7 +26,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     private val binding get() = _binding!!
 
     private val args: SearchFragmentArgs by navArgs()
-    private var viewModel: SearchViewModel? = null
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchBinding.inflate(inflater)
@@ -36,18 +36,17 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.search.text = args.query
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         initObservers()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel?.getImageSearch(args.query, TopicsOrder.LATEST)
+        viewModel.getImageSearch(args.query, TopicsOrder.LATEST)
     }
 
     private fun initObservers() {
-        viewModel?.imageLiveData?.observe(viewLifecycleOwner, {
+        viewModel.imageLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayImage(it.data!!)
@@ -70,25 +69,11 @@ class SearchFragment : Fragment(R.layout.fragment_search),
             SearchAdapter(response, this, R.layout.card_image_display)
     }
 
-    override fun onWallpaperClick(
-        id: String,
-        urlImage: String,
-        urlDownload: String,
-        created: String,
-        updated: String,
-        userName: String,
-        name: String,
-    ) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                SearchFragmentDirections.actionFragmentSearchToFragmentSelectedImage(
-                    id,
-                    urlImage,
-                    urlDownload,
-                    created,
-                    updated,
-                    userName,
-                    name
-                ))
+    override fun onWallpaperClick(id: String, urlImageUser: String) {
+        Navigation.findNavController(requireView()).navigate(
+            SearchFragmentDirections.actionFragmentSearchToFragmentSelectedImage(
+                id, urlImageUser
+            )
+        )
     }
 }

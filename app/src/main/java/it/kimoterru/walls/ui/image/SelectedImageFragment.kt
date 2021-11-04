@@ -1,14 +1,10 @@
 package it.kimoterru.walls.ui.image
 
-import android.app.DownloadManager
 import android.app.WallpaperManager
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,7 +105,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.O
             R.id.card_down -> {
                 Toast.makeText(context, "Start download...", Toast.LENGTH_LONG).show()
 
-                val dm: DownloadManager =
+                /*val dm: DownloadManager =
                     requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                 val fileName = args.idImage + ".jpg"
                 val request = DownloadManager.Request(Uri.parse(args.urlDownload))
@@ -120,7 +116,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image), View.O
                 request.setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_PICTURES, "/Walls/$fileName"
                 )
-                dm.enqueue(request)
+                dm.enqueue(request)*/
             }
             R.id.card_info -> {
                 val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)

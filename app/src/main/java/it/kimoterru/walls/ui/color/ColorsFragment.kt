@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -26,7 +26,7 @@ class ColorsFragment : Fragment(R.layout.fragment_colors),
     private val binding get() = _binding!!
 
     private val args: ColorsFragmentArgs by navArgs()
-    private var viewModel: ColorsViewModel? = null
+    private val viewModel: ColorsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,6 @@ class ColorsFragment : Fragment(R.layout.fragment_colors),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ColorsViewModel::class.java)
 
         initObservers()
         setFragmentComponent()
@@ -47,7 +46,7 @@ class ColorsFragment : Fragment(R.layout.fragment_colors),
 
     override fun onResume() {
         super.onResume()
-        viewModel?.getImageColors(args.tittle, args.tittle, TopicsOrder.LATEST)
+        viewModel.getImageColors(args.tittle, args.tittle, TopicsOrder.LATEST)
     }
 
     private fun setFragmentComponent() {
@@ -55,7 +54,7 @@ class ColorsFragment : Fragment(R.layout.fragment_colors),
     }
 
     private fun initObservers() {
-        viewModel?.imageColorLiveData?.observe(viewLifecycleOwner, {
+        viewModel.imageColorLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayImage(it.data!!)
@@ -78,25 +77,11 @@ class ColorsFragment : Fragment(R.layout.fragment_colors),
             ColorAdapter(response, this, R.layout.card_image_display)
     }
 
-    override fun onWallpaperClick(
-        id: String,
-        urlImage: String,
-        urlDownload: String,
-        created: String,
-        updated: String,
-        userName: String,
-        name: String,
-    ) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ColorsFragmentDirections.actionFragmentColorsToFragmentSelectedImage(
-                    id,
-                    urlImage,
-                    urlDownload,
-                    created,
-                    updated,
-                    userName,
-                    name
-                ))
+    override fun onWallpaperClick(id: String, urlImageUser: String) {
+        Navigation.findNavController(requireView()).navigate(
+            ColorsFragmentDirections.actionFragmentColorsToFragmentSelectedImage(
+                id, urlImageUser
+            )
+        )
     }
 }

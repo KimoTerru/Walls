@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
@@ -27,7 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var viewModel: HomeViewModel? = null
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater)
@@ -36,7 +36,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         initObservers()
         initSearch()
@@ -44,12 +43,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     override fun onResume() {
         super.onResume()
-        viewModel?.getHomeScreen()
-        viewModel?.getTopics(TopicsOrder.POSITION)
+        viewModel.getHomeScreen()
+        viewModel.getTopics(TopicsOrder.POSITION)
     }
 
     private fun initObservers() {
-        viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {
+        viewModel.homeResponseLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayLatest(it.data)
@@ -61,7 +60,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 else -> {}
             }
         })
-        viewModel?.topicsLiveData?.observe(viewLifecycleOwner, {
+        viewModel.topicsLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayTopics(it.data)
@@ -131,33 +130,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         }
     }
 
-    override fun onWallpaperClick(
-        id: String,
-        urlImage: String,
-        urlDownload: String,
-        created: String,
-        updated: String,
-        userName: String,
-        name: String
-    ) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
-                    id,
-                    urlImage,
-                    urlDownload,
-                    created,
-                    updated,
-                    userName,
-                    name
-                ))
+    override fun onWallpaperClick(id: String, urlImageUser: String) {
+        Navigation.findNavController(requireView()).navigate(
+            HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
+                id, urlImageUser
+            )
+        )
     }
 
     override fun onColorClick(name: String) {
-        Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentColors(
-                name
-            ))
+        Navigation.findNavController(requireView()).navigate(
+            HomeFragmentDirections.actionFragmentHomeToFragmentColors(name)
+        )
     }
 
     override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {

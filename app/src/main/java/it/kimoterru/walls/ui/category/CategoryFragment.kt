@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -26,7 +26,7 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
     private val binding get() = _binding!!
 
     private val args: CategoryFragmentArgs by navArgs()
-    private var viewModel: CategoryViewModel? = null
+    private val viewModel: CategoryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,6 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
         initObservers()
         setFragmentComponent()
@@ -47,7 +46,7 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
 
     override fun onResume() {
         super.onResume()
-        viewModel?.getImageTopics(args.slug, TopicsOrder.LATEST)
+        viewModel.getImageTopics(args.slug, TopicsOrder.LATEST)
     }
 
     private fun setFragmentComponent() {
@@ -56,7 +55,7 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
     }
 
     private fun initObservers() {
-        viewModel?.imageTopicsLiveData?.observe(viewLifecycleOwner, {
+        viewModel.imageTopicsLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     displayImage(it.data)
@@ -79,25 +78,11 @@ class CategoryFragment : Fragment(R.layout.fragment_categories),
             CategoryAdapter(response ?: listOf(), this, R.layout.card_image_display)
     }
 
-    override fun onWallpaperClick(
-        id: String,
-        urlImage: String,
-        urlDownload: String,
-        created: String,
-        updated: String,
-        userName: String,
-        name: String,
-    ) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                CategoryFragmentDirections.actionFragmentCategoriesToFragmentSelectedImage(
-                    id,
-                    urlImage,
-                    urlDownload,
-                    created,
-                    updated,
-                    userName,
-                    name
-                ))
+    override fun onWallpaperClick(id: String, urlImageUser: String) {
+        Navigation.findNavController(requireView()).navigate(
+            CategoryFragmentDirections.actionFragmentCategoriesToFragmentSelectedImage(
+                id, urlImageUser
+            )
+        )
     }
 }

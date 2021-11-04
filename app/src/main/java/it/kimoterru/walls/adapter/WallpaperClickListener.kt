@@ -4,12 +4,7 @@ interface WallpaperClickListener {
     interface WallpaperClick {
         fun onWallpaperClick(
             id: String,
-            urlImage: String,
-            urlDownload: String,
-            created: String,
-            updated: String,
-            userName: String,
-            name: String,
+            urlImageUser: String
         )
     }
 
