@@ -1,4 +1,4 @@
-package it.kimoterru.walls.adapter.color
+package it.kimoterru.walls.adapter.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +12,11 @@ import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.models.search.SearchItem
 import it.kimoterru.walls.util.PlaceHolderDrawableHelper
 
-class ColorAdapter(
+class SearchAdapter(
     private val data: SearchItem,
     private val listener: WallpaperClickListener.WallpaperClick,
     @LayoutRes val viewId: Int
-) : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.card_image_display)

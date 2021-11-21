@@ -17,14 +17,8 @@
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
             app:destination="@id/fragment_selected_image" />
         <action
-            android:id="@+id/action_fragment_home_to_fragment_categories"
-            app:destination="@id/fragment_categories" />
-        <action
-            android:id="@+id/action_fragment_home_to_fragment_colors"
-            app:destination="@id/fragment_colors" />
-        <action
-            android:id="@+id/action_fragment_home_to_fragment_search"
-            app:destination="@id/fragment_search" />
+            android:id="@+id/action_fragment_home_to_fragment_adapter"
+            app:destination="@id/fragment_adapter" />
     </fragment>
 
     <fragment
@@ -68,11 +62,11 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_categories"
-        android:name="it.kimoterru.walls.ui.category.CategoryFragment"
-        tools:layout="@layout/fragment_categories">
+        android:id="@+id/fragment_adapter"
+        android:name="it.kimoterru.walls.ui.adapter.AdapterFragment"
+        tools:layout="@layout/fragment_adapter">
         <argument
-            android:name="slug"
+            android:name="query"
             app:argType="string" />
         <argument
             android:name="tittle"
@@ -80,47 +74,21 @@
         <argument
             android:name="totalPhotos"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_fragment_categories_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_colors"
-        android:name="it.kimoterru.walls.ui.color.ColorsFragment"
-        tools:layout="@layout/fragment_colors">
-
-        <action
-            android:id="@+id/action_fragment_colors_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
-            android:name="tittle"
-            app:argType="string" />
+            android:name="whichSnippet"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragment_adapter_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_empty_user_profile"
         android:name="it.kimoterru.walls.ui.profile.EmptyUserFragment"
         tools:layout="@layout/fragment_empty_user_profile" />
-
-    <fragment
-        android:id="@+id/fragment_search"
-        android:name="it.kimoterru.walls.ui.search.SearchFragment"
-        tools:layout="@layout/fragment_search" >
-        <argument
-            android:name="query"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_fragment_search_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image" />
-    </fragment>
 
 </navigation>

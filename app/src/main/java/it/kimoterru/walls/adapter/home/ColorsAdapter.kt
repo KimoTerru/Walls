@@ -11,7 +11,7 @@ import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.models.color.Colors
 
 class ColorAdapter(
-    private val listener: WallpaperClickListener,
+    private val listener: WallpaperClickListener.HomeFragment,
     @LayoutRes val viewId: Int,
 ) : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 

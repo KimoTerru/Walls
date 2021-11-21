@@ -1,4 +1,4 @@
-package it.kimoterru.walls.adapter.category
+package it.kimoterru.walls.adapter.topic
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +12,11 @@ import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.util.PlaceHolderDrawableHelper
 
-class CategoryAdapter(
+class TopicAdapter(
     private val data: List<PhotoItem>,
     private val listener: WallpaperClickListener.WallpaperClick,
     @LayoutRes val viewId: Int,
-) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.card_image_display)

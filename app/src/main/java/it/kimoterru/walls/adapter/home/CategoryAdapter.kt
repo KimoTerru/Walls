@@ -18,7 +18,7 @@ import it.kimoterru.walls.models.categories.TopicItem
 
 class CategoryAdapter(
     private val categories: List<TopicItem>,
-    private val listener: WallpaperClickListener,
+    private val listener: WallpaperClickListener.HomeFragment,
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -61,7 +61,7 @@ class CategoryAdapter(
             .into(holder.categoriesView)
         holder.nameView.text = item.title
         holder.categoriesView.setOnClickListener {
-            listener.onCategoryClick(item.slug, item.title, item.totalPhotos)
+            listener.onTopicClick(item.slug, item.title, item.totalPhotos)
         }
     }
 

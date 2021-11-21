@@ -8,13 +8,15 @@ interface WallpaperClickListener {
         )
     }
 
-    fun onColorClick(
-        name: String,
-    )
+    interface HomeFragment {
+        fun onColorClick(
+            name: String,
+        )
 
-    fun onCategoryClick(
-        name: String,
-        tittle: String,
-        totalPhotos: Int
-    )
+        fun onTopicClick(
+            name: String,
+            tittle: String,
+            totalPhotos: Int
+        )
+    }
 }

@@ -19,17 +19,21 @@ import it.kimoterru.walls.adapter.home.LatestAdapter
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.models.categories.TopicItem
 import it.kimoterru.walls.models.photo.PhotoItem
-import it.kimoterru.walls.util.Status
+import it.kimoterru.walls.util.Status.ERROR
+import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick, WallpaperClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick,
+    WallpaperClickListener.HomeFragment {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater)
         return binding.root
     }
@@ -50,27 +54,29 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     private fun initObservers() {
         viewModel.homeResponseLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                Status.SUCCESS -> {
+                SUCCESS -> {
                     displayLatest(it.data)
                     hideShimmerEffectLatestWallpapers()
                 }
-                Status.ERROR -> {
+                ERROR -> {
                     noNetworkConnect()
                 }
-                else -> {}
+                else -> {
+                }
             }
         })
         viewModel.topicsLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                Status.SUCCESS -> {
+                SUCCESS -> {
                     displayTopics(it.data)
                     hideShimmerEffectCategories()
                     displayColors()
                 }
-                Status.ERROR -> {
+                ERROR -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
-                else -> {}
+                else -> {
+                }
             }
         })
     }
@@ -120,8 +126,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query: String = binding.findImage.text.toString()
                 if (query.isNotEmpty()) {
-                    Navigation.findNavController(requireView())
-                        .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentSearch(query))
+                    Navigation.findNavController(requireView()).navigate(
+                        HomeFragmentDirections.actionFragmentHomeToFragmentAdapter(
+                            query, query, 0, 3
+                        )
+                    )
                 } else {
                     Toast.makeText(context, "Empty!", Toast.LENGTH_LONG).show()
                 }
@@ -140,16 +149,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     override fun onColorClick(name: String) {
         Navigation.findNavController(requireView()).navigate(
-            HomeFragmentDirections.actionFragmentHomeToFragmentColors(name)
+            HomeFragmentDirections.actionFragmentHomeToFragmentAdapter(
+                name, name, 0, 2
+            )
         )
     }
 
-    override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {
+    override fun onTopicClick(name: String, tittle: String, totalPhotos: Int) {
         Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(
-                name,
-                tittle,
-                totalPhotos
-            ))
+            .navigate(
+                HomeFragmentDirections.actionFragmentHomeToFragmentAdapter(
+                    name, tittle, totalPhotos, 1
+                )
+            )
     }
 }
