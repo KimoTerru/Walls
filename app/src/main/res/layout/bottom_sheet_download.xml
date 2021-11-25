@@ -10,13 +10,14 @@
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:text="Please adjust the background for yourself!"
+        android:text="Choose one of the options:"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -56,7 +57,23 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/apply_to_desktop_and_lock_screen"
+        android:id="@+id/save_to_downloads"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_repeat"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="6dp"
+        android:text="Save to downloads"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/save_to_favorite"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginHorizontal="10dp"
@@ -67,9 +84,27 @@
         android:gravity="center"
         android:paddingHorizontal="10dp"
         android:paddingVertical="6dp"
-        android:text="Apply to desktop and lock screen"
+        android:text="Save to favorite"
         android:textColor="@color/black"
         android:textSize="17sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/delete_to_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_repeat"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="6dp"
+        android:text="Delete to favorites"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </LinearLayout>
