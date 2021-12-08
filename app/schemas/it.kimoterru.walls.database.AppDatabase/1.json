@@ -1,0 +1,232 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "1041f4b696b34946210bb7741a593a22",
+    "entities": [
+      {
+        "tableName": "photoItem",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_photo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `blur_hash` TEXT NOT NULL, `color` TEXT NOT NULL, `created_at` TEXT NOT NULL, `downloads` INTEGER NOT NULL, `height` INTEGER NOT NULL, `id` TEXT NOT NULL, `liked_by_user` INTEGER NOT NULL, `likes` INTEGER NOT NULL, `updated_at` TEXT NOT NULL, `width` INTEGER NOT NULL, `download_photo_links` TEXT NOT NULL, `download_location_photo_links` TEXT NOT NULL, `html_photo_links` TEXT NOT NULL, `self_photo_links` TEXT NOT NULL, `full_photo_urls` TEXT NOT NULL, `raw_photo_urls` TEXT NOT NULL, `regular_photo_urls` TEXT NOT NULL, `small_photo_urls` TEXT NOT NULL, `thumb_photo_urls` TEXT NOT NULL, `id_user` TEXT NOT NULL, `name_user` TEXT NOT NULL, `total_collections_user` INTEGER NOT NULL, `total_likes_user` INTEGER NOT NULL, `total_photos_user` INTEGER NOT NULL, `username_user` TEXT NOT NULL, `html_user_links` TEXT NOT NULL, `likes_user_links` TEXT NOT NULL, `photos_user_links` TEXT NOT NULL, `portfolio_user_links` TEXT NOT NULL, `self_user_links` TEXT NOT NULL, `large_photoImage` TEXT NOT NULL, `medium_photoImage` TEXT NOT NULL, `small_photoImage` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id_photo",
+            "columnName": "id_photo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blurHash",
+            "columnName": "blur_hash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloads",
+            "columnName": "downloads",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "likedByUser",
+            "columnName": "liked_by_user",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "likes",
+            "columnName": "likes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "links.download",
+            "columnName": "download_photo_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "links.downloadLocation",
+            "columnName": "download_location_photo_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "links.html",
+            "columnName": "html_photo_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "links.self",
+            "columnName": "self_photo_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urls.full",
+            "columnName": "full_photo_urls",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urls.raw",
+            "columnName": "raw_photo_urls",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urls.regular",
+            "columnName": "regular_photo_urls",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urls.small",
+            "columnName": "small_photo_urls",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urls.thumb",
+            "columnName": "thumb_photo_urls",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.id",
+            "columnName": "id_user",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.name",
+            "columnName": "name_user",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.totalCollections",
+            "columnName": "total_collections_user",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.totalLikes",
+            "columnName": "total_likes_user",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.totalPhotos",
+            "columnName": "total_photos_user",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.username",
+            "columnName": "username_user",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.links.html",
+            "columnName": "html_user_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.links.likes",
+            "columnName": "likes_user_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.links.photos",
+            "columnName": "photos_user_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.links.portfolio",
+            "columnName": "portfolio_user_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.links.self",
+            "columnName": "self_user_links",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.profileImage.large",
+            "columnName": "large_photoImage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.profileImage.medium",
+            "columnName": "medium_photoImage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user.profileImage.small",
+            "columnName": "small_photoImage",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_photo"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1041f4b696b34946210bb7741a593a22')"
+    ]
+  }
+}

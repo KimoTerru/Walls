@@ -1,11 +1,11 @@
 package it.kimoterru.walls.util
 
-import androidx.annotation.DrawableRes
 import it.kimoterru.walls.R
 
 class Constants {
     companion object {
         const val CLIENT_ID = "NPk5uWaTODGbpS35GoQyu7WulRGLX1jsYgn0mkVKhc4"
+        const val DATABASE_NAME = "photo_db.db"
     }
 }
 

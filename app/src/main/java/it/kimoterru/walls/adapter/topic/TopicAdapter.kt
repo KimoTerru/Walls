@@ -37,7 +37,7 @@ class TopicAdapter(
             .into(holder.image)
 
         holder.image.setOnClickListener {
-            listener.onWallpaperClick(item.id, item.user.profileImage.large)
+            listener.onWallpaperClick(item.id, item.user.profileImage.large, item.id_photo)
         }
     }
 

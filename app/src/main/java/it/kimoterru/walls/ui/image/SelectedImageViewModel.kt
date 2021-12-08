@@ -16,11 +16,16 @@ class SelectedImageViewModel @Inject constructor(private val repository: Wallpap
     ViewModel() {
     val photoLiveData = MutableLiveData<PhotoItem>()
 
-    fun getPhoto(id: String) {
+    fun getPhoto(id: String, id_photo: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val photoData = repository.getPhoto(id, Constants.CLIENT_ID)
-                photoLiveData.postValue(photoData)
+                val photoDataBASE = repository.getPhotoFromFavoriteByID(id_photo)
+                if (photoDataBASE != null) {
+                    photoLiveData.postValue(photoDataBASE!!)
+                } else {
+                    val photoDataAPI = repository.getPhoto(id, Constants.CLIENT_ID)
+                    photoLiveData.postValue(photoDataAPI)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }

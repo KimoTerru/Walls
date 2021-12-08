@@ -15,10 +15,18 @@
             app:destination="@id/fragment_no_internet" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image" />
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_adapter"
-            app:destination="@id/fragment_adapter" />
+            app:destination="@id/fragment_adapter"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -26,8 +34,12 @@
         android:name="it.kimoterru.walls.ui.save.SavedFragment"
         tools:layout="@layout/fragment_saved">
         <action
-            android:id="@+id/action_fragment_saved_to_fragment_empty_saved"
-            app:destination="@id/fragment_empty_saved" />
+            android:id="@+id/action_fragment_saved_to_fragment_selected_image"
+            app:destination="@id/fragment_selected_image"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -45,11 +57,6 @@
         tools:layout="@layout/fragment_no_internet_connection" />
 
     <fragment
-        android:id="@+id/fragment_empty_saved"
-        android:name="it.kimoterru.walls.ui.save.EmptySavedFragment"
-        tools:layout="@layout/fragment_empty_saved_wallpaper" />
-
-    <fragment
         android:id="@+id/fragment_selected_image"
         android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"
         tools:layout="@layout/fragment_selected_image">
@@ -59,6 +66,12 @@
         <argument
             android:name="urlImageUser"
             app:argType="string" />
+        <argument
+            android:name="favoritePhoto"
+            app:argType="integer" />
+        <argument
+            android:name="idFavoritePhoto"
+            app:argType="integer" />
     </fragment>
 
     <fragment

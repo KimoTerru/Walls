@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -23,11 +24,13 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
+import it.kimoterru.walls.database.PhotoDao
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
 import it.kimoterru.walls.models.photo.PhotoItem
-
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
@@ -36,6 +39,9 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
 
     private val args: SelectedImageFragmentArgs by navArgs()
     private val viewModel: SelectedImageViewModel by viewModels()
+
+    @Inject
+    lateinit var photoDataBase: PhotoDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -53,7 +59,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getPhoto(args.idImage)
+        viewModel.getPhoto(args.idImage, args.idFavoritePhoto)
     }
 
     private fun hideFragmentComponent() {
@@ -127,7 +133,21 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                         Environment.DIRECTORY_PICTURES, "/Walls/$fileName"
                     )
                     dm.enqueue(request)
-                } // TODO: 30.11.2021 Другие возможности
+                }
+                it.saveToFavorite.setOnClickListener {
+                    lifecycleScope.launch {
+                        photoDataBase.insertPhoto(data)
+                    }
+                }
+                if (args.favoritePhoto == 2) {
+                    it.saveToFavorite.visibility = View.GONE
+                    it.deleteToFavorites.visibility = View.VISIBLE
+                    it.deleteToFavorites.setOnClickListener {
+                        lifecycleScope.launch {
+                            photoDataBase.deletePhoto(data)
+                        }
+                    }
+                }
             }
             dialog.show()
         }
@@ -140,11 +160,6 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 //all views in bindingBottomSheet
                 Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
                 it.infoUser.text = data.user.name
-                it.infoLocation.text = "${data.location.city}/${data.location.country}"
-                if (data.location.city != null) {
-                    it.infoLocation.text = "${data.location.city}/${data.location.country}"
-                    it.infoLocation.visibility = View.VISIBLE
-                } //Works fine, don't touch it!!!
                 it.resolutionInfo.text = "${data.width}x${data.height}"
                 it.createdAtInfo.text = data.createdAt
                 it.colorInfo.text = data.color

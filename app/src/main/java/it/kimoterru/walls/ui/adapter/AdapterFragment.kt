@@ -97,10 +97,10 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
             SearchAdapter(response, this, R.layout.card_image_display)
     } // A request for color is immediately made
 
-    override fun onWallpaperClick(id: String, urlImageUser: String) {
+    override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             AdapterFragmentDirections.actionFragmentAdapterToFragmentSelectedImage(
-                id, urlImageUser
+                id, urlImageUser, 1, idFavoritePhoto
             )
         )
     }

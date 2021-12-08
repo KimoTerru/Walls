@@ -139,10 +139,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         }
     }
 
-    override fun onWallpaperClick(id: String, urlImageUser: String) {
+    override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
-                id, urlImageUser
+                id, urlImageUser, 1, idFavoritePhoto
             )
         )
     }
