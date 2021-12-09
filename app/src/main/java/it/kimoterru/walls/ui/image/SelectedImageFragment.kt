@@ -91,7 +91,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     }
 
     private fun setImage(data: PhotoItem) {
-        Glide.with(binding.selectedImage).load(data.urls.full)
+        Glide.with(binding.selectedImage).load(data.urls.regular)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
@@ -187,7 +187,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     it.modelCam.text = data.exif.model
                     it.exposureTimeCam.text = data.exif.exposure_time + "s"
                     it.apertureCam.text = "f/" + data.exif.aperture
-                    it.focalLengthCam.text = data.exif.focal_length + ".mm"
+                    it.focalLengthCam.text = data.exif.focal_length + "mm"
                     it.isoCam.text = data.exif.iso.toString()
 
                     it.cameraInfo.visibility = View.VISIBLE
