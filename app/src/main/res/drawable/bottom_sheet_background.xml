@@ -10,5 +10,5 @@
         android:left="0dip"
         android:right="0dip"
         android:top="0dip" />
-    <solid android:color="#ffffff" />
+    <solid android:color="@color/my_background_bottom_sheet" />
 </shape>

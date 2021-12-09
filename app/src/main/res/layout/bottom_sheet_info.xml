@@ -40,7 +40,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Joe Example"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="27sp"
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/info"
-        android:textColor="@color/black"
+        android:textColor="@color/my_text_color"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/back_info_user"
@@ -82,35 +82,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Image ID"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Resolution"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Created"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Likes"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Color"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Downloads"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -147,6 +154,13 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/likes_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="105"
+            android:textSize="16sp" />
+
+        <TextView
             android:id="@+id/color_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -167,7 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Camera"
-        android:textColor="@color/black"
+        android:textColor="@color/my_text_color"
         android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="gone"
@@ -188,42 +202,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Make"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Model"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exposure time"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aperture"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Focal length"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ISO"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
     </LinearLayout>

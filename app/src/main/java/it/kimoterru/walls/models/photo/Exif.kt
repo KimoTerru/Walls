@@ -26,7 +26,7 @@ data class Exif(
 
     @ColumnInfo(name = "focal_length_cam_exif")
     @SerializedName("focal_length")
-    val focal_length: Int? = null,
+    val focal_length: String? = null,
 
     @ColumnInfo(name = "iso_cam_exif")
     @SerializedName("iso")

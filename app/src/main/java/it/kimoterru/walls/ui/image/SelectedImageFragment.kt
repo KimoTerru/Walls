@@ -29,6 +29,8 @@ import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
 import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.util.Status.ERROR
+import it.kimoterru.walls.util.Status.SUCCESS
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -77,29 +79,39 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     private fun initObservers() {
         viewModel.photoLiveData.observe(viewLifecycleOwner, {
             binding.progressBar.showProgressBar()
-            Glide.with(binding.selectedImage).load(it.urls.regular)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?, model: Any?, target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Toast.makeText(context, "Load failed", Toast.LENGTH_SHORT).show()
-                        binding.progressBar.showProgressBar()
-                        hideFragmentComponent()
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?, model: Any?, target: Target<Drawable>?,
-                        dataSource: DataSource?, isFirstResource: Boolean
-                    ): Boolean {
-                        binding.progressBar.hideProgressBar()
-                        showFragmentComponent()
-                        return false
-                    }
-                }).into(binding.selectedImage)
-            onClick(it)
+            when (it.status) {
+                SUCCESS -> {
+                    setImage(it.data!!)
+                    onClick(it.data)
+                }
+                ERROR -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                else -> {}
+            }
         })
+    }
+
+    private fun setImage(data: PhotoItem) {
+        Glide.with(binding.selectedImage).load(data.urls.full)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?, model: Any?, target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+                    binding.progressBar.showProgressBar()
+                    hideFragmentComponent()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                    dataSource: DataSource?, isFirstResource: Boolean
+                ): Boolean {
+                    binding.progressBar.hideProgressBar()
+                    showFragmentComponent()
+                    return false
+                }
+            }).into(binding.selectedImage)
     }
 
     @SuppressLint("SetTextI18n", "NewApi")
@@ -164,17 +176,18 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     it.infoLocation.text = "${data.location.city} - ${data.location.country}"
                     it.infoLocation.visibility = View.VISIBLE
                 } //Works fine, don't touch it!!!
-                it.resolutionInfo.text = "${data.width}x${data.height}"
+                it.resolutionInfo.text = "${data.width} x ${data.height}"
                 it.createdAtInfo.text = data.createdAt
                 it.colorInfo.text = data.color
                 it.downInfo.text = data.downloads.toString()
+                it.likesInfo.text = data.likes.toString()
 
                 if (data.exif?.make != null) {
                     it.makeCam.text = data.exif.make
                     it.modelCam.text = data.exif.model
-                    it.exposureTimeCam.text = data.exif.exposure_time
-                    it.apertureCam.text = data.exif.aperture
-                    it.focalLengthCam.text = data.exif.focal_length.toString()
+                    it.exposureTimeCam.text = data.exif.exposure_time + "s"
+                    it.apertureCam.text = "f/" + data.exif.aperture
+                    it.focalLengthCam.text = data.exif.focal_length + ".mm"
                     it.isoCam.text = data.exif.iso.toString()
 
                     it.cameraInfo.visibility = View.VISIBLE

@@ -53,7 +53,7 @@ data class PhotoItem(
 
     @ColumnInfo(name = "likes")
     @SerializedName("likes")
-    val likes: Int,
+    val likes: Int? = null,
 
     @Embedded
     @SerializedName("links")

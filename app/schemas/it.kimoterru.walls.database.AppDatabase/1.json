@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0da2a14bd52434e2f0869ecd0b2cdbb7",
+    "identityHash": "5dfbade28b1d97350d8726b382d7c24a",
     "entities": [
       {
         "tableName": "photoItem",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_photo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `blur_hash` TEXT NOT NULL, `color` TEXT NOT NULL, `created_at` TEXT NOT NULL, `downloads` INTEGER NOT NULL, `description` TEXT, `height` INTEGER NOT NULL, `id` TEXT NOT NULL, `liked_by_user` INTEGER NOT NULL, `likes` INTEGER NOT NULL, `updated_at` TEXT NOT NULL, `width` INTEGER NOT NULL, `make_cam_exif` TEXT, `model_cam_exif` TEXT, `exposure_time_cam_exif` TEXT, `aperture_cam_exif` TEXT, `focal_length_cam_exif` INTEGER, `iso_cam_exif` INTEGER, `download_photo_links` TEXT NOT NULL, `download_location_photo_links` TEXT NOT NULL, `html_photo_links` TEXT NOT NULL, `self_photo_links` TEXT NOT NULL, `city_location` TEXT, `country_location` TEXT, `full_photo_urls` TEXT NOT NULL, `raw_photo_urls` TEXT NOT NULL, `regular_photo_urls` TEXT NOT NULL, `small_photo_urls` TEXT NOT NULL, `thumb_photo_urls` TEXT NOT NULL, `bio_user` TEXT, `id_user` TEXT NOT NULL, `instagram_username_user` TEXT, `location_user` TEXT, `name_user` TEXT NOT NULL, `portfolio_url_user` TEXT, `total_collections_user` INTEGER NOT NULL, `total_likes_user` INTEGER NOT NULL, `total_photos_user` INTEGER NOT NULL, `twitter_username_user` TEXT, `username_user` TEXT NOT NULL, `html_user_links` TEXT NOT NULL, `likes_user_links` TEXT NOT NULL, `photos_user_links` TEXT NOT NULL, `portfolio_user_links` TEXT NOT NULL, `self_user_links` TEXT NOT NULL, `large_photoImage` TEXT NOT NULL, `medium_photoImage` TEXT NOT NULL, `small_photoImage` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_photo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `blur_hash` TEXT NOT NULL, `color` TEXT NOT NULL, `created_at` TEXT NOT NULL, `downloads` INTEGER NOT NULL, `description` TEXT, `height` INTEGER NOT NULL, `id` TEXT NOT NULL, `liked_by_user` INTEGER NOT NULL, `likes` INTEGER, `updated_at` TEXT NOT NULL, `width` INTEGER NOT NULL, `make_cam_exif` TEXT, `model_cam_exif` TEXT, `exposure_time_cam_exif` TEXT, `aperture_cam_exif` TEXT, `focal_length_cam_exif` TEXT, `iso_cam_exif` INTEGER, `download_photo_links` TEXT NOT NULL, `download_location_photo_links` TEXT NOT NULL, `html_photo_links` TEXT NOT NULL, `self_photo_links` TEXT NOT NULL, `city_location` TEXT, `country_location` TEXT, `full_photo_urls` TEXT NOT NULL, `raw_photo_urls` TEXT NOT NULL, `regular_photo_urls` TEXT NOT NULL, `small_photo_urls` TEXT NOT NULL, `thumb_photo_urls` TEXT NOT NULL, `bio_user` TEXT, `id_user` TEXT NOT NULL, `instagram_username_user` TEXT, `location_user` TEXT, `name_user` TEXT NOT NULL, `portfolio_url_user` TEXT, `total_collections_user` INTEGER NOT NULL, `total_likes_user` INTEGER NOT NULL, `total_photos_user` INTEGER NOT NULL, `twitter_username_user` TEXT, `username_user` TEXT NOT NULL, `html_user_links` TEXT NOT NULL, `likes_user_links` TEXT NOT NULL, `photos_user_links` TEXT NOT NULL, `portfolio_user_links` TEXT NOT NULL, `self_user_links` TEXT NOT NULL, `large_photoImage` TEXT NOT NULL, `medium_photoImage` TEXT NOT NULL, `small_photoImage` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id_photo",
@@ -66,7 +66,7 @@
             "fieldPath": "likes",
             "columnName": "likes",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "updatedAt",
@@ -107,7 +107,7 @@
           {
             "fieldPath": "exif.focal_length",
             "columnName": "focal_length_cam_exif",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -310,7 +310,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0da2a14bd52434e2f0869ecd0b2cdbb7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5dfbade28b1d97350d8726b382d7c24a')"
     ]
   }
 }
