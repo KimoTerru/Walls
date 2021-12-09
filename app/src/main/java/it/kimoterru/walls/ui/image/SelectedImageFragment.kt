@@ -160,10 +160,27 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 //all views in bindingBottomSheet
                 Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
                 it.infoUser.text = data.user.name
+                if (data.location?.city != null) {
+                    it.infoLocation.text = "${data.location.city} - ${data.location.country}"
+                    it.infoLocation.visibility = View.VISIBLE
+                } //Works fine, don't touch it!!!
                 it.resolutionInfo.text = "${data.width}x${data.height}"
                 it.createdAtInfo.text = data.createdAt
                 it.colorInfo.text = data.color
                 it.downInfo.text = data.downloads.toString()
+
+                if (data.exif?.make != null) {
+                    it.makeCam.text = data.exif.make
+                    it.modelCam.text = data.exif.model
+                    it.exposureTimeCam.text = data.exif.exposure_time
+                    it.apertureCam.text = data.exif.aperture
+                    it.focalLengthCam.text = data.exif.focal_length.toString()
+                    it.isoCam.text = data.exif.iso.toString()
+
+                    it.cameraInfo.visibility = View.VISIBLE
+                    it.linearInfoCam.visibility = View.VISIBLE
+                    it.linearDataCam.visibility = View.VISIBLE
+                }
             }
             dialog.show()
         }

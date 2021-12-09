@@ -31,9 +31,13 @@ data class PhotoItem(
      @SerializedName("current_user_collections")
      val currentUserCollections: List<UserCollection>,*/
 
-    /*@ColumnInfo(name = "description")
+    @ColumnInfo(name = "description")
     @SerializedName("description")
-    val description: String,*/
+    val description: String? = null,
+
+    @Embedded
+    @SerializedName("exif")
+    val exif: Exif? = null,
 
     @ColumnInfo(name = "height")
     @SerializedName("height")
@@ -55,9 +59,9 @@ data class PhotoItem(
     @SerializedName("links")
     val links: PhotoLinks,
 
-    /*@Embedded
+    @Embedded
     @SerializedName("location")
-    val location: Location,*/
+    val location: Location? = null,
 
     @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")

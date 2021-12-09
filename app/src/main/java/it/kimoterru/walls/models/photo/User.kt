@@ -5,33 +5,33 @@ import androidx.room.Embedded
 import com.google.gson.annotations.SerializedName
 
 data class User(
-    /*@ColumnInfo(name = "bio_user")
+    @ColumnInfo(name = "bio_user")
     @SerializedName("bio")
-    val bio: String,*/
+    val bio: String? = null,
 
     @ColumnInfo(name = "id_user")
     @SerializedName("id")
     val id: String,
 
-    /*@ColumnInfo(name = "instagram_username_user")
+    @ColumnInfo(name = "instagram_username_user")
     @SerializedName("instagram_username")
-    val instagramUsername: String,*/
+    val instagramUsername: String? = null,
 
     @Embedded
     @SerializedName("links")
     val links: UserLinks,
 
-    /*@ColumnInfo(name = "location_user")
+    @ColumnInfo(name = "location_user")
     @SerializedName("location")
-    val location: String? = "",*/
+    val location: String? = null,
 
     @ColumnInfo(name = "name_user")
     @SerializedName("name")
     val name: String,
 
-    /*@ColumnInfo(name = "portfolio_url_user")
+    @ColumnInfo(name = "portfolio_url_user")
     @SerializedName("portfolio_url")
-    val portfolioUrl: String,*/
+    val portfolioUrl: String? = null,
 
     @Embedded
     @SerializedName("profile_image")
@@ -49,9 +49,9 @@ data class User(
     @SerializedName("total_photos")
     val totalPhotos: Int,
 
-    /*@ColumnInfo(name = "twitter_username_user")
+    @ColumnInfo(name = "twitter_username_user")
     @SerializedName("twitter_username")
-    val twitterUsername: String,*/
+    val twitterUsername: String? = null,
 
     @ColumnInfo(name = "username_user")
     @SerializedName("username")

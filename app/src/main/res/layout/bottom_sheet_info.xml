@@ -162,4 +162,125 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/camera_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/linear_info"
+        app:layout_constraintTop_toBottomOf="@+id/linear_info" />
+
+    <LinearLayout
+        android:id="@+id/linear_info_cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/camera_info"
+        app:layout_constraintRight_toLeftOf="@id/linear_data_cam"
+        app:layout_constraintTop_toBottomOf="@+id/camera_info">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exposure time"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aperture"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Focal length"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ISO"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_data_cam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@id/linear_info_cam"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_info">
+
+        <TextView
+            android:id="@+id/make_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Canon"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/model_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Canon EOS 40D"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/exposure_time_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.011111111111111112"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/aperture_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.970854"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/focal_length_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="37"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/iso_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
