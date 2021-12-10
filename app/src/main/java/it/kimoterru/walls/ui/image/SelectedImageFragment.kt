@@ -97,7 +97,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, e?.message, Toast.LENGTH_SHORT).show()
                     binding.progressBar.showProgressBar()
                     hideFragmentComponent()
                     return false
@@ -118,12 +118,15 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     private fun onClick(data: PhotoItem) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
-            // TODO: 30.11.2021  Добавить возможность установки
+            // TODO: 30.12.2021  Добавить возможность установки
             val intent = Intent(Intent.ACTION_SET_WALLPAPER)
             startActivity(Intent.createChooser(intent, "Select Wallpaper")) //Временно
-            /*val intent = Intent(Intent.ACTION_ATTACH_DATA)
+
+            /*val file = File(Environment.DIRECTORY_PICTURES + "Walls" + fileName)
+            val path = Environment.getExternalStorageState(file)
+            val intent = Intent(Intent.ACTION_ATTACH_DATA)
             intent.addCategory(Intent.CATEGORY_DEFAULT)
-            intent.setDataAndType(uri, "image/jpeg")
+            intent.setDataAndType(Uri.parse(path), "image/jpeg")
             intent.putExtra("mimeType", "image/jpeg")
             this.startActivity(Intent.createChooser(intent, "Set as:"))*/
         }
@@ -182,7 +185,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 it.downInfo.text = data.downloads.toString()
                 it.likesInfo.text = data.likes.toString()
 
-                if (data.exif?.make != null) {
+                if (data.exif?.iso != null) {
                     it.makeCam.text = data.exif.make
                     it.modelCam.text = data.exif.model
                     it.exposureTimeCam.text = data.exif.exposure_time + "s"
