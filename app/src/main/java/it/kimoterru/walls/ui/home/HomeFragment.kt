@@ -22,6 +22,8 @@ import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.util.gone
+import it.kimoterru.walls.util.showToast
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick,
@@ -72,9 +74,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                     hideShimmerEffectCategories()
                     displayColors()
                 }
-                ERROR -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                }
+                ERROR -> showToast(it.message)
                 else -> {
                 }
             }
@@ -83,15 +83,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     private fun hideShimmerEffectLatestWallpapers() {
         binding.shimmerLayout.stopShimmer()
-        binding.shimmerLayout.visibility = View.GONE
+        binding.shimmerLayout.gone()
     }
 
     private fun hideShimmerEffectCategories() {
         binding.shimmerLayoutCategories.stopShimmer()
-        binding.shimmerLayoutCategories.visibility = View.GONE
+        binding.shimmerLayoutCategories.gone()
 
         binding.shimmerLayoutColor.stopShimmer()
-        binding.shimmerLayoutColor.visibility = View.GONE
+        binding.shimmerLayoutColor.gone()
     }
 
     private fun noNetworkConnect() {

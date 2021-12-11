@@ -15,6 +15,9 @@ import it.kimoterru.walls.databinding.FragmentSavedBinding
 import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
+import it.kimoterru.walls.util.gone
+import it.kimoterru.walls.util.showToast
+import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
 class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.WallpaperClick {
@@ -48,24 +51,27 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
                     displayImage(it.data)
                     showPhotoInFavorite()
                 }
-                ERROR -> emptyPhotoInFavorite()
+                ERROR -> {
+                    emptyPhotoInFavorite()
+                    showToast(it.message)
+                }
                 else -> emptyPhotoInFavorite()
             }
         })
     }
 
     private fun emptyPhotoInFavorite() {
-        binding.emptyBox.visibility = View.VISIBLE
-        binding.emptyBoxText.visibility = View.VISIBLE
-        binding.saved.visibility = View.GONE
-        binding.recyclerSavedWallpaper.visibility = View.GONE
+        binding.emptyBox.visible()
+        binding.emptyBoxText.visible()
+        binding.saved.gone()
+        binding.recyclerSavedWallpaper.gone()
     }
 
     private fun showPhotoInFavorite() {
-        binding.emptyBox.visibility = View.GONE
-        binding.emptyBoxText.visibility = View.GONE
-        binding.saved.visibility = View.VISIBLE
-        binding.recyclerSavedWallpaper.visibility = View.VISIBLE
+        binding.emptyBox.gone()
+        binding.emptyBoxText.gone()
+        binding.saved.visible()
+        binding.recyclerSavedWallpaper.visible()
     }
 
     private fun displayImage(response: List<PhotoItem>?) {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -21,6 +20,8 @@ import it.kimoterru.walls.models.search.SearchItem
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.util.showToast
+import it.kimoterru.walls.util.visible
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
@@ -60,8 +61,8 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         binding.nameSearch.text = args.tittle
         if (args.totalPhotos != 0) {
             binding.sizeSaveWallpaper.text = args.totalPhotos.toString()
-            binding.sizeSaveWallpaper.visibility = View.VISIBLE
-            binding.wAvailable.visibility = View.VISIBLE
+            binding.sizeSaveWallpaper.visible()
+            binding.wAvailable.visible()
         }
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
@@ -72,7 +73,7 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         viewModel.imageTopicsLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 SUCCESS -> displayTopicImage(it.data)
-                ERROR -> Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                ERROR -> showToast(it.message)
                 else -> {
                 }
             }
@@ -80,7 +81,7 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         viewModel.imageLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
                 SUCCESS -> displaySearchImage(it.data!!)
-                ERROR -> Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                ERROR -> showToast(it.message)
                 else -> {
                 }
             }

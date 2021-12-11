@@ -11,7 +11,6 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +30,9 @@ import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
 import it.kimoterru.walls.models.photo.PhotoItem
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
+import it.kimoterru.walls.util.gone
+import it.kimoterru.walls.util.showToast
+import it.kimoterru.walls.util.visible
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -65,15 +67,15 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     }
 
     private fun hideFragmentComponent() {
-        binding.cardBrush.visibility = View.GONE
-        binding.cardDown.visibility = View.GONE
-        binding.cardInfo.visibility = View.GONE
+        binding.cardBrush.gone()
+        binding.cardDown.gone()
+        binding.cardInfo.gone()
     }
 
     private fun showFragmentComponent() {
-        binding.cardBrush.visibility = View.VISIBLE
-        binding.cardDown.visibility = View.VISIBLE
-        binding.cardInfo.visibility = View.VISIBLE
+        binding.cardBrush.visible()
+        binding.cardDown.visible()
+        binding.cardInfo.visible()
     }
 
     private fun initObservers() {
@@ -84,7 +86,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     setImage(it.data!!)
                     onClick(it.data)
                 }
-                ERROR -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                ERROR -> showToast(it.message)
                 else -> {}
             }
         })
@@ -97,7 +99,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Toast.makeText(context, e?.message, Toast.LENGTH_SHORT).show()
+                    showToast(e?.message)
                     binding.progressBar.showProgressBar()
                     hideFragmentComponent()
                     return false
@@ -155,8 +157,8 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     }
                 }
                 if (args.favoritePhoto == 2) {
-                    it.saveToFavorite.visibility = View.GONE
-                    it.deleteToFavorites.visibility = View.VISIBLE
+                    it.saveToFavorite.gone()
+                    it.deleteToFavorites.visible()
                     it.deleteToFavorites.setOnClickListener {
                         lifecycleScope.launch {
                             photoDataBase.deletePhoto(data)
@@ -193,9 +195,9 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     it.focalLengthCam.text = data.exif.focal_length + "mm"
                     it.isoCam.text = data.exif.iso.toString()
 
-                    it.cameraInfo.visibility = View.VISIBLE
-                    it.linearInfoCam.visibility = View.VISIBLE
-                    it.linearDataCam.visibility = View.VISIBLE
+                    it.cameraInfo.visible()
+                    it.linearInfoCam.visible()
+                    it.linearDataCam.visible()
                 }
             }
             dialog.show()
