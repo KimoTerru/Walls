@@ -86,17 +86,17 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
-    // Custom View
-    implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar
-    implementation 'com.facebook.shimmer:shimmer:0.5.0' //Shimmer effect
-    implementation "com.github.MikeOrtiz:TouchImageView:3.1.1" //TouchImageView
-
     //Room database
     def roomVersion = "2.3.0"
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$roomVersion"
+
+    // Custom View
+    implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar
+    implementation 'com.facebook.shimmer:shimmer:0.5.0' //Shimmer effect
+    implementation "com.github.MikeOrtiz:TouchImageView:3.1.1" //TouchImageView
 }
 kapt {
     correctErrorTypes true
