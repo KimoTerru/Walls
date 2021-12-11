@@ -1,13 +1,14 @@
 package it.kimoterru.walls.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.ActivityMainBinding
+import it.kimoterru.walls.util.gone
+import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,16 +35,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_selected_image -> hideBottomNav()
                 R.id.fragment_no_internet -> showBottomNav()
                 R.id.fragment_empty_user_profile -> showBottomNav()
+                R.id.fragment_settings -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
     }
 
     private fun showBottomNav() {
-        binding.mainBottomNav.visibility = View.VISIBLE
+        binding.mainBottomNav.visible()
     }
 
     private fun hideBottomNav() {
-        binding.mainBottomNav.visibility = View.GONE
+        binding.mainBottomNav.gone()
     }
 }

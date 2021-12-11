@@ -11,7 +11,7 @@
     <color name="selago">#757783</color>
     <color name="alice_blue">#f0f1f3</color>
     <color name="blue">#5061D0</color>
-    <color name="shadow_line">#19000000</color>
+    <color name="shadow_line">#19FFFFFF</color>
 
     <!--View night color -->
     <color name="my_text_color">#FFFFFFFF</color>
