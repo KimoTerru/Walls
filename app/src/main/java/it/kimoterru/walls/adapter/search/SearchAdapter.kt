@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.models.search.SearchItem
+import it.kimoterru.walls.data.models.search.SearchItem
 import it.kimoterru.walls.util.PlaceHolderDrawableHelper
 
 class SearchAdapter(

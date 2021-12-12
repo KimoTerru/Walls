@@ -15,8 +15,8 @@ import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.adapter.search.SearchAdapter
 import it.kimoterru.walls.adapter.topic.TopicAdapter
 import it.kimoterru.walls.databinding.FragmentAdapterBinding
-import it.kimoterru.walls.models.photo.PhotoItem
-import it.kimoterru.walls.models.search.SearchItem
+import it.kimoterru.walls.data.models.photo.PhotoItem
+import it.kimoterru.walls.data.models.search.SearchItem
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder

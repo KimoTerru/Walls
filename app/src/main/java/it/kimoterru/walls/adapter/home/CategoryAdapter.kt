@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.models.categories.TopicItem
+import it.kimoterru.walls.data.models.categories.TopicItem
 
 class CategoryAdapter(
     private val categories: List<TopicItem>,

@@ -1,4 +1,4 @@
-package it.kimoterru.walls.models.photo
+package it.kimoterru.walls.data.models.photo
 
 import com.google.gson.annotations.SerializedName
 

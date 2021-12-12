@@ -1,7 +1,7 @@
-package it.kimoterru.walls.database
+package it.kimoterru.walls.data.database
 
 import androidx.room.*
-import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.data.models.photo.PhotoItem
 
 @Dao
 interface PhotoDao {

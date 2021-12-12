@@ -1,10 +1,10 @@
-package it.kimoterru.walls.di
+package it.kimoterru.walls.di.modules
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import it.kimoterru.walls.network.ApiService
+import it.kimoterru.walls.data.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton

@@ -1,10 +1,10 @@
-package it.kimoterru.walls.repo
+package it.kimoterru.walls.data.repository
 
-import it.kimoterru.walls.database.PhotoDao
-import it.kimoterru.walls.models.categories.TopicItem
-import it.kimoterru.walls.models.photo.PhotoItem
-import it.kimoterru.walls.models.search.SearchItem
-import it.kimoterru.walls.network.ApiService
+import it.kimoterru.walls.data.database.PhotoDao
+import it.kimoterru.walls.data.models.categories.TopicItem
+import it.kimoterru.walls.data.models.photo.PhotoItem
+import it.kimoterru.walls.data.models.search.SearchItem
+import it.kimoterru.walls.data.ApiService
 import javax.inject.Inject
 
 class WallpaperRepository @Inject constructor(

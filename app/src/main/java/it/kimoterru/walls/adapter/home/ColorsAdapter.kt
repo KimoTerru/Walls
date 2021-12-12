@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.models.color.Colors
+import it.kimoterru.walls.data.models.color.Colors
 
 class ColorAdapter(
     private val listener: WallpaperClickListener.HomeFragment,

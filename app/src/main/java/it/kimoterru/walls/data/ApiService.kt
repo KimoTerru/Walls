@@ -1,8 +1,8 @@
-package it.kimoterru.walls.network
+package it.kimoterru.walls.data
 
-import it.kimoterru.walls.models.categories.TopicItem
-import it.kimoterru.walls.models.photo.PhotoItem
-import it.kimoterru.walls.models.search.SearchItem
+import it.kimoterru.walls.data.models.categories.TopicItem
+import it.kimoterru.walls.data.models.photo.PhotoItem
+import it.kimoterru.walls.data.models.search.SearchItem
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

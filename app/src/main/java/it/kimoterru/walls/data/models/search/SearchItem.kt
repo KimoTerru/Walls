@@ -1,7 +1,7 @@
-package it.kimoterru.walls.models.search
+package it.kimoterru.walls.data.models.search
 
 import com.google.gson.annotations.SerializedName
-import it.kimoterru.walls.models.photo.PhotoItem
+import it.kimoterru.walls.data.models.photo.PhotoItem
 
 data class SearchItem(
     @SerializedName("total")

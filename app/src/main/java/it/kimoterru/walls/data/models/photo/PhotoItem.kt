@@ -1,4 +1,4 @@
-package it.kimoterru.walls.models.photo
+package it.kimoterru.walls.data.models.photo
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

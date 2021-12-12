@@ -1,4 +1,4 @@
-package it.kimoterru.walls.models.color
+package it.kimoterru.walls.data.models.color
 
 data class Colors(
     val name: String,
