@@ -22,7 +22,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_adapter"
-            app:destination="@id/fragment_adapter"
+            app:destination="@id/fragment_search"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
@@ -82,9 +82,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_adapter"
-        android:name="it.kimoterru.walls.ui.adapter.AdapterFragment"
-        tools:layout="@layout/fragment_adapter">
+        android:id="@+id/fragment_search"
+        android:name="it.kimoterru.walls.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search">
         <argument
             android:name="query"
             app:argType="string" />

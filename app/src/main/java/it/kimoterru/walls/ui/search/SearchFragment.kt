@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.adapter
+package it.kimoterru.walls.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.adapter.search.SearchAdapter
-import it.kimoterru.walls.adapter.topic.TopicAdapter
-import it.kimoterru.walls.databinding.FragmentAdapterBinding
-import it.kimoterru.walls.data.models.photo.PhotoItem
-import it.kimoterru.walls.data.models.search.SearchItem
+import it.kimoterru.walls.databinding.FragmentSearchBinding
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
@@ -25,18 +22,22 @@ import it.kimoterru.walls.util.visible
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
-class AdapterFragment : Fragment(R.layout.fragment_adapter),
+class SearchFragment : Fragment(R.layout.fragment_search),
     WallpaperClickListener.WallpaperClick {
-    private var _binding: FragmentAdapterBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val args: AdapterFragmentArgs by navArgs()
-    private val viewModel: AdapterViewModel by viewModels()
+    private val args: SearchFragmentArgs by navArgs()
+    private val viewModel: SearchViewModel by viewModels()
+
+    private val searchAdapter by lazy {
+        SearchAdapter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentAdapterBinding.inflate(inflater)
+        _binding = FragmentSearchBinding.inflate(inflater)
         return binding.root
     }
 
@@ -44,7 +45,7 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         super.onViewCreated(view, savedInstanceState)
 
         initObservers()
-        setFragmentComponent()
+        fragmentComponent()
     }
 
     override fun onResume() {
@@ -57,7 +58,7 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         }
     }
 
-    private fun setFragmentComponent() {
+    private fun fragmentComponent() {
         binding.nameSearch.text = args.tittle
         if (args.totalPhotos != 0) {
             binding.sizeSaveWallpaper.text = args.totalPhotos.toString()
@@ -67,12 +68,13 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         binding.recyclerImageSearch.layoutManager = sGrid
+        binding.recyclerImageSearch.adapter = searchAdapter
     } //For any garbage associated with onViewCreated
 
     private fun initObservers() {
         viewModel.imageTopicsLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                SUCCESS -> displayTopicImage(it.data)
+                SUCCESS -> it.data?.let { list -> searchAdapter.updateItems(list) }
                 ERROR -> showToast(it.message)
                 else -> {
                 }
@@ -80,7 +82,7 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         })
         viewModel.imageLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                SUCCESS -> displaySearchImage(it.data!!)
+                SUCCESS -> it.data?.let { list -> searchAdapter.updateItems(list.results) }
                 ERROR -> showToast(it.message)
                 else -> {
                 }
@@ -88,19 +90,9 @@ class AdapterFragment : Fragment(R.layout.fragment_adapter),
         }) // A request for color is immediately made
     }
 
-    private fun displayTopicImage(response: List<PhotoItem>?) {
-        binding.recyclerImageSearch.adapter =
-            TopicAdapter(response ?: listOf(), this, R.layout.card_image_display)
-    }
-
-    private fun displaySearchImage(response: SearchItem) {
-        binding.recyclerImageSearch.adapter =
-            SearchAdapter(response, this, R.layout.card_image_display)
-    } // A request for color is immediately made
-
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
-            AdapterFragmentDirections.actionFragmentAdapterToFragmentSelectedImage(
+            SearchFragmentDirections.actionFragmentAdapterToFragmentSelectedImage(
                 id, urlImageUser, 1, idFavoritePhoto
             )
         )

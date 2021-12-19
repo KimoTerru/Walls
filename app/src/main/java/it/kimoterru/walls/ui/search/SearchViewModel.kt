@@ -1,4 +1,4 @@
-package it.kimoterru.walls.ui.adapter
+package it.kimoterru.walls.ui.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AdapterViewModel @Inject constructor(private val repository: WallpaperRepository) :
+class SearchViewModel @Inject constructor(private val repository: WallpaperRepository) :
     ViewModel() {
     val imageTopicsLiveData = MutableLiveData<Resource<List<PhotoItem>>>()
     val imageLiveData = MutableLiveData<Resource<SearchItem>>()
@@ -25,7 +25,7 @@ class AdapterViewModel @Inject constructor(private val repository: WallpaperRepo
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageTopics(
-                    id_or_slug, Constants.CLIENT_ID, 30, order.query
+                    id_or_slug, Constants.CLIENT_ID, Constants.PER_PAGE, order.query
                 )
                 imageTopicsLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
@@ -40,7 +40,7 @@ class AdapterViewModel @Inject constructor(private val repository: WallpaperRepo
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageColors(
-                    query, color, Constants.CLIENT_ID, 30, order.query
+                    query, color, Constants.CLIENT_ID, Constants.PER_PAGE, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
@@ -55,7 +55,7 @@ class AdapterViewModel @Inject constructor(private val repository: WallpaperRepo
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageSearch(
-                    query, Constants.CLIENT_ID, 30, order.query
+                    query, Constants.CLIENT_ID, Constants.PER_PAGE, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {

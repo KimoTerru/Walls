@@ -36,10 +36,7 @@ class HomeViewModel @Inject constructor(private val repository: WallpaperReposit
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val topicsData = repository.getTopics(
-                    Constants.CLIENT_ID,
-                    1,
-                    50,
-                    order.query
+                    Constants.CLIENT_ID, 1, 50, order.query
                 )
                 topicsLiveData.postValue(Resource.success(topicsData))
             } catch (e: Exception) {
