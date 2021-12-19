@@ -1,15 +1,14 @@
 package it.kimoterru.walls.data.repository
 
+import it.kimoterru.walls.data.ApiService
 import it.kimoterru.walls.data.database.PhotoDao
 import it.kimoterru.walls.data.models.categories.TopicItem
 import it.kimoterru.walls.data.models.photo.PhotoItem
 import it.kimoterru.walls.data.models.search.SearchItem
-import it.kimoterru.walls.data.ApiService
 import javax.inject.Inject
 
 class WallpaperRepository @Inject constructor(
-    private var service: ApiService,
-    private val photoDao: PhotoDao
+    private var service: ApiService, private val photoDao: PhotoDao
 ) {
 
     suspend fun getLatestPhotos(
@@ -52,5 +51,13 @@ class WallpaperRepository @Inject constructor(
 
     suspend fun getPhotoFromFavoriteByID(id: Int): PhotoItem? {
         return photoDao.getById(id)
+    }
+
+    suspend fun insertPhoto(data: PhotoItem) {
+        return photoDao.insertPhoto(data)
+    }
+
+    suspend fun deletePhoto(data: PhotoItem) {
+        return photoDao.deletePhoto(data)
     }
 }

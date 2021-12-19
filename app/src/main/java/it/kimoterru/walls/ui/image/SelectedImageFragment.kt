@@ -1,19 +1,14 @@
 package it.kimoterru.walls.ui.image
 
 import android.annotation.SuppressLint
-import android.app.DownloadManager
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -23,18 +18,15 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.database.PhotoDao
+import it.kimoterru.walls.data.models.photo.PhotoItem
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
-import it.kimoterru.walls.data.models.photo.PhotoItem
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.gone
 import it.kimoterru.walls.util.showToast
 import it.kimoterru.walls.util.visible
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
@@ -43,9 +35,6 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
 
     private val args: SelectedImageFragmentArgs by navArgs()
     private val viewModel: SelectedImageViewModel by viewModels()
-
-    @Inject
-    lateinit var photoDataBase: PhotoDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -83,8 +72,8 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
             binding.progressBar.showProgressBar()
             when (it.status) {
                 SUCCESS -> {
-                    setImage(it.data!!)
-                    onClick(it.data)
+                    it.data?.let { it1 -> setImage(it1) }
+                    it.data?.let { it1 -> onClick(it1) }
                 }
                 ERROR -> showToast(it.message)
                 else -> {}
@@ -93,7 +82,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     }
 
     private fun setImage(data: PhotoItem) {
-        Glide.with(binding.selectedImage).load(data.urls.regular)
+        Glide.with(binding.selectedImage).load(data.urls.full)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
@@ -139,30 +128,16 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
 
             bindingBottomSheet.let {
                 it.saveToDownloads.setOnClickListener {
-                    val dm: DownloadManager =
-                        requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                    val request = DownloadManager.Request(Uri.parse(data.links.download))
-                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
-                    request.setTitle(fileName)
-                    request.setDescription("Wait a second...")
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    request.setDestinationInExternalPublicDir(
-                        Environment.DIRECTORY_PICTURES, "/Walls/$fileName"
-                    )
-                    dm.enqueue(request)
+                    viewModel.downloadPhoto(fileName, data.links.download, requireActivity())
                 }
                 it.saveToFavorite.setOnClickListener {
-                    lifecycleScope.launch {
-                        photoDataBase.insertPhoto(data)
-                    }
+                    viewModel.saveToFavorite(data)
                 }
                 if (args.favoritePhoto == 2) {
                     it.saveToFavorite.gone()
                     it.deleteToFavorites.visible()
                     it.deleteToFavorites.setOnClickListener {
-                        lifecycleScope.launch {
-                            photoDataBase.deletePhoto(data)
-                        }
+                        viewModel.deleteToFavorites(data)
                     }
                 }
             }

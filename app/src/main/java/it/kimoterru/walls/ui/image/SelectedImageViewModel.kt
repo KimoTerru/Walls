@@ -1,5 +1,10 @@
 package it.kimoterru.walls.ui.image
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,6 +36,30 @@ class SelectedImageViewModel @Inject constructor(private val repository: Wallpap
                 e.printStackTrace()
                 photoLiveData.postValue(Resource.error(e.message ?: "none"))
             }
+        }
+    }
+
+    fun downloadPhoto(fileName: String, linkDownload: String, requireActivity: FragmentActivity) {
+        val dm: DownloadManager =
+            requireActivity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(Uri.parse(linkDownload))
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+        request.setTitle(fileName)
+        request.setDescription("Wait a second...")
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, "/Walls/$fileName")
+        dm.enqueue(request)
+    }
+
+    fun saveToFavorite(data: PhotoItem) {
+        viewModelScope.launch {
+            repository.insertPhoto(data)
+        }
+    }
+
+    fun deleteToFavorites(data: PhotoItem) {
+        viewModelScope.launch {
+            repository.deletePhoto(data)
         }
     }
 }
