@@ -14,9 +14,9 @@ import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.adapter.search.SearchAdapter
 import it.kimoterru.walls.databinding.FragmentSearchBinding
+import it.kimoterru.walls.util.PaginationScrollListener
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
-import it.kimoterru.walls.util.TopicsOrder
 import it.kimoterru.walls.util.showToast
 import it.kimoterru.walls.util.visible
 
@@ -46,16 +46,31 @@ class SearchFragment : Fragment(R.layout.fragment_search),
 
         initObservers()
         fragmentComponent()
+        initRecycler()
+    }
+
+    private fun initRecycler() {
+        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.recyclerImageSearch.layoutManager = sGrid
+        binding.recyclerImageSearch.adapter = searchAdapter
+        binding.recyclerImageSearch.addOnScrollListener(object : PaginationScrollListener(sGrid) {
+            override fun loadMoreItems() {
+                viewModel.isLoading = true
+                viewModel.pagePhoto++
+                viewModel.whichSnippet(args.whichSnippet, args.query)
+            }
+
+            override val isLastPage: Boolean
+                get() = viewModel.isLastPage
+            override val isLoading: Boolean
+                get() = viewModel.isLoading
+        })
     }
 
     override fun onResume() {
         super.onResume()
-        // Determine which request
-        when (args.whichSnippet) {
-            1 -> viewModel.getImageTopics(args.query, TopicsOrder.LATEST)
-            2 -> viewModel.getImageColors(args.query, args.query, TopicsOrder.LATEST)
-            3 -> viewModel.getImageSearch(args.query, TopicsOrder.LATEST)
-        }
+        viewModel.whichSnippet(args.whichSnippet, args.query)
     }
 
     private fun fragmentComponent() {
@@ -65,16 +80,15 @@ class SearchFragment : Fragment(R.layout.fragment_search),
             binding.sizeSaveWallpaper.visible()
             binding.wAvailable.visible()
         }
-        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        binding.recyclerImageSearch.layoutManager = sGrid
-        binding.recyclerImageSearch.adapter = searchAdapter
     } //For any garbage associated with onViewCreated
 
     private fun initObservers() {
         viewModel.imageTopicsLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                SUCCESS -> it.data?.let { list -> searchAdapter.updateItems(list) }
+                SUCCESS -> {
+                    viewModel.isLoading = false
+                    it.data?.let { list -> searchAdapter.addData(list) }
+                }
                 ERROR -> showToast(it.message)
                 else -> {
                 }
@@ -82,7 +96,10 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         })
         viewModel.imageLiveData.observe(viewLifecycleOwner, {
             when (it.status) {
-                SUCCESS -> it.data?.let { list -> searchAdapter.updateItems(list.results) }
+                SUCCESS -> {
+                    viewModel.isLoading = false
+                    it.data?.let { list -> searchAdapter.addData(list.results) }
+                }
                 ERROR -> showToast(it.message)
                 else -> {
                 }

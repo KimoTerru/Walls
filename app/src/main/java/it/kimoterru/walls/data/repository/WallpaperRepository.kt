@@ -28,21 +28,21 @@ class WallpaperRepository @Inject constructor(
     }
 
     suspend fun getImageTopics(
-        id_or_slug: String, clientId: String, per_page: Int, order_by: String
+        id_or_slug: String, clientId: String, page: Int, per_page: Int, order_by: String
     ): List<PhotoItem> {
-        return service.getTopicImage(id_or_slug, clientId, per_page, order_by)
+        return service.getTopicImage(id_or_slug, clientId, page, per_page, order_by)
     }
 
     suspend fun getImageColors(
-        query: String, color: String, clientId: String, per_page: Int, order_by: String
+        query: String, color: String, clientId: String, page: Int, per_page: Int, order_by: String
     ): SearchItem {
-        return service.getColorImage(query, color, clientId, per_page, order_by)
+        return service.getColorImage(query, color, clientId, page, per_page, order_by)
     }
 
     suspend fun getImageSearch(
-        query: String, clientId: String, per_page: Int, order_by: String,
+        query: String, clientId: String, page: Int, per_page: Int, order_by: String,
     ): SearchItem {
-        return service.getSearchImage(query, clientId, per_page, order_by)
+        return service.getSearchImage(query, clientId, page, per_page, order_by)
     }
 
     suspend fun getAllPhotosFromFavorite(): List<PhotoItem> {

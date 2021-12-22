@@ -44,6 +44,7 @@ interface ApiService {
     suspend fun getTopicImage(
         @Path("id_or_slug") id_or_slug: String,
         @Query("client_id") clientId: String,
+        @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
     ): List<PhotoItem>
@@ -53,6 +54,7 @@ interface ApiService {
         @Query("query") query: String,
         @Query("color") color: String,
         @Query("client_id") clientId: String,
+        @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
     ): SearchItem
@@ -61,6 +63,7 @@ interface ApiService {
     suspend fun getSearchImage(
         @Query("query") query: String,
         @Query("client_id") clientId: String,
+        @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
     ): SearchItem

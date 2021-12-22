@@ -20,12 +20,24 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
     val imageTopicsLiveData = MutableLiveData<Resource<List<PhotoItem>>>()
     val imageLiveData = MutableLiveData<Resource<SearchItem>>()
 
-    fun getImageTopics(id_or_slug: String, order: TopicsOrder) {
+    var isLoading = false
+    var isLastPage = false
+    var pagePhoto = 1
+
+    fun whichSnippet(fragment: Int, query: String) {
+        when (fragment) { // Determine which request
+            1 -> getImageTopics(query, TopicsOrder.LATEST)
+            2 -> getImageColors(query, query, TopicsOrder.LATEST)
+            3 -> getImageSearch(query, TopicsOrder.LATEST)
+        }
+    }
+
+    private fun getImageTopics(id_or_slug: String, order: TopicsOrder) {
         imageTopicsLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageTopics(
-                    id_or_slug, Constants.CLIENT_ID, Constants.PER_PAGE, order.query
+                    id_or_slug, Constants.CLIENT_ID, pagePhoto, Constants.PER_PAGE, order.query
                 )
                 imageTopicsLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
@@ -35,12 +47,12 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
         }
     }
 
-    fun getImageColors(query: String, color: String, order: TopicsOrder) {
+    private fun getImageColors(query: String, color: String, order: TopicsOrder) {
         imageLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageColors(
-                    query, color, Constants.CLIENT_ID, Constants.PER_PAGE, order.query
+                    query, color, Constants.CLIENT_ID, pagePhoto, Constants.PER_PAGE, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
@@ -50,12 +62,12 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
         }
     }
 
-    fun getImageSearch(query: String, order: TopicsOrder) {
+    private fun getImageSearch(query: String, order: TopicsOrder) {
         imageLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageSearch(
-                    query, Constants.CLIENT_ID, Constants.PER_PAGE, order.query
+                    query, Constants.CLIENT_ID, pagePhoto, Constants.PER_PAGE, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
