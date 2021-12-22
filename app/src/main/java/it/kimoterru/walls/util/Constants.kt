@@ -4,9 +4,9 @@ import it.kimoterru.walls.R
 
 class Constants {
     companion object {
-        const val CLIENT_ID = "NPk5uWaTODGbpS35GoQyu7WulRGLX1jsYgn0mkVKhc4"
+        const val CLIENT_ID = "-x8-cfEo3m34xVKTZtPWrIuTN5YIbv6VRp_TcBtXEkA" //Access Key App
         const val DATABASE_NAME = "photo_db.db"
-        const val PER_PAGE = 30
+        const val PER_PAGE = 24 //Only 50 requests per hour
     }
 }
 

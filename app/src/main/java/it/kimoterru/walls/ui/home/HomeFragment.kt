@@ -16,9 +16,9 @@ import it.kimoterru.walls.adapter.WallpaperClickListener
 import it.kimoterru.walls.adapter.home.CategoryAdapter
 import it.kimoterru.walls.adapter.home.ColorAdapter
 import it.kimoterru.walls.adapter.home.LatestAdapter
-import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.data.models.categories.TopicItem
 import it.kimoterru.walls.data.models.photo.PhotoItem
+import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
@@ -61,6 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                     hideShimmerEffectLatestWallpapers()
                 }
                 ERROR -> {
+                    showToast(it.message)
                     noNetworkConnect()
                 }
                 else -> {
