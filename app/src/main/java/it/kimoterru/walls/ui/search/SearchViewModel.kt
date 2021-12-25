@@ -7,7 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import it.kimoterru.walls.data.models.photo.PhotoItem
 import it.kimoterru.walls.data.models.search.SearchItem
 import it.kimoterru.walls.data.repository.WallpaperRepository
-import it.kimoterru.walls.util.Constants
+import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
+import it.kimoterru.walls.util.Constants.Companion.PER_PAGE
 import it.kimoterru.walls.util.Resource
 import it.kimoterru.walls.util.TopicsOrder
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,7 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageTopics(
-                    id_or_slug, Constants.CLIENT_ID, pagePhoto, Constants.PER_PAGE, order.query
+                    id_or_slug, CLIENT_ID, pagePhoto, PER_PAGE, order.query
                 )
                 imageTopicsLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
@@ -52,7 +53,7 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageColors(
-                    query, color, Constants.CLIENT_ID, pagePhoto, Constants.PER_PAGE, order.query
+                    query, color, CLIENT_ID, pagePhoto, PER_PAGE, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
@@ -67,7 +68,7 @@ class SearchViewModel @Inject constructor(private val repository: WallpaperRepos
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.getImageSearch(
-                    query, Constants.CLIENT_ID, pagePhoto, Constants.PER_PAGE, order.query
+                    query, CLIENT_ID, pagePhoto, PER_PAGE, order.query
                 )
                 imageLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {

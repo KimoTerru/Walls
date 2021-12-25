@@ -6,7 +6,8 @@ class Constants {
     companion object {
         const val CLIENT_ID = "-x8-cfEo3m34xVKTZtPWrIuTN5YIbv6VRp_TcBtXEkA" //Access Key App
         const val DATABASE_NAME = "photo_db.db"
-        const val PER_PAGE = 24 //Only 50 requests per hour
+        const val PER_PAGE = 30 //Only 50 requests per hour 30 x 50 = 1500
+        const val SHOW_NEXT_PAGE_IMAGE_TIME_DELAY = 250L
     }
 }
 
