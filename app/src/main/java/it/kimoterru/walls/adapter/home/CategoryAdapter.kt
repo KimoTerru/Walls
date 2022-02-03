@@ -35,12 +35,10 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = categories[position]
         Glide.with(holder.categoriesView)
-            .load(item.coverPhoto.urls.thumb)
+            .load(item.coverPhoto?.urls?.thumb)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
+                    e: GlideException?, model: Any?, target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
                     e?.printStackTrace()
@@ -48,17 +46,13 @@ class CategoryAdapter(
                 }
 
                 override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
+                    resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                    dataSource: DataSource?, isFirstResource: Boolean
                 ): Boolean {
                     return false
                 }
-
             })
-            .into(holder.categoriesView)
+            .into(holder.categoriesView) // FIXME: 03.02.2022
         holder.nameView.text = item.title
         holder.categoriesView.setOnClickListener {
             listener.onTopicClick(item.slug, item.title, item.totalPhotos)

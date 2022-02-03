@@ -21,12 +21,13 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_fragment_home_to_fragment_adapter"
+            android:id="@+id/action_fragment_home_to_fragment_search"
             app:destination="@id/fragment_search"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
     </fragment>
 
     <fragment

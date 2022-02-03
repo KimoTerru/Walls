@@ -12,5 +12,5 @@ data class TopicItem(
     @SerializedName("total_photos")
     var totalPhotos: Int,
     @SerializedName("cover_photo")
-    var coverPhoto: PhotoItem
+    var coverPhoto: PhotoItem?
 )

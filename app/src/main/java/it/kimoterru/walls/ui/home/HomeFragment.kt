@@ -100,7 +100,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     private fun displayLatest(response: List<PhotoItem>?) {
-        binding.recyclerLatestWallpapers.adapter = LatestAdapter(response ?: listOf(), this, R.layout.card_image)
+        binding.recyclerLatestWallpapers.adapter =
+            response?.let { LatestAdapter(it, this, R.layout.card_image) }
     }
 
     private fun displayColors() {
@@ -108,7 +109,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     private fun displayTopics(list: List<TopicItem>?) {
-        binding.recyclerCategories.adapter = CategoryAdapter(list!!, this)
+        binding.recyclerCategories.adapter = list?.let { CategoryAdapter(it, this) }
         binding.recyclerCategories.isNestedScrollingEnabled = false
     }
 
@@ -128,7 +129,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 val query: String = binding.findImage.text.toString()
                 if (query.isNotEmpty()) {
                     Navigation.findNavController(requireView()).navigate(
-                        HomeFragmentDirections.actionFragmentHomeToFragmentAdapter(
+                        HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
                             query, query, 0, 3
                         )
                     )
@@ -150,7 +151,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     override fun onColorClick(name: String) {
         Navigation.findNavController(requireView()).navigate(
-            HomeFragmentDirections.actionFragmentHomeToFragmentAdapter(
+            HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
                 name, name, 0, 2
             )
         )
@@ -159,7 +160,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     override fun onTopicClick(name: String, tittle: String, totalPhotos: Int) {
         Navigation.findNavController(requireView())
             .navigate(
-                HomeFragmentDirections.actionFragmentHomeToFragmentAdapter(
+                HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
                     name, tittle, totalPhotos, 1
                 )
             )
