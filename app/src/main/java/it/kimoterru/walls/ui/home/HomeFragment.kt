@@ -141,6 +141,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(

@@ -75,6 +75,11 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
         binding.recyclerSavedWallpaper.visible()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             SavedFragmentDirections.actionFragmentSavedToFragmentSelectedImage(

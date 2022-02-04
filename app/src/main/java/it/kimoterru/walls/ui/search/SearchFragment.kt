@@ -107,6 +107,11 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         }) // A request for color is immediately made
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             SearchFragmentDirections.actionFragmentAdapterToFragmentSelectedImage(

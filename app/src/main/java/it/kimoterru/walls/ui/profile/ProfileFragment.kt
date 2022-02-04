@@ -33,6 +33,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), View.OnClickListene
         binding.settings.setOnClickListener(this)
     } //For any garbage associated with onViewCreated
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.settings -> {

@@ -15,15 +15,18 @@
         <item name="android:background">@drawable/bottom_sheet_background</item>
     </style>
 
-    <style name="BottomSheetDialogApplyToTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetDialogApplyToTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalStyleApplyTo</item>
     </style>
 
-    <style name="ModalStyleApplyTo"
-        parent="Widget.Design.BottomSheet.Modal">
+    <style name="ModalStyleApplyTo" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="MySwitch" parent="Theme.AppCompat.DayNight">
+        <!-- активное состояние (30% прозрачности для фона) -->
+        <item name="colorControlActivated">@color/blue</item>
     </style>
 
 </resources>

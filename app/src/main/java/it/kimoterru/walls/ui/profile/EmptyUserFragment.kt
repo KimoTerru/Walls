@@ -23,4 +23,9 @@ class EmptyUserFragment : Fragment(R.layout.fragment_empty_user_profile) {
 
         //initObservers()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

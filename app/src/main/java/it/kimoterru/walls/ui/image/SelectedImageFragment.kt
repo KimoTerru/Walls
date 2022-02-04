@@ -178,4 +178,9 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
             dialog.show()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
