@@ -31,6 +31,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), View.OnClickListene
 
     private fun fragmentComponent() {
         binding.settings.setOnClickListener(this)
+        binding.about.setOnClickListener(this)
     } //For any garbage associated with onViewCreated
 
     override fun onDestroyView() {
@@ -43,6 +44,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), View.OnClickListene
             R.id.settings -> {
                 Navigation.findNavController(requireView())
                     .navigate(R.id.action_fragment_profile_to_fragment_settings)
+            }
+            R.id.about -> {
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_fragment_profile_to_activity_about)
             }
         }
     }

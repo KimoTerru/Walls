@@ -16,17 +16,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/image_profile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/image_profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher_foreground" />
-
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground" />
 
     </androidx.cardview.widget.CardView>
 

@@ -57,6 +57,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_profile_to_activity_about"
+            app:destination="@id/activity_about" />
     </fragment>
 
     <fragment
@@ -116,5 +119,11 @@
         android:id="@+id/fragment_settings"
         android:name="it.kimoterru.walls.ui.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
+
+
+    <activity
+        android:id="@+id/activity_about"
+        android:name="it.kimoterru.walls.ui.about.AboutActivity"
+        tools:layout="@layout/activity_about" />
 
 </navigation>
