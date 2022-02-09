@@ -62,15 +62,13 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
     }
 
     private fun emptyPhotoInFavorite() {
-        binding.emptyBox.visible()
-        binding.emptyBoxText.visible()
+        binding.emptyBox.root.visible()
         binding.saved.gone()
         binding.recyclerSavedWallpaper.gone()
     }
 
     private fun showPhotoInFavorite() {
-        binding.emptyBox.gone()
-        binding.emptyBoxText.gone()
+        binding.emptyBox.root.gone()
         binding.saved.visible()
         binding.recyclerSavedWallpaper.visible()
     }
