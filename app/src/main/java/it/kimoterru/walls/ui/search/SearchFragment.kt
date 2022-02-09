@@ -1,14 +1,13 @@
 package it.kimoterru.walls.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
@@ -24,21 +23,13 @@ import it.kimoterru.walls.util.visible
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search),
     WallpaperClickListener.WallpaperClick {
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
 
+    private val binding: FragmentSearchBinding by viewBinding()
     private val args: SearchFragmentArgs by navArgs()
     private val viewModel: SearchViewModel by viewModels()
 
     private val searchAdapter by lazy {
         SearchAdapter(this)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentSearchBinding.inflate(inflater)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,11 +96,6 @@ class SearchFragment : Fragment(R.layout.fragment_search),
                 }
             }
         }) // A request for color is immediately made
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {

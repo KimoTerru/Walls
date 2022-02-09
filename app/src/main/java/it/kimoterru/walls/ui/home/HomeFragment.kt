@@ -1,15 +1,14 @@
 package it.kimoterru.walls.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
@@ -28,17 +27,9 @@ import it.kimoterru.walls.util.showToast
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick,
     WallpaperClickListener.HomeFragment {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
 
+    private val binding: FragmentHomeBinding by viewBinding()
     private val viewModel: HomeViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -139,11 +130,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 true
             } else false
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {

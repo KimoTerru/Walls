@@ -1,13 +1,12 @@
 package it.kimoterru.walls.ui.save
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.adapter.WallpaperClickListener
@@ -20,19 +19,11 @@ import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
 class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.WallpaperClick {
-    private var _binding: FragmentSavedBinding? = null
-    private val binding get() = _binding!!
 
+    private val binding: FragmentSavedBinding by viewBinding()
     private val viewModel: SavedViewModel by viewModels()
     private val savedAdapter by lazy {
         SavedAdapter(this)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSavedBinding.inflate(inflater)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,11 +62,6 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
         binding.emptyBox.root.gone()
         binding.saved.visible()
         binding.recyclerSavedWallpaper.visible()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
