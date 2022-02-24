@@ -62,7 +62,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
@@ -88,7 +88,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     // Room database
-    def roomVersion = "2.4.1"
+    def roomVersion = "2.4.2"
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -98,7 +98,7 @@ dependencies {
     implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.3'
 
     // Lottie
-    implementation 'com.airbnb.android:lottie:4.2.1'
+    implementation 'com.airbnb.android:lottie:5.0.1'
 
     // Paging 3
     implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
@@ -106,7 +106,6 @@ dependencies {
     // Custom View
     implementation 'com.github.shadowalker77:wp7progressbar:1.1.0' // Progress bar
     implementation 'com.facebook.shimmer:shimmer:0.5.0' // Shimmer effect
-    implementation "com.github.MikeOrtiz:TouchImageView:3.1.1" //TouchImageView
     implementation 'com.github.chrisbanes:PhotoView:2.3.0' // Zooming ImageView
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0' // Swipe refresh layout
 }
