@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml" value="0.1225" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/unsplash.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/feedback.xml" value="0.16962025316455695" />
@@ -12,11 +13,13 @@
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/next.xml" value="0.16962025316455695" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi.xml" value="0.1225" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/settings.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/telegram.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml" value="0.16962025316455695" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_about.xml" value="0.2" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml" value="0.1" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/empty_saved_layout.xml" value="0.14" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_about_project.xml" value="0.16" />
         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_adapter.xml" value="0.15854700854700854" />
