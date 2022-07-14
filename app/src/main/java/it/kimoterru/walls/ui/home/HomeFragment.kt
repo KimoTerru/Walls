@@ -11,16 +11,14 @@ import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.home.CategoryAdapter
-import it.kimoterru.walls.adapter.home.ColorAdapter
-import it.kimoterru.walls.adapter.home.LatestAdapter
-import it.kimoterru.walls.data.models.categories.TopicItem
-import it.kimoterru.walls.data.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.categories.TopicItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.util.gone
 import it.kimoterru.walls.util.showToast
 
@@ -45,7 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     private fun initObservers() {
-        viewModel.homeResponseLiveData.observe(viewLifecycleOwner, {
+        viewModel.homeResponseLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
                     displayLatest(it.data)
@@ -58,8 +56,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 else -> {
                 }
             }
-        })
-        viewModel.topicsLiveData.observe(viewLifecycleOwner, {
+        }
+        viewModel.topicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
                     displayTopics(it.data)
@@ -70,7 +68,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 else -> {
                 }
             }
-        })
+        }
     }
 
     private fun hideShimmerEffectLatestWallpapers() {
@@ -87,7 +85,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     private fun noNetworkConnect() {
-        Navigation.findNavController(requireView()).navigate(R.id.action_fragment_home_to_fragment_no_internet)
+        Navigation.findNavController(requireView())
+            .navigate(R.id.action_fragment_home_to_fragment_no_internet)
     }
 
     private fun displayLatest(response: List<PhotoItem>?) {
@@ -96,7 +95,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     }
 
     private fun displayColors() {
-        binding.recyclerBestColorTone.adapter = ColorAdapter(this, R.layout.card_color)
+        binding.recyclerBestColorTone.adapter =
+            ColorAdapter(getColors(), this, R.layout.card_color)
     }
 
     private fun displayTopics(list: List<TopicItem>?) {

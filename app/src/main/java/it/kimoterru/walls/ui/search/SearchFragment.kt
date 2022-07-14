@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.search.SearchAdapter
+import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentSearchBinding
 import it.kimoterru.walls.util.PaginationScrollListener
 import it.kimoterru.walls.util.Status.ERROR

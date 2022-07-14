@@ -4,10 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.models.categories.TopicItem
-import it.kimoterru.walls.data.models.photo.PhotoItem
-import it.kimoterru.walls.data.repository.WallpaperRepository
+import it.kimoterru.walls.data.remote.models.categories.TopicItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.domain.usecase.home.GetLatestPhotosUseCase
+import it.kimoterru.walls.domain.usecase.home.GetTopicsUseCase
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
+import it.kimoterru.walls.util.Constants.Companion.FIRST_PAGE
 import it.kimoterru.walls.util.Resource
 import it.kimoterru.walls.util.TopicsOrder
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +17,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: WallpaperRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val getLatestPhotosUseCase: GetLatestPhotosUseCase,
+    private val getTopicsUseCase: GetTopicsUseCase
+) : ViewModel() {
+
     val homeResponseLiveData = MutableLiveData<Resource<List<PhotoItem>>>()
     val topicsLiveData = MutableLiveData<Resource<List<TopicItem>>>()
 
@@ -23,7 +29,7 @@ class HomeViewModel @Inject constructor(private val repository: WallpaperReposit
         homeResponseLiveData.postValue(Resource.loading())
         viewModelScope.launch {
             try {
-                val result = repository.getLatestPhotos(CLIENT_ID, 1)
+                val result = getLatestPhotosUseCase.invoke(CLIENT_ID, FIRST_PAGE)
                 homeResponseLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -35,8 +41,8 @@ class HomeViewModel @Inject constructor(private val repository: WallpaperReposit
     fun getTopics(order: TopicsOrder) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val topicsData = repository.getTopics(
-                    CLIENT_ID, 1, 50, order.query
+                val topicsData = getTopicsUseCase.invoke(
+                    CLIENT_ID, FIRST_PAGE, 50, order.query
                 )
                 topicsLiveData.postValue(Resource.success(topicsData))
             } catch (e: Exception) {

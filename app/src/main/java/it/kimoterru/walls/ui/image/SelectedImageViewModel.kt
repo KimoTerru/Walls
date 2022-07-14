@@ -9,27 +9,35 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.models.photo.PhotoItem
-import it.kimoterru.walls.data.repository.WallpaperRepository
-import it.kimoterru.walls.util.Constants
+import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.domain.usecase.detailIage.DeletePhotoUseCase
+import it.kimoterru.walls.domain.usecase.detailIage.GetPhotoFromApiByIDUseCase
+import it.kimoterru.walls.domain.usecase.detailIage.GetPhotoFromFavoriteByIDUseCase
+import it.kimoterru.walls.domain.usecase.detailIage.InsertPhotoUseCase
+import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectedImageViewModel @Inject constructor(private val repository: WallpaperRepository) :
-    ViewModel() {
+class SelectedImageViewModel @Inject constructor(
+    private val getPhotoFromFavoriteByIDUseCase: GetPhotoFromFavoriteByIDUseCase,
+    private val getPhotoFromApiByIDUseCase: GetPhotoFromApiByIDUseCase,
+    private val insertPhotoUseCase: InsertPhotoUseCase,
+    private val deletePhotoUseCase: DeletePhotoUseCase
+) : ViewModel() {
+
     val photoLiveData = MutableLiveData<Resource<PhotoItem>>()
 
     fun getPhoto(id: String, id_photo: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val photoDataBASE = repository.getPhotoFromFavoriteByID(id_photo)
+                val photoDataBASE = getPhotoFromFavoriteByIDUseCase.invoke(id_photo)
                 if (photoDataBASE != null) {
                     photoLiveData.postValue(Resource.success(photoDataBASE))
                 } else {
-                    val photoDataAPI = repository.getPhoto(id, Constants.CLIENT_ID)
+                    val photoDataAPI = getPhotoFromApiByIDUseCase.invoke(id, CLIENT_ID)
                     photoLiveData.postValue(Resource.success(photoDataAPI))
                 }
             } catch (e: Exception) {
@@ -47,19 +55,22 @@ class SelectedImageViewModel @Inject constructor(private val repository: Wallpap
         request.setTitle(fileName)
         request.setDescription("Wait a second...")
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, "/Walls/$fileName")
+        request.setDestinationInExternalPublicDir(
+            Environment.DIRECTORY_PICTURES,
+            "/Walls/$fileName"
+        )
         dm.enqueue(request)
     }
 
-    fun saveToFavorite(data: PhotoItem) {
+    fun saveToFavorite(photo: PhotoItem) {
         viewModelScope.launch {
-            repository.insertPhoto(data)
+            insertPhotoUseCase.invoke(photo)
         }
     }
 
-    fun deleteToFavorites(data: PhotoItem) {
+    fun deleteToFavorites(photo: PhotoItem) {
         viewModelScope.launch {
-            repository.deletePhoto(data)
+            deletePhotoUseCase.invoke(photo)
         }
     }
 }

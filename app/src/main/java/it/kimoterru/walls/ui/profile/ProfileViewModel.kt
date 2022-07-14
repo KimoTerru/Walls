@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.models.photo.PhotoItem
-import it.kimoterru.walls.data.repository.WallpaperRepository
+import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.domain.repository.WallpaperRepository
 import it.kimoterru.walls.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

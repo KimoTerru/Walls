@@ -17,7 +17,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoItem
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
@@ -59,7 +59,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     }
 
     private fun initObservers() {
-        viewModel.photoLiveData.observe(viewLifecycleOwner, {
+        viewModel.photoLiveData.observe(viewLifecycleOwner) {
             binding.progressBar.showProgressBar()
             when (it.status) {
                 SUCCESS -> {
@@ -69,7 +69,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 ERROR -> showToast(it.message)
                 else -> {}
             }
-        })
+        }
     }
 
     private fun setImage(data: PhotoItem) {

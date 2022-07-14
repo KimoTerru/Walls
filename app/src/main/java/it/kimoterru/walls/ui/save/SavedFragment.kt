@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.saved.SavedAdapter
+import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentSavedBinding
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
