@@ -237,7 +237,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/categories"
                 app:spanCount="2"
-                tools:listitem="@layout/card_categories" />
+                tools:listitem="@layout/card_topic" />
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerLayout_categories"
@@ -261,21 +261,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
                     </LinearLayout>
 
@@ -285,21 +285,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
-                        <include layout="@layout/card_categories_shimmer_effect" />
+                        <include layout="@layout/card_topic_shimmer_effect" />
 
                     </LinearLayout>
 

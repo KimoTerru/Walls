@@ -1,15 +1,18 @@
 package it.kimoterru.walls.ui.save
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import it.kimoterru.walls.R
-import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.data.remote.models.photo.PhotoItem
-import it.kimoterru.walls.util.PlaceHolderDrawableHelper
+import it.kimoterru.walls.ui.widget.AspectRatioImageView
+import it.kimoterru.walls.util.Constants
+import it.kimoterru.walls.util.WallpaperClickListener
 
 class SavedAdapter(
     private val listener: WallpaperClickListener.WallpaperClick,
@@ -18,7 +21,7 @@ class SavedAdapter(
     private var data = mutableListOf<PhotoItem>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.card_image_display)
+        val image: AspectRatioImageView = view.findViewById(R.id.card_image_display)
     }
 
     override fun getItemViewType(position: Int) = R.layout.card_image_display
@@ -32,10 +35,12 @@ class SavedAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
 
-        holder.image.measure(item.width, item.height)
-        Glide.with(holder.image).load(item.urls.small)
-            .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(position, item.color))
+        holder.image.setAspectRatio(item.width, item.height)
+        Glide.with(holder.image).load(item.urls.thumb)
+            .placeholder(ColorDrawable(Color.parseColor(item.color)))
+            .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(holder.image)
+            .clearOnDetach()
 
         holder.image.setOnClickListener {
             listener.onWallpaperClick(item.id, item.user.profileImage.large, item.id_photo)

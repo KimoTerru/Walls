@@ -28,7 +28,7 @@ class CategoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.card_categories, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.card_topic, parent, false)
         return ViewHolder(view)
     }
 
