@@ -10,13 +10,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentSearchBinding
-import it.kimoterru.walls.util.PaginationScrollListener
-import it.kimoterru.walls.util.Status.ERROR
-import it.kimoterru.walls.util.Status.SUCCESS
-import it.kimoterru.walls.util.showToast
-import it.kimoterru.walls.util.visible
+import it.kimoterru.walls.util.*
+import it.kimoterru.walls.util.Status.*
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
@@ -34,6 +30,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.whichSnippet(args.whichSnippet, args.query)
         initObservers()
         fragmentComponent()
         initRecycler()
@@ -42,59 +39,77 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     private fun initRecycler() {
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        binding.recyclerImageSearch.layoutManager = sGrid
-        binding.recyclerImageSearch.adapter = searchAdapter
-        binding.recyclerImageSearch.addOnScrollListener(object : PaginationScrollListener(sGrid) {
-            override fun loadMoreItems() {
-                viewModel.isLoading = true
-                viewModel.pagePhoto++
-                viewModel.whichSnippet(args.whichSnippet, args.query)
-            }
+        binding.recyclerImageSearch.apply {
+            layoutManager = sGrid
+            adapter = searchAdapter
+            addOnScrollListener(object : PaginationScrollListener(sGrid) {
+                override fun loadMoreItems() {
+                    viewModel.isLoading = true
+                    viewModel.pagePhoto++
+                    viewModel.whichSnippet(args.whichSnippet, args.query)
+                }
 
-            override val isLastPage: Boolean
-                get() = viewModel.isLastPage
-            override val isLoading: Boolean
-                get() = viewModel.isLoading
-        })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.whichSnippet(args.whichSnippet, args.query)
+                override val isLastPage: Boolean
+                    get() = viewModel.isLastPage
+                override val isLoading: Boolean
+                    get() = viewModel.isLoading
+            })
+        }
     }
 
     private fun fragmentComponent() {
         binding.nameSearch.text = args.tittle
         if (args.totalPhotos != 0) {
-            binding.sizeSaveWallpaper.text = args.totalPhotos.toString()
+            binding.sizeSaveWallpaper.text = args.totalPhotos.toString() + " wallpapers available"
             binding.sizeSaveWallpaper.visible()
-            binding.wAvailable.visible()
+        } else {
+            binding.sizeSaveWallpaper.gone()
         }
+        setupSwipeRefreshLayout()
     } //For any garbage associated with onViewCreated
 
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.apply {
+            setColorSchemeResources(R.color.wp_blue)
+            setOnRefreshListener {
+                viewModel.whichSnippet(args.whichSnippet, args.query)
+            }
+        }
+    }
+
     private fun initObservers() {
-        viewModel.imageTopicsLiveData.observe(viewLifecycleOwner, {
+        viewModel.imageTopicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
                     it.data?.let { list -> searchAdapter.addData(list) }
                 }
-                ERROR -> showToast(it.message)
-                else -> {
+                ERROR -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    showToast(it.message)
+                }
+                LOADING -> {
+                    binding.swipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }
-        })
-        viewModel.imageLiveData.observe(viewLifecycleOwner, {
+        }
+        viewModel.imageSearchLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
                     it.data?.let { list -> searchAdapter.addData(list.results) }
                 }
-                ERROR -> showToast(it.message)
-                else -> {
+                ERROR -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    showToast(it.message)
+                }
+                LOADING -> {
+                    binding.swipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }
-        }) // A request for color is immediately made
+        } // A request for color is immediately made
     }
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {

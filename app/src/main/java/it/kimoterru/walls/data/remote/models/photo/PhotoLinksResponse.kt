@@ -3,7 +3,7 @@ package it.kimoterru.walls.data.remote.models.photo
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
-data class PhotoLinks(
+data class PhotoLinksResponse(
     @ColumnInfo(name = "download_photo_links")
     @SerializedName("download")
     val download: String,

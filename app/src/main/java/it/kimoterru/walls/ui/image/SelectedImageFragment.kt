@@ -17,7 +17,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
@@ -72,7 +72,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
         }
     }
 
-    private fun setImage(data: PhotoItem) {
+    private fun setImage(data: PhotoResponse) {
         Glide.with(binding.selectedImage).load(data.urls.full)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
@@ -97,7 +97,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     }
 
     @SuppressLint("SetTextI18n", "NewApi")
-    private fun onClick(data: PhotoItem) {
+    private fun onClick(data: PhotoResponse) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
             // TODO: 30.12.2021  Добавить возможность установки
@@ -144,7 +144,8 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
                 it.infoUser.text = data.user.name
                 if (data.location?.city != null) {
-                    it.infoLocation.text = "${data.location.city} - ${data.location.country}"
+                    it.infoLocation.text =
+                        "${data.location.city} - ${data.location.country}"
                     it.infoLocation.visibility = View.VISIBLE
                 } //Works fine, don't touch it!!!
                 it.resolutionInfo.text = "${data.width} x ${data.height}"

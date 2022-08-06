@@ -3,7 +3,7 @@ package it.kimoterru.walls.data.remote.models.photo
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
-data class Location(
+data class LocationResponse(
     @ColumnInfo(name = "city_location")
     @SerializedName("city")
     val city: String? = null,

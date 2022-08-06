@@ -1,6 +1,6 @@
-package it.kimoterru.walls.domain.usecase.detailIage
+package it.kimoterru.walls.domain.usecase.detailI
 
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 import it.kimoterru.walls.domain.repository.WallpaperRepository
 import javax.inject.Inject
 
@@ -9,7 +9,7 @@ class DeletePhotoUseCase @Inject constructor(
 ) {
 
     suspend fun invoke(
-        photo: PhotoItem
+        photo: PhotoResponse
     ) {
         return repository.deletePhoto(photo)
     }

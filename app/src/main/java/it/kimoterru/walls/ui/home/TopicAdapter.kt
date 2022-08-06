@@ -10,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import it.kimoterru.walls.R
+import it.kimoterru.walls.data.remote.models.topic.TopicResponse
+import it.kimoterru.walls.util.Constants.Companion.CROSS_FADE_DURATION
 import it.kimoterru.walls.util.WallpaperClickListener
-import it.kimoterru.walls.data.remote.models.categories.TopicItem
 
-class CategoryAdapter(
-    private val categories: List<TopicItem>,
+class TopicAdapter(
+    private val topicData: List<TopicResponse>,
     private val listener: WallpaperClickListener.HomeFragment,
-) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val categoriesView: ImageView = view.findViewById(R.id.card_categories)
@@ -33,9 +35,10 @@ class CategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = categories[position]
+        val item = topicData[position]
         Glide.with(holder.categoriesView)
             .load(item.coverPhoto?.urls?.thumb)
+            .transition(DrawableTransitionOptions.withCrossFade(CROSS_FADE_DURATION))
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
@@ -53,11 +56,12 @@ class CategoryAdapter(
                 }
             })
             .into(holder.categoriesView) // FIXME: 03.02.2022
+            .clearOnDetach()
         holder.nameView.text = item.title
         holder.categoriesView.setOnClickListener {
             listener.onTopicClick(item.slug, item.title, item.totalPhotos)
         }
     }
 
-    override fun getItemCount() = categories.size
+    override fun getItemCount() = topicData.size
 }

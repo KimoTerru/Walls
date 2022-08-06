@@ -3,62 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml" value="0.1225" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/unsplash.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.1085" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/feedback.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/github.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/helper.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_background.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/next.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi.xml" value="0.1225" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/settings.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/telegram.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml" value="0.16962025316455695" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_about.xml" value="0.2" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml" value="0.14444444444444443" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml" value="0.138671875" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml" value="0.1" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/empty_saved_layout.xml" value="0.14" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_about_project.xml" value="0.16" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_adapter.xml" value="0.15854700854700854" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml" value="0.16" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_no_internet_connection.xml" value="0.14537037037037037" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml" value="0.14537037037037037" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml" value="0.15854700854700854" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.15092592592592594" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_settings.xml" value="0.22" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/item_error_message.xml" value="0.12" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/layout.xml" value="0.147008547008547" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/menu/main_bottom_menu.xml" value="0.15092592592592594" />
-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/xml/about_preferences.xml" value="0.16" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/drawable/overlay_gradient_topic.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_about.xml" value="0.144921875" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_details_image.xml" value="0.144921875" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_settings.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/bottom_sheet_download.xml" value="0.144921875" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml" value="0.144921875" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml" value="0.134375" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_display.xml" value="0.134375" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_topic.xml" value="0.15220125786163521" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/empty_saved_layout.xml" value="0.144921875" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_user_profile.xml" value="0.134375" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_main.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/settings_activity.xml" value="0.1" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/bottom_sheet_info.xml" value="0.11203703703703703" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color_shimmer_effect.xml" value="0.11203703703703703" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml" value="0.11203703703703703" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml" value="0.14" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml" value="0.18" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml" value="0.24845995893223818" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.11203703703703703" />
         <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/xml/about_preferences.xml" value="0.33" />
-        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/xml/settings_preferences.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/card_image_display.xml" value="0.3770833333333333" />
-        <entry key="app/src/main/res/layout/fragment_adapter.xml" value="0.1" />
+        <entry key="..\:/Users/UserOne/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

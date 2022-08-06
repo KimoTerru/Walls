@@ -3,7 +3,7 @@ package it.kimoterru.walls.data.remote.models.photo
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
-data class Exif(
+data class ExifResponse(
     @ColumnInfo(name = "make_cam_exif")
     @SerializedName("make")
     val make: String? = null,

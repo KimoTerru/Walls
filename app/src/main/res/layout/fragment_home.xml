@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/back_find"
@@ -11,11 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="30dp"
-        android:background="@drawable/bg_search"
-        app:layout_constraintBottom_toTopOf="@id/latest_wallpapers"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/bg_search">
 
         <EditText
             android:id="@+id/find_image"
@@ -29,7 +26,7 @@
             android:paddingStart="14sp"
             android:paddingEnd="50dp"
             android:textColor="@color/my_text_color"
-            android:textColorHint="@color/selago"
+            android:textColorHint="#546E7A"
             tools:ignore="Autofill" />
 
         <ImageView
@@ -51,10 +48,7 @@
         android:text="@string/latest_wallpapers"
         android:textColor="@color/my_text_color"
         android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/recycler_latest_wallpapers"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_find" />
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_latest_wallpapers"
@@ -65,61 +59,18 @@
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/latest_wallpapers"
+        tools:ignore="SpeakableTextPresentCheck"
         tools:listitem="@layout/card_image" />
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/latest_wallpapers"
-        app:shimmer_repeat_mode="restart">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-            <include layout="@layout/card_image_shimmer_effect" />
-
-        </LinearLayout>
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="230dp"
-        android:fillViewport="true"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/latest_wallpapers">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/the_color_tone"
@@ -129,10 +80,7 @@
                 android:text="@string/the_color_tone"
                 android:textColor="@color/my_text_color"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/recycler_best_color_tone"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_best_color_tone"
@@ -143,87 +91,19 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/the_color_tone"
+                tools:ignore="SpeakableTextPresentCheck"
                 tools:listitem="@layout/card_color" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerLayout_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="@id/recycler_best_color_tone"
-                app:layout_constraintRight_toRightOf="@id/recycler_best_color_tone"
-                app:layout_constraintTop_toBottomOf="@id/the_color_tone"
-                app:shimmer_repeat_mode="restart">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                    <include layout="@layout/card_color_shimmer_effect" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <TextView
                 android:id="@+id/categories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/categories"
                 android:textColor="@color/my_text_color"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/the_color_tone" />
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_categories"
@@ -231,84 +111,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/categories"
                 app:spanCount="2"
                 tools:listitem="@layout/card_topic" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerLayout_categories"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="6dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/categories"
-                app:shimmer_repeat_mode="restart">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                        <include layout="@layout/card_topic_shimmer_effect" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -11,15 +11,14 @@ import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.categories.TopicItem
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.data.remote.models.topic.TopicResponse
 import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
 import it.kimoterru.walls.util.WallpaperClickListener
-import it.kimoterru.walls.util.gone
 import it.kimoterru.walls.util.showToast
 
 @AndroidEntryPoint
@@ -47,7 +46,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             when (it.status) {
                 SUCCESS -> {
                     displayLatest(it.data)
-                    hideShimmerEffectLatestWallpapers()
                 }
                 ERROR -> {
                     showToast(it.message)
@@ -61,7 +59,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             when (it.status) {
                 SUCCESS -> {
                     displayTopics(it.data)
-                    hideShimmerEffectCategories()
                     displayColors()
                 }
                 ERROR -> showToast(it.message)
@@ -71,37 +68,21 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         }
     }
 
-    private fun hideShimmerEffectLatestWallpapers() {
-        binding.shimmerLayout.stopShimmer()
-        binding.shimmerLayout.gone()
-    }
-
-    private fun hideShimmerEffectCategories() {
-        binding.shimmerLayoutCategories.stopShimmer()
-        binding.shimmerLayoutCategories.gone()
-
-        binding.shimmerLayoutColor.stopShimmer()
-        binding.shimmerLayoutColor.gone()
-    }
-
     private fun noNetworkConnect() {
         Navigation.findNavController(requireView())
             .navigate(R.id.action_fragment_home_to_fragment_no_internet)
     }
 
-    private fun displayLatest(response: List<PhotoItem>?) {
-        binding.recyclerLatestWallpapers.adapter =
-            response?.let { LatestAdapter(it, this, R.layout.card_image) }
+    private fun displayLatest(response: List<PhotoResponse>?) {
+        binding.recyclerLatestWallpapers.adapter = response?.let { LatestAdapter(it, this) }
     }
 
     private fun displayColors() {
-        binding.recyclerBestColorTone.adapter =
-            ColorAdapter(getColors(), this, R.layout.card_color)
+        binding.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
     }
 
-    private fun displayTopics(list: List<TopicItem>?) {
-        binding.recyclerCategories.adapter = list?.let { CategoryAdapter(it, this) }
-        binding.recyclerCategories.isNestedScrollingEnabled = false
+    private fun displayTopics(list: List<TopicResponse>?) {
+        binding.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
     }
 
     private fun initSearch() {

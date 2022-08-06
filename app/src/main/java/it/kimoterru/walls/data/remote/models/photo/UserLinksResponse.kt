@@ -3,7 +3,7 @@ package it.kimoterru.walls.data.remote.models.photo
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
-data class UserLinks(
+data class UserLinksResponse(
     @ColumnInfo(name = "html_user_links")
     @SerializedName("html")
     val html: String,

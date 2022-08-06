@@ -1,7 +1,7 @@
 package it.kimoterru.walls.data.repository
 
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.color.Colors
+import it.kimoterru.walls.data.local.model.color.Colors
 
 private val colorRepository = listOf(
     Colors("black", R.color.wp_black),

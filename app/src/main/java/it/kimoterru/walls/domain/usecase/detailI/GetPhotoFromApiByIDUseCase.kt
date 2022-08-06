@@ -1,6 +1,6 @@
-package it.kimoterru.walls.domain.usecase.detailIage
+package it.kimoterru.walls.domain.usecase.detailI
 
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 import it.kimoterru.walls.domain.repository.WallpaperRepository
 import javax.inject.Inject
 
@@ -11,7 +11,7 @@ class GetPhotoFromApiByIDUseCase @Inject constructor(
     suspend fun invoke(
         id: String,
         clientId: String
-    ): PhotoItem {
+    ): PhotoResponse {
         return repository.getPhotoFromApiByID(id, clientId)
     }
 }

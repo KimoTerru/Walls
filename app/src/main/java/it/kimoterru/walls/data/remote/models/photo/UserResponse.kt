@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class UserResponse(
     @ColumnInfo(name = "bio_user")
     @SerializedName("bio")
     val bio: String? = null,
@@ -19,10 +19,10 @@ data class User(
 
     @Embedded
     @SerializedName("links")
-    val links: UserLinks,
+    val links: UserLinksResponse,
 
     @ColumnInfo(name = "location_user")
-    @SerializedName("location")
+    @SerializedName("locationResponse")
     val location: String? = null,
 
     @ColumnInfo(name = "name_user")
@@ -35,7 +35,7 @@ data class User(
 
     @Embedded
     @SerializedName("profile_image")
-    val profileImage: ProfileImage,
+    val profileImage: ProfileImageResponse,
 
     @ColumnInfo(name = "total_collections_user")
     @SerializedName("total_collections")

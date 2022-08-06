@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 import it.kimoterru.walls.domain.repository.WallpaperRepository
 import it.kimoterru.walls.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val repository: WallpaperRepository) :
     ViewModel() {
-    val photoLiveData = MutableLiveData<Resource<List<PhotoItem>>>()
+    val photoLiveData = MutableLiveData<Resource<List<PhotoResponse>>>()
 
     fun getAllPhotosFromFavorite() {
         photoLiveData.postValue(Resource.loading())

@@ -20,6 +20,8 @@
     <string name="empty">Empty!</string>
     <string name="about_us">About Us</string>
     <string name="feedback">Feedback</string>
+    <string name="search">Search</string>
+    <string name="totalPhotos">36 wallpapers available</string>
     <string name="help_center">Help Center</string>
     <string name="jonny">Jonny</string>
 
@@ -45,5 +47,6 @@
     <string name="telegram" translatable="false">Telegram</string>
     <string name="developer_telegram_username" translatable="false">\@kimoterru</string>
     <string name="developer_telegram_url" translatable="false">https://t.me/kimoterru</string>
+    <string name="saved">Saved</string>
 
 </resources>

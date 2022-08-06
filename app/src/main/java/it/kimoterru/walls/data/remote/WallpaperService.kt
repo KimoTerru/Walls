@@ -1,8 +1,8 @@
 package it.kimoterru.walls.data.remote
 
-import it.kimoterru.walls.data.remote.models.categories.TopicItem
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
-import it.kimoterru.walls.data.remote.models.search.SearchItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.data.remote.models.search.SearchResponse
+import it.kimoterru.walls.data.remote.models.topic.TopicResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,7 +13,9 @@ interface WallpaperService {
     suspend fun getLatest(
         @Query("client_id") clientId: String,
         @Query("page") page: Int,
-    ): List<PhotoItem>
+        //@Query("per_page") per_page: Int,
+        //@Query("order_by") order_by: String
+    ): List<PhotoResponse>
 
     @GET("/photos")
     suspend fun getTopList(
@@ -21,13 +23,13 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): List<PhotoItem>
+    ): List<PhotoResponse>
 
     @GET("/photos/{id}")
     suspend fun getPhoto(
         @Path("id") id: String,
         @Query("client_id") clientId: String
-    ): PhotoItem
+    ): PhotoResponse
 
     @GET("/topics")
     suspend fun getTopicsList(
@@ -35,7 +37,7 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): List<TopicItem>
+    ): List<TopicResponse>
 
     @GET("/topics/{id_or_slug}/photos")
     suspend fun getTopicImage(
@@ -44,7 +46,7 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): List<PhotoItem>
+    ): List<PhotoResponse>
 
     @GET("/search/photos")
     suspend fun getColorImage(
@@ -54,7 +56,7 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): SearchItem
+    ): SearchResponse
 
     @GET("/search/photos")
     suspend fun getSearchImage(
@@ -63,5 +65,5 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): SearchItem
+    ): SearchResponse
 }

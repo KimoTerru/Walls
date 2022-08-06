@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.databinding.FragmentSavedBinding
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
+import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.util.gone
 import it.kimoterru.walls.util.visible
 
@@ -37,7 +37,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
     }
 
     private fun initObservers() {
-        viewModel.photoLiveData.observe(viewLifecycleOwner, {
+        viewModel.photoLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
                     it.data?.let { it1 -> savedAdapter.updateItems(it1) }
@@ -48,7 +48,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
                 }
                 else -> emptyPhotoInFavorite()
             }
-        })
+        }
     }
 
     private fun emptyPhotoInFavorite() {

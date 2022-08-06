@@ -1,22 +1,22 @@
 package it.kimoterru.walls.data.local
 
 import androidx.room.*
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 
 @Dao
 interface WallpaperDao {
     @Query("SELECT * FROM photoItem")
-    suspend fun getAllPhoto(): List<PhotoItem>
+    suspend fun getAllPhoto(): List<PhotoResponse>
 
     @Query("SELECT * FROM photoItem WHERE id_photo = :id")
-    suspend fun getById(id: Int): PhotoItem?
+    suspend fun getById(id: Int): PhotoResponse?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPhoto(photo: PhotoItem)
+    suspend fun insertPhoto(photo: PhotoResponse)
 
     @Update
-    suspend fun updatePhoto(photo: PhotoItem?)
+    suspend fun updatePhoto(photo: PhotoResponse?)
 
     @Delete
-    suspend fun deletePhoto(photo: PhotoItem?)
+    suspend fun deletePhoto(photo: PhotoResponse?)
 }

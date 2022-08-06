@@ -1,19 +1,22 @@
 package it.kimoterru.walls.ui.search
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
-import it.kimoterru.walls.data.remote.models.search.SearchItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.data.remote.models.search.SearchResponse
 import it.kimoterru.walls.domain.usecase.search.GetImageColorsUseCase
 import it.kimoterru.walls.domain.usecase.search.GetImageSearchUseCase
 import it.kimoterru.walls.domain.usecase.search.GetImageTopicsUseCase
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Constants.Companion.PER_PAGE
+import it.kimoterru.walls.util.Constants.Companion.SHOW_NEXT_PAGE_IMAGE_TIME_DELAY
 import it.kimoterru.walls.util.Resource
 import it.kimoterru.walls.util.TopicsOrder
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +27,11 @@ class SearchViewModel @Inject constructor(
     private val getImageSearchUseCase: GetImageSearchUseCase
 ) : ViewModel() {
 
-    val imageTopicsLiveData = MutableLiveData<Resource<List<PhotoItem>>>()
-    val imageLiveData = MutableLiveData<Resource<SearchItem>>()
+    private val imageTopicsMutableLiveData = MutableLiveData<Resource<List<PhotoResponse>>>()
+    val imageTopicsLiveData: LiveData<Resource<List<PhotoResponse>>> = imageTopicsMutableLiveData
+
+    private val imageSearchMutableLiveData = MutableLiveData<Resource<SearchResponse>>()
+    val imageSearchLiveData: LiveData<Resource<SearchResponse>> = imageSearchMutableLiveData
 
     var isLoading = false
     var isLastPage = false
@@ -40,46 +46,49 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getImageTopics(id_or_slug: String, order: TopicsOrder) {
-        imageTopicsLiveData.postValue(Resource.loading())
+        imageTopicsMutableLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
+            delay(SHOW_NEXT_PAGE_IMAGE_TIME_DELAY)
             try {
                 val result = getImageTopicsUseCase.invoke(
                     id_or_slug, CLIENT_ID, pagePhoto, PER_PAGE, order.query
                 )
-                imageTopicsLiveData.postValue(Resource.success(result))
+                imageTopicsMutableLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
-                imageTopicsLiveData.postValue(Resource.error(e.message ?: "none"))
+                imageTopicsMutableLiveData.postValue(Resource.error(e.message ?: "none"))
             }
         }
     }
 
     private fun getImageColors(query: String, color: String, order: TopicsOrder) {
-        imageLiveData.postValue(Resource.loading())
+        imageSearchMutableLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
+            delay(SHOW_NEXT_PAGE_IMAGE_TIME_DELAY)
             try {
                 val result = getImageColorsUseCase.invoke(
                     query, color, CLIENT_ID, pagePhoto, PER_PAGE, order.query
                 )
-                imageLiveData.postValue(Resource.success(result))
+                imageSearchMutableLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
-                imageLiveData.postValue(Resource.error(e.message ?: "none"))
+                imageSearchMutableLiveData.postValue(Resource.error(e.message ?: "none"))
             }
         }
     }
 
     private fun getImageSearch(query: String, order: TopicsOrder) {
-        imageLiveData.postValue(Resource.loading())
+        imageSearchMutableLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
+            delay(SHOW_NEXT_PAGE_IMAGE_TIME_DELAY)
             try {
                 val result = getImageSearchUseCase.invoke(
                     query, CLIENT_ID, pagePhoto, PER_PAGE, order.query
                 )
-                imageLiveData.postValue(Resource.success(result))
+                imageSearchMutableLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
-                imageLiveData.postValue(Resource.error(e.message ?: "none"))
+                imageSearchMutableLiveData.postValue(Resource.error(e.message ?: "none"))
             }
         }
     }

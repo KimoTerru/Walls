@@ -17,7 +17,7 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     fun provideChannelDao(wallpaperDatabase: WallpaperDatabase): WallpaperDao {
-        return wallpaperDatabase.photoDao()
+        return wallpaperDatabase.wallpaperDao()
     }
 
     @Provides

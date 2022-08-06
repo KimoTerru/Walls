@@ -3,7 +3,7 @@ package it.kimoterru.walls.data.remote.models.photo
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
-data class PhotoUrls(
+data class PhotoUrlsResponse(
     @ColumnInfo(name = "full_photo_urls")
     @SerializedName("full")
     val full: String,

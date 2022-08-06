@@ -2,7 +2,7 @@ package it.kimoterru.walls.data.remote.models.photo
 
 import com.google.gson.annotations.SerializedName
 
-data class UserCollection(
+data class UserCollectionResponse(
     @SerializedName("cover_photo")
     val coverPhoto: Any,
     @SerializedName("id")

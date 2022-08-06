@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "photoItem")
-data class PhotoItem(
+data class PhotoResponse(
     @PrimaryKey(autoGenerate = true)
     var id_photo: Int,
 
@@ -29,7 +29,7 @@ data class PhotoItem(
 
     /* @Embedded
      @SerializedName("current_user_collections")
-     val currentUserCollections: List<UserCollection>,*/
+     val currentUserCollections: List<UserCollectionResponse>,*/
 
     @ColumnInfo(name = "description")
     @SerializedName("description")
@@ -37,7 +37,7 @@ data class PhotoItem(
 
     @Embedded
     @SerializedName("exif")
-    val exif: Exif? = null,
+    val exif: ExifResponse? = null,
 
     @ColumnInfo(name = "height")
     @SerializedName("height")
@@ -57,11 +57,11 @@ data class PhotoItem(
 
     @Embedded
     @SerializedName("links")
-    val links: PhotoLinks,
+    val links: PhotoLinksResponse,
 
     @Embedded
     @SerializedName("location")
-    val location: Location? = null,
+    val location: LocationResponse? = null,
 
     @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")
@@ -69,11 +69,11 @@ data class PhotoItem(
 
     @Embedded
     @SerializedName("urls")
-    val urls: PhotoUrls,
+    val urls: PhotoUrlsResponse,
 
     @Embedded
     @SerializedName("user")
-    val user: User,
+    val user: UserResponse,
 
     @ColumnInfo(name = "width")
     @SerializedName("width")

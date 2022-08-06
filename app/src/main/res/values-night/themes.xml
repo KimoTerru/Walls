@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Walls" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -10,7 +10,8 @@
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/black</item>
     </style>
 </resources>

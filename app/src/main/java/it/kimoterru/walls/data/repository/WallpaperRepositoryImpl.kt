@@ -2,9 +2,9 @@ package it.kimoterru.walls.data.repository
 
 import it.kimoterru.walls.data.local.WallpaperDao
 import it.kimoterru.walls.data.remote.WallpaperService
-import it.kimoterru.walls.data.remote.models.categories.TopicItem
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
-import it.kimoterru.walls.data.remote.models.search.SearchItem
+import it.kimoterru.walls.data.remote.models.topic.TopicResponse
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.data.remote.models.search.SearchResponse
 import it.kimoterru.walls.domain.repository.WallpaperRepository
 import javax.inject.Inject
 
@@ -16,14 +16,14 @@ class WallpaperRepositoryImpl @Inject constructor(
     override suspend fun getLatestPhotos(
         clientId: String,
         page: Int,
-    ): List<PhotoItem> {
+    ): List<PhotoResponse> {
         return wallpaperService.getLatest(clientId, page)
     }
 
     override suspend fun getPhotoFromApiByID(
         id: String,
         clientId: String
-    ): PhotoItem {
+    ): PhotoResponse {
         return wallpaperService.getPhoto(id, clientId)
     }
 
@@ -32,7 +32,7 @@ class WallpaperRepositoryImpl @Inject constructor(
         page: Int,
         per_page: Int,
         order_by: String,
-    ): List<TopicItem> {
+    ): List<TopicResponse> {
         return wallpaperService.getTopicsList(clientId, page, per_page, order_by)
     }
 
@@ -42,7 +42,7 @@ class WallpaperRepositoryImpl @Inject constructor(
         page: Int,
         per_page: Int,
         order_by: String
-    ): List<PhotoItem> {
+    ): List<PhotoResponse> {
         return wallpaperService.getTopicImage(id_or_slug, clientId, page, per_page, order_by)
     }
 
@@ -53,7 +53,7 @@ class WallpaperRepositoryImpl @Inject constructor(
         page: Int,
         per_page: Int,
         order_by: String
-    ): SearchItem {
+    ): SearchResponse {
         return wallpaperService.getColorImage(query, color, clientId, page, per_page, order_by)
     }
 
@@ -63,23 +63,23 @@ class WallpaperRepositoryImpl @Inject constructor(
         page: Int,
         per_page: Int,
         order_by: String,
-    ): SearchItem {
+    ): SearchResponse {
         return wallpaperService.getSearchImage(query, clientId, page, per_page, order_by)
     }
 
-    override suspend fun getAllPhotosFromFavorite(): List<PhotoItem> {
+    override suspend fun getAllPhotosFromFavorite(): List<PhotoResponse> {
         return wallpaperDao.getAllPhoto()
     }
 
-    override suspend fun getPhotoFromFavoriteByID(id: Int): PhotoItem? {
+    override suspend fun getPhotoFromFavoriteByID(id: Int): PhotoResponse? {
         return wallpaperDao.getById(id)
     }
 
-    override suspend fun insertPhoto(data: PhotoItem) {
+    override suspend fun insertPhoto(data: PhotoResponse) {
         return wallpaperDao.insertPhoto(data)
     }
 
-    override suspend fun deletePhoto(data: PhotoItem) {
+    override suspend fun deletePhoto(data: PhotoResponse) {
         return wallpaperDao.deletePhoto(data)
     }
 }

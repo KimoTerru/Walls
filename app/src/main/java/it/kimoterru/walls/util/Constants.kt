@@ -9,7 +9,7 @@ class Constants {
         const val BASE_URL = "https://api.unsplash.com/"
         const val DATABASE_NAME = "photo_db.db"
         const val PER_PAGE = 30 //Only 50 requests per hour 30 x 50 = 1500
-        const val SHOW_NEXT_PAGE_IMAGE_TIME_DELAY = 250L
+        const val SHOW_NEXT_PAGE_IMAGE_TIME_DELAY = 750L
         const val FIRST_PAGE = 1
         const val CROSS_FADE_DURATION = 350
     }

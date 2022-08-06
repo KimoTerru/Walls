@@ -3,7 +3,7 @@ package it.kimoterru.walls.data.remote.models.photo
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
-data class ProfileImage(
+data class ProfileImageResponse(
     @ColumnInfo(name = "large_photoImage")
     @SerializedName("large")
     val large: String, //128x128

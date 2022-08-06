@@ -1,9 +1,9 @@
-package it.kimoterru.walls.data.remote.models.categories
+package it.kimoterru.walls.data.remote.models.topic
 
 import com.google.gson.annotations.SerializedName
-import it.kimoterru.walls.data.remote.models.photo.PhotoItem
+import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 
-data class TopicItem(
+data class TopicResponse(
     var id: String,
     var slug: String,
     var title: String,
@@ -12,5 +12,5 @@ data class TopicItem(
     @SerializedName("total_photos")
     var totalPhotos: Int,
     @SerializedName("cover_photo")
-    var coverPhoto: PhotoItem?
+    var coverPhoto: PhotoResponse?
 )

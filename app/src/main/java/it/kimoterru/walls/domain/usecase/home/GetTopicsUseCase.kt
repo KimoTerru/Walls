@@ -1,6 +1,6 @@
 package it.kimoterru.walls.domain.usecase.home
 
-import it.kimoterru.walls.data.remote.models.categories.TopicItem
+import it.kimoterru.walls.data.remote.models.topic.TopicResponse
 import it.kimoterru.walls.domain.repository.WallpaperRepository
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ class GetTopicsUseCase @Inject constructor(
         page: Int,
         per_page: Int,
         order_by: String,
-    ): List<TopicItem> {
+    ): List<TopicResponse> {
         return repository.getTopics(clientId, page, per_page, order_by)
     }
 }
