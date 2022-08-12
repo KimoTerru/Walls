@@ -21,6 +21,7 @@ import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
 import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
+import it.kimoterru.walls.util.Constants.Companion.saved
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.gone
@@ -124,7 +125,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 it.saveToFavorite.setOnClickListener {
                     viewModel.saveToFavorite(data)
                 }
-                if (args.favoritePhoto == 2) {
+                if (args.favoritePhoto == saved) {
                     it.saveToFavorite.gone()
                     it.deleteToFavorites.visible()
                     it.deleteToFavorites.setOnClickListener {

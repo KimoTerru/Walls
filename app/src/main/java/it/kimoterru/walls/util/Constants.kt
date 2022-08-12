@@ -12,6 +12,13 @@ class Constants {
         const val SHOW_NEXT_PAGE_IMAGE_TIME_DELAY = 750L
         const val FIRST_PAGE = 1
         const val CROSS_FADE_DURATION = 350
+
+        const val topics = "topics"
+        const val colors = "colors"
+        const val search = "search"
+        const val saved = "saved"
+        const val notSaved = "notSaved"
+        const val zero = 0
     }
 }
 

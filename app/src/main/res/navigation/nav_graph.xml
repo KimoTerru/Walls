@@ -15,18 +15,10 @@
             app:destination="@id/fragment_no_internet" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/fragment_selected_image" />
         <action
             android:id="@+id/action_fragment_home_to_fragment_search"
-            app:destination="@id/fragment_search"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:destination="@id/fragment_search" />
 
     </fragment>
 
@@ -79,7 +71,7 @@
             app:argType="string" />
         <argument
             android:name="favoritePhoto"
-            app:argType="integer" />
+            app:argType="string" />
         <argument
             android:name="idFavoritePhoto"
             app:argType="integer" />
@@ -100,7 +92,7 @@
             app:argType="integer" />
         <argument
             android:name="whichSnippet"
-            app:argType="integer" />
+            app:argType="string" />
         <action
             android:id="@+id/action_fragment_adapter_to_fragment_selected_image"
             app:destination="@id/fragment_selected_image"

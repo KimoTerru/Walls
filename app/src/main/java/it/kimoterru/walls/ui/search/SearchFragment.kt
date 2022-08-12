@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSearchBinding
 import it.kimoterru.walls.util.*
+import it.kimoterru.walls.util.Constants.Companion.notSaved
 import it.kimoterru.walls.util.Status.*
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
@@ -115,7 +116,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             SearchFragmentDirections.actionFragmentAdapterToFragmentSelectedImage(
-                id, urlImageUser, 1, idFavoritePhoto
+                id, urlImageUser, notSaved, idFavoritePhoto
             )
         )
     }

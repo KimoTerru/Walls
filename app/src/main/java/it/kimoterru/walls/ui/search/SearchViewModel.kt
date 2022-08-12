@@ -13,6 +13,9 @@ import it.kimoterru.walls.domain.usecase.search.GetImageTopicsUseCase
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Constants.Companion.PER_PAGE
 import it.kimoterru.walls.util.Constants.Companion.SHOW_NEXT_PAGE_IMAGE_TIME_DELAY
+import it.kimoterru.walls.util.Constants.Companion.colors
+import it.kimoterru.walls.util.Constants.Companion.search
+import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Resource
 import it.kimoterru.walls.util.TopicsOrder
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +40,11 @@ class SearchViewModel @Inject constructor(
     var isLastPage = false
     var pagePhoto = 1
 
-    fun whichSnippet(fragment: Int, query: String) {
+    fun whichSnippet(fragment: String, query: String) {
         when (fragment) { // Determine which request
-            1 -> getImageTopics(query, TopicsOrder.LATEST)
-            2 -> getImageColors(query, query, TopicsOrder.LATEST)
-            3 -> getImageSearch(query, TopicsOrder.LATEST)
+            topics -> getImageTopics(query, TopicsOrder.LATEST)
+            colors -> getImageColors(query, query, TopicsOrder.LATEST)
+            search -> getImageSearch(query, TopicsOrder.LATEST)
         }
     }
 

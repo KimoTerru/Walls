@@ -10,6 +10,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSavedBinding
+import it.kimoterru.walls.util.Constants.Companion.saved
+import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.WallpaperClickListener
@@ -66,7 +68,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             SavedFragmentDirections.actionFragmentSavedToFragmentSelectedImage(
-                id, urlImageUser, 2, idFavoritePhoto
+                id, urlImageUser, saved, idFavoritePhoto
             )
         )
     }

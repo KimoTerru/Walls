@@ -15,6 +15,11 @@ import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
 import it.kimoterru.walls.data.remote.models.topic.TopicResponse
 import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
+import it.kimoterru.walls.util.Constants.Companion.colors
+import it.kimoterru.walls.util.Constants.Companion.notSaved
+import it.kimoterru.walls.util.Constants.Companion.search
+import it.kimoterru.walls.util.Constants.Companion.topics
+import it.kimoterru.walls.util.Constants.Companion.zero
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.TopicsOrder
@@ -102,7 +107,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 if (query.isNotEmpty()) {
                     Navigation.findNavController(requireView()).navigate(
                         HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
-                            query, query, 0, 3
+                            query, query, 0, search
                         )
                     )
                 } else {
@@ -116,7 +121,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
             HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
-                id, urlImageUser, 1, idFavoritePhoto
+                id, urlImageUser, notSaved, idFavoritePhoto
             )
         )
     }
@@ -124,7 +129,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
     override fun onColorClick(name: String) {
         Navigation.findNavController(requireView()).navigate(
             HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
-                name, name, 0, 2
+                name, name, zero, colors
             )
         )
     }
@@ -133,7 +138,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         Navigation.findNavController(requireView())
             .navigate(
                 HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
-                    name, tittle, totalPhotos, 1
+                    name, tittle, totalPhotos, topics
                 )
             )
     }
