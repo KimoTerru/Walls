@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_profile -> showBottomNav()
 
                 R.id.fragment_selected_image -> hideBottomNav()
-                R.id.fragment_no_internet -> showBottomNav()
                 R.id.fragment_empty_user_profile -> showBottomNav()
                 R.id.fragment_settings -> showBottomNav()
                 else -> hideBottomNav()

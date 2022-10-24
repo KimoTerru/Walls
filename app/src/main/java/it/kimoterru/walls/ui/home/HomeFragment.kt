@@ -20,11 +20,11 @@ import it.kimoterru.walls.util.Constants.Companion.notSaved
 import it.kimoterru.walls.util.Constants.Companion.search
 import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Constants.Companion.zero
-import it.kimoterru.walls.util.Status.ERROR
-import it.kimoterru.walls.util.Status.SUCCESS
+import it.kimoterru.walls.util.Status.*
 import it.kimoterru.walls.util.TopicsOrder
 import it.kimoterru.walls.util.WallpaperClickListener
-import it.kimoterru.walls.util.showToast
+import it.kimoterru.walls.util.isVisible
+import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick,
@@ -51,13 +51,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
             when (it.status) {
                 SUCCESS -> {
                     displayLatest(it.data)
+                    binding.homeBoxView.root.visible()
+                    errorStateConnection(it.message.toString(), false)
+                    showLoadingAnim(false)
                 }
                 ERROR -> {
-                    showToast(it.message)
-                    noNetworkConnect()
+                    errorStateConnection(it.message.toString(), true)
+                    showLoadingAnim(false)
                 }
-                else -> {
-                }
+                LOADING -> showLoadingAnim(true)
             }
         }
         viewModel.topicsLiveData.observe(viewLifecycleOwner) {
@@ -65,29 +67,36 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                 SUCCESS -> {
                     displayTopics(it.data)
                     displayColors()
+                    binding.homeBoxView.root.visible()
+                    showLoadingAnim(false)
                 }
-                ERROR -> showToast(it.message)
+                /*ERROR -> showToast(it.message)*/
                 else -> {
                 }
             }
         }
     }
 
-    private fun noNetworkConnect() {
-        Navigation.findNavController(requireView())
-            .navigate(R.id.action_fragment_home_to_fragment_no_internet)
+    private fun showLoadingAnim(show: Boolean) {
+        //binding.homeAnimationView.isVisible(show)
+    }
+
+    private fun errorStateConnection(error: String, show: Boolean) {
+        binding.errorBoxView.root.isVisible(show)
+        binding.errorBoxView.errorMassageView.text = error
     }
 
     private fun displayLatest(response: List<PhotoResponse>?) {
-        binding.recyclerLatestWallpapers.adapter = response?.let { LatestAdapter(it, this) }
+        binding.homeBoxView.recyclerLatestWallpapers.adapter =
+            response?.let { LatestAdapter(it, this) }
     }
 
     private fun displayColors() {
-        binding.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
+        binding.homeBoxView.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
     }
 
     private fun displayTopics(list: List<TopicResponse>?) {
-        binding.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
+        binding.homeBoxView.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
     }
 
     private fun initSearch() {

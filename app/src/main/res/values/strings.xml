@@ -48,5 +48,7 @@
     <string name="developer_telegram_username" translatable="false">\@kimoterru</string>
     <string name="developer_telegram_url" translatable="false">https://t.me/kimoterru</string>
     <string name="saved">Saved</string>
+    <string name="error_massage">Error 404</string>
+    <string name="no_wallpaper">There is no wallpaper...</string>
 
 </resources>

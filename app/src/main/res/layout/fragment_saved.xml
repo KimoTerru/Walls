@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/saved"
+        android:id="@+id/saved_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -21,13 +21,13 @@
         android:visibility="gone" />
 
     <include
-        android:id="@+id/empty_box"
+        android:id="@+id/empty_box_view"
         layout="@layout/empty_saved_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_saved_wallpaper"
+        android:id="@+id/recycler_saved_wallpaper_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"

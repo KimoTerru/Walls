@@ -51,7 +51,6 @@
             android:layout_height="wrap_content"
             android:text="Montreal / Canada"
             android:textSize="16sp"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/info_user"
             app:layout_constraintStart_toStartOf="@+id/info_user"
             app:layout_constraintTop_toBottomOf="@+id/info_user" />
@@ -184,7 +183,6 @@
         android:textColor="@color/my_text_color"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/linear_info"
         app:layout_constraintTop_toBottomOf="@+id/linear_info" />
 
@@ -193,7 +191,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@+id/camera_info"
         app:layout_constraintRight_toLeftOf="@id/linear_data_cam"
         app:layout_constraintTop_toBottomOf="@+id/camera_info">
@@ -248,7 +245,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@id/linear_info_cam"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/camera_info">

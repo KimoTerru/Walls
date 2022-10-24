@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSavedBinding
 import it.kimoterru.walls.util.Constants.Companion.saved
-import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.WallpaperClickListener
@@ -34,8 +33,8 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
         initObservers()
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        binding.recyclerSavedWallpaper.layoutManager = sGrid
-        binding.recyclerSavedWallpaper.adapter = savedAdapter
+        binding.recyclerSavedWallpaperView.layoutManager = sGrid
+        binding.recyclerSavedWallpaperView.adapter = savedAdapter
     }
 
     private fun initObservers() {
@@ -54,15 +53,15 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
     }
 
     private fun emptyPhotoInFavorite() {
-        binding.emptyBox.root.visible()
-        binding.saved.gone()
-        binding.recyclerSavedWallpaper.gone()
+        binding.emptyBoxView.root.visible()
+        binding.savedTextView.gone()
+        binding.recyclerSavedWallpaperView.gone()
     }
 
     private fun showPhotoInFavorite() {
-        binding.emptyBox.root.gone()
-        binding.saved.visible()
-        binding.recyclerSavedWallpaper.visible()
+        binding.emptyBoxView.root.gone()
+        binding.savedTextView.visible()
+        binding.recyclerSavedWallpaperView.visible()
     }
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {

@@ -11,9 +11,6 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_fragment_no_internet"
-            app:destination="@id/fragment_no_internet" />
-        <action
             android:id="@+id/action_fragment_home_to_fragment_selected_image"
             app:destination="@id/fragment_selected_image" />
         <action
@@ -53,11 +50,6 @@
             android:id="@+id/action_fragment_profile_to_activity_about"
             app:destination="@id/activity_about" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragment_no_internet"
-        android:name="it.kimoterru.walls.ui.networkConnection.NoInternetConnectionFragment"
-        tools:layout="@layout/fragment_no_internet_connection" />
 
     <fragment
         android:id="@+id/fragment_selected_image"

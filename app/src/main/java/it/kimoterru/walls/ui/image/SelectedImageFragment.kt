@@ -61,7 +61,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
 
     private fun initObservers() {
         viewModel.photoLiveData.observe(viewLifecycleOwner) {
-            binding.progressBar.showProgressBar()
+            binding.progressBar.visible()
             when (it.status) {
                 SUCCESS -> {
                     it.data?.let { it1 -> setImage(it1) }
@@ -81,7 +81,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     isFirstResource: Boolean
                 ): Boolean {
                     showToast(e?.message)
-                    binding.progressBar.showProgressBar()
+                    binding.progressBar.visible()
                     hideFragmentComponent()
                     return false
                 }
@@ -90,7 +90,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                     resource: Drawable?, model: Any?, target: Target<Drawable>?,
                     dataSource: DataSource?, isFirstResource: Boolean
                 ): Boolean {
-                    binding.progressBar.hideProgressBar()
+                    binding.progressBar.gone()
                     showFragmentComponent()
                     return false
                 }
@@ -144,29 +144,19 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
                 //all views in bindingBottomSheet
                 Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
                 it.infoUser.text = data.user.name
-                if (data.location?.city != null) {
-                    it.infoLocation.text =
-                        "${data.location.city} - ${data.location.country}"
-                    it.infoLocation.visibility = View.VISIBLE
-                } //Works fine, don't touch it!!!
+                it.infoLocation.text = "${data.location?.city} - ${data.location?.country}"
                 it.resolutionInfo.text = "${data.width} x ${data.height}"
                 it.createdAtInfo.text = data.createdAt
                 it.colorInfo.text = data.color
                 it.downInfo.text = data.downloads.toString()
                 it.likesInfo.text = data.likes.toString()
 
-                if (data.exif?.iso != null) {
-                    it.makeCam.text = data.exif.make
-                    it.modelCam.text = data.exif.model
-                    it.exposureTimeCam.text = data.exif.exposure_time + "s"
-                    it.apertureCam.text = "f/" + data.exif.aperture
-                    it.focalLengthCam.text = data.exif.focal_length + "mm"
-                    it.isoCam.text = data.exif.iso.toString()
-
-                    it.cameraInfo.visible()
-                    it.linearInfoCam.visible()
-                    it.linearDataCam.visible()
-                }
+                it.makeCam.text = data.exif?.make ?: "null"
+                it.modelCam.text = data.exif?.model ?: "null"
+                it.exposureTimeCam.text = data.exif?.exposure_time
+                it.apertureCam.text = "f/" + data.exif?.aperture
+                it.focalLengthCam.text = data.exif?.focal_length + "mm"
+                it.isoCam.text = data.exif?.iso.toString()
             }
             dialog.show()
         }

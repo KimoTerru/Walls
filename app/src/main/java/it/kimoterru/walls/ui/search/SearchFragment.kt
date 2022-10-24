@@ -70,7 +70,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     } //For any garbage associated with onViewCreated
 
     private fun setupSwipeRefreshLayout() {
-        binding.swipeRefreshLayout.apply {
+        binding.searchSwipeRefreshLayout.apply {
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
                 viewModel.whichSnippet(args.whichSnippet, args.query)
@@ -82,32 +82,32 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         viewModel.imageTopicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
-                    binding.swipeRefreshLayout.isRefreshing = false
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
                     it.data?.let { list -> searchAdapter.addData(list) }
                 }
                 ERROR -> {
-                    binding.swipeRefreshLayout.isRefreshing = false
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
                     showToast(it.message)
                 }
                 LOADING -> {
-                    binding.swipeRefreshLayout.isRefreshing = !viewModel.isLoading
+                    binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }
         }
         viewModel.imageSearchLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
-                    binding.swipeRefreshLayout.isRefreshing = false
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
                     it.data?.let { list -> searchAdapter.addData(list.results) }
                 }
                 ERROR -> {
-                    binding.swipeRefreshLayout.isRefreshing = false
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
                     showToast(it.message)
                 }
                 LOADING -> {
-                    binding.swipeRefreshLayout.isRefreshing = !viewModel.isLoading
+                    binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }
         } // A request for color is immediately made

@@ -28,7 +28,7 @@ class SavedViewModel @Inject constructor(
                 if (photoData.isNotEmpty()) {
                     photoMutableLiveData.postValue(Resource.success(photoData))
                 } else {
-                    photoMutableLiveData.postValue(Resource.error("Empty!"))
+                    photoMutableLiveData.postValue(Resource.error("none"))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

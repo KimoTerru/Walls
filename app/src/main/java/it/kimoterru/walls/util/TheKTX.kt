@@ -17,6 +17,14 @@ fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
+fun View.isVisible(show: Boolean) {
+    if (show) {
+        visible()
+    } else {
+        gone()
+    }
+}
+
 fun Fragment.showToast(message: String?) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
