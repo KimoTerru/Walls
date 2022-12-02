@@ -36,14 +36,18 @@ class SavedAdapter(
         val item = data[position]
 
         holder.image.setAspectRatio(item.width, item.height)
-        Glide.with(holder.image).load(item.urls.thumb)
+        Glide.with(holder.image).load(item.urls?.thumb)
             .placeholder(ColorDrawable(Color.parseColor(item.color)))
             .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(holder.image)
             .clearOnDetach()
 
         holder.image.setOnClickListener {
-            listener.onWallpaperClick(item.id, item.user.profileImage.large, item.id_photo)
+            listener.onWallpaperClick(
+                item.id!!,
+                item.user?.profileImage?.large!!,
+                item.id_photo_is_local
+            )
         }
     }
 

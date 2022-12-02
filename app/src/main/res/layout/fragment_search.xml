@@ -15,7 +15,7 @@
         android:maxLines="2"
         android:text="@string/search"
         android:textColor="@color/my_text_color"
-        android:textSize="34sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView

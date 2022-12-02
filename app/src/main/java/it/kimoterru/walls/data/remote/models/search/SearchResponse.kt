@@ -2,6 +2,7 @@ package it.kimoterru.walls.data.remote.models.search
 
 import com.google.gson.annotations.SerializedName
 import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.data.remote.models.photo.UserResponse
 
 data class SearchResponse(
     @SerializedName("total")
@@ -9,5 +10,7 @@ data class SearchResponse(
     @SerializedName("total_pages")
     val total_pages: Int,
     @SerializedName("results")
-    val results: List<PhotoResponse>
+    val resultsPhoto: List<PhotoResponse>,
+    @SerializedName("results")
+    val resultsUsers: List<UserResponse>
 )

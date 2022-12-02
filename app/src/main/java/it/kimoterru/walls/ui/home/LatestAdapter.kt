@@ -29,12 +29,16 @@ class LatestAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        Glide.with(holder.wallpaperCardView).load(item.urls.thumb)
+        Glide.with(holder.wallpaperCardView).load(item.urls?.thumb)
             .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(holder.wallpaperCardView)
             .clearOnDetach()
         holder.wallpaperCardView.setOnClickListener {
-            listener.onWallpaperClick(item.id, item.user.profileImage.large, item.id_photo)
+            listener.onWallpaperClick(
+                item.id!!,
+                item.user?.profileImage?.large!!,
+                item.id_photo_is_local
+            )
         }
     }
 

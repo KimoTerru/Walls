@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName
 data class ProfileImageResponse(
     @ColumnInfo(name = "large_photoImage")
     @SerializedName("large")
-    val large: String, //128x128
+    val large: String? = null, //128x128
 
     @ColumnInfo(name = "medium_photoImage")
     @SerializedName("medium")
-    val medium: String, //64x64
+    val medium: String? = null, //64x64
 
     @ColumnInfo(name = "small_photoImage")
     @SerializedName("small")
-    val small: String //32x32
+    val small: String? = null //32x32
 )

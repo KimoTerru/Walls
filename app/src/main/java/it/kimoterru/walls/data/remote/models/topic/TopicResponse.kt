@@ -1,16 +1,28 @@
 package it.kimoterru.walls.data.remote.models.topic
 
 import com.google.gson.annotations.SerializedName
+import it.kimoterru.walls.data.remote.models.photo.PhotoLinksResponse
 import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.data.remote.models.photo.UserResponse
 
 data class TopicResponse(
-    var id: String,
-    var slug: String,
-    var title: String,
-    var description: String,
-    var featured: Boolean,
+    val id: String,
+    val slug: String,
+    val title: String,
+    val description: String,
+    val startsAt: String,
+    val updatedAt: String? = null,
+    val endsAt: String? = null,
+    val featured: Boolean,
     @SerializedName("total_photos")
-    var totalPhotos: Int,
+    val totalPhotos: Int,
+    val links: PhotoLinksResponse? = null,
     @SerializedName("cover_photo")
-    var coverPhoto: PhotoResponse?
+    val coverPhoto: PhotoResponse? = null,
+    @SerializedName("preview_photos")
+    val previewPhotos: List<PhotoResponse>? = null,
+    val status: String? = null,
+    val owners: List<UserResponse>? = null,
+    @SerializedName("top_contributors")
+    val topContributors: UserResponse? = null,
 )

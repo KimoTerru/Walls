@@ -74,7 +74,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
     }
 
     private fun setImage(data: PhotoResponse) {
-        Glide.with(binding.selectedImage).load(data.urls.full)
+        Glide.with(binding.selectedImage).load(data.urls?.full)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
@@ -120,7 +120,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
 
             bindingBottomSheet.let {
                 it.saveToDownloads.setOnClickListener {
-                    viewModel.downloadPhoto(fileName, data.links.download, requireActivity())
+                    viewModel.downloadPhoto(fileName, data.links?.download!!, requireActivity())
                 }
                 it.saveToFavorite.setOnClickListener {
                     viewModel.saveToFavorite(data)
@@ -143,7 +143,7 @@ class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
             bindingBottomSheet.let {
                 //all views in bindingBottomSheet
                 Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
-                it.infoUser.text = data.user.name
+                it.infoUser.text = data.user?.name
                 it.infoLocation.text = "${data.location?.city} - ${data.location?.country}"
                 it.resolutionInfo.text = "${data.width} x ${data.height}"
                 it.createdAtInfo.text = data.createdAt

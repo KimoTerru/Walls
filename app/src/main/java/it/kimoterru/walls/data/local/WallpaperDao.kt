@@ -8,7 +8,7 @@ interface WallpaperDao {
     @Query("SELECT * FROM photoItem")
     suspend fun getAllPhoto(): List<PhotoResponse>
 
-    @Query("SELECT * FROM photoItem WHERE id_photo = :id")
+    @Query("SELECT * FROM photoItem WHERE id_photo_is_local = :id")
     suspend fun getById(id: Int): PhotoResponse?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

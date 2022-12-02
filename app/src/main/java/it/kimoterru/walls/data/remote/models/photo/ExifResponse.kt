@@ -12,9 +12,9 @@ data class ExifResponse(
     @SerializedName("model")
     val model: String? = null,
 
-    /*@ColumnInfo(name = "name_cam_exif")
+    @ColumnInfo(name = "name_cam_exif")
     @SerializedName("name")
-    val name: String? = null,*/
+    val name: String? = null,
 
     @ColumnInfo(name = "exposure_time_cam_exif")
     @SerializedName("exposure_time")

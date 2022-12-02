@@ -59,14 +59,15 @@ class SearchAdapter(
         fun bind(item: PhotoResponse) {
             image.setAspectRatio(item.width, item.height)
 
-            Glide.with(image).load(item.urls.thumb)
+            Glide.with(image).load(item.urls?.thumb)
                 .placeholder(ColorDrawable(Color.parseColor(item.color)))
                 .transition(DrawableTransitionOptions.withCrossFade(CROSS_FADE_DURATION))
-                .into(image)
-                .clearOnDetach()
+                .into(image).clearOnDetach()
 
             image.setOnClickListener {
-                listener.onWallpaperClick(item.id, item.user.profileImage.large, item.id_photo)
+                listener.onWallpaperClick(
+                    item.id!!, item.user?.profileImage?.large!!, item.id_photo_is_local
+                )
             }
         }
     }

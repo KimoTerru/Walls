@@ -1,5 +1,6 @@
 package it.kimoterru.walls.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -58,6 +59,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fragmentComponent() {
         binding.nameSearch.text = args.tittle
         if (args.totalPhotos != 0) {
@@ -100,7 +102,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
                 SUCCESS -> {
                     binding.searchSwipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
-                    it.data?.let { list -> searchAdapter.addData(list.results) }
+                    it.data?.let { list -> searchAdapter.addData(list.resultsPhoto) }
                 }
                 ERROR -> {
                     binding.searchSwipeRefreshLayout.isRefreshing = false

@@ -37,7 +37,7 @@ class TopicAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = topicData[position]
         Glide.with(holder.categoriesView)
-            .load(item.coverPhoto?.urls?.thumb)
+            .load(item.previewPhotos?.get(0)?.urls?.thumb)
             .transition(DrawableTransitionOptions.withCrossFade(CROSS_FADE_DURATION))
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
