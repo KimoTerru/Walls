@@ -18,8 +18,7 @@ import it.kimoterru.walls.util.Status.*
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search),
-    WallpaperClickListener.WallpaperClick {
+class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListener.WallpaperClick {
 
     private val binding: FragmentSearchBinding by viewBinding()
     private val args: SearchFragmentArgs by navArgs()

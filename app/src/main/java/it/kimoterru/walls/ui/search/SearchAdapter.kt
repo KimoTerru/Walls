@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.ui.widget.AspectRatioImageView
 import it.kimoterru.walls.util.Constants.Companion.CROSS_FADE_DURATION
 import it.kimoterru.walls.util.WallpaperClickListener
@@ -18,7 +18,7 @@ class SearchAdapter(
     private val listener: WallpaperClickListener.WallpaperClick
 ) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
-    private var data = arrayListOf<PhotoResponse>()
+    private var data = arrayListOf<Photo>()
 
     override fun getItemViewType(position: Int) = R.layout.card_image_display
 
@@ -33,12 +33,12 @@ class SearchAdapter(
         holder.bind(item)
     }
 
-    fun addData(newData: List<PhotoResponse>) {
+    fun addData(newData: List<Photo>) {
         data.addAll(newData)
         notifyDataSetChanged()
     }
 
-    fun updateItems(updateData: List<PhotoResponse>) {
+    fun updateItems(updateData: List<Photo>) {
         data.clear()
         data.addAll(updateData)
         notifyDataSetChanged()
@@ -56,7 +56,7 @@ class SearchAdapter(
 
         private val image: AspectRatioImageView = view.findViewById(R.id.card_image_display)
 
-        fun bind(item: PhotoResponse) {
+        fun bind(item: Photo) {
             image.setAspectRatio(item.width, item.height)
 
             Glide.with(image).load(item.urls?.thumb)

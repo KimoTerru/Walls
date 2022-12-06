@@ -14,12 +14,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.topic.TopicResponse
+import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.util.Constants.Companion.CROSS_FADE_DURATION
 import it.kimoterru.walls.util.WallpaperClickListener
 
 class TopicAdapter(
-    private val topicData: List<TopicResponse>,
+    private val topicData: List<Topic>,
     private val listener: WallpaperClickListener.HomeFragment,
 ) : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 

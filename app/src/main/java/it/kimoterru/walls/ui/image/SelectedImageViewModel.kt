@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.usecase.detailI.DeletePhotoUseCase
 import it.kimoterru.walls.domain.usecase.detailI.GetPhotoFromApiByIDUseCase
 import it.kimoterru.walls.domain.usecase.detailI.GetPhotoFromFavoriteByIDUseCase
@@ -29,8 +29,8 @@ class SelectedImageViewModel @Inject constructor(
     private val deletePhotoUseCase: DeletePhotoUseCase
 ) : ViewModel() {
 
-    private val photoMutableLiveData = MutableLiveData<Resource<PhotoResponse>>()
-    val photoLiveData: LiveData<Resource<PhotoResponse>> = photoMutableLiveData
+    private val photoMutableLiveData = MutableLiveData<Resource<Photo>>()
+    val photoLiveData: LiveData<Resource<Photo>> = photoMutableLiveData
 
     fun getPhoto(id: String, id_photo: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -64,13 +64,13 @@ class SelectedImageViewModel @Inject constructor(
         dm.enqueue(request)
     }
 
-    fun saveToFavorite(photo: PhotoResponse) {
+    fun saveToFavorite(photo: Photo) {
         viewModelScope.launch {
             insertPhotoUseCase.invoke(photo)
         }
     }
 
-    fun deleteToFavorites(photo: PhotoResponse) {
+    fun deleteToFavorites(photo: Photo) {
         viewModelScope.launch {
             deletePhotoUseCase.invoke(photo)
         }

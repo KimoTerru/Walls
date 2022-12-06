@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.ui.widget.AspectRatioImageView
 import it.kimoterru.walls.util.Constants
 import it.kimoterru.walls.util.WallpaperClickListener
@@ -18,7 +18,7 @@ class SavedAdapter(
     private val listener: WallpaperClickListener.WallpaperClick,
 ) : RecyclerView.Adapter<SavedAdapter.ViewHolder>() {
 
-    private var data = mutableListOf<PhotoResponse>()
+    private var data = mutableListOf<Photo>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: AspectRatioImageView = view.findViewById(R.id.card_image_display)
@@ -51,7 +51,7 @@ class SavedAdapter(
         }
     }
 
-    fun updateItems(updateData: List<PhotoResponse>) {
+    fun updateItems(updateData: List<Photo>) {
         data.clear()
         data.addAll(updateData)
         notifyDataSetChanged()

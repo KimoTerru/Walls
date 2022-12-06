@@ -1,7 +1,7 @@
 package it.kimoterru.walls.data.remote
 
 import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
-import it.kimoterru.walls.data.remote.models.search.SearchResponse
+import it.kimoterru.walls.data.remote.models.search.SearchPhotoResponse
 import it.kimoterru.walls.data.remote.models.topic.TopicResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -56,7 +56,7 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): SearchResponse
+    ): SearchPhotoResponse
 
     @GET("/search/photos")
     suspend fun getSearchImage(
@@ -65,5 +65,5 @@ interface WallpaperService {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int,
         @Query("order_by") order_by: String
-    ): SearchResponse
+    ): SearchPhotoResponse
 }

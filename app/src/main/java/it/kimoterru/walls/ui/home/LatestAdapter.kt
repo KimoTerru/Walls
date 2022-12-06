@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.util.Constants
 import it.kimoterru.walls.util.WallpaperClickListener
 
 class LatestAdapter(
-    val data: List<PhotoResponse>,
+    val data: List<Photo>,
     private val listener: WallpaperClickListener.WallpaperClick
 ) : RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
 

@@ -11,10 +11,10 @@ import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
-import it.kimoterru.walls.data.remote.models.topic.TopicResponse
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
+import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.util.Constants.Companion.colors
 import it.kimoterru.walls.util.Constants.Companion.notSaved
 import it.kimoterru.walls.util.Constants.Companion.search
@@ -86,7 +86,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         binding.errorBoxView.errorMassageView.text = error
     }
 
-    private fun displayLatest(response: List<PhotoResponse>?) {
+    private fun displayLatest(response: List<Photo>?) {
         binding.homeBoxView.recyclerLatestWallpapers.adapter =
             response?.let { LatestAdapter(it, this) }
     }
@@ -95,7 +95,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         binding.homeBoxView.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
     }
 
-    private fun displayTopics(list: List<TopicResponse>?) {
+    private fun displayTopics(list: List<Topic>?) {
         binding.homeBoxView.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
     }
 

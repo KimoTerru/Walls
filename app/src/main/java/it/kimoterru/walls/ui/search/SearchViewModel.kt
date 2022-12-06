@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
-import it.kimoterru.walls.data.remote.models.search.SearchResponse
+import it.kimoterru.walls.domain.models.photo.Photo
+import it.kimoterru.walls.domain.models.search.SearchPhoto
 import it.kimoterru.walls.domain.usecase.search.GetImageColorsUseCase
 import it.kimoterru.walls.domain.usecase.search.GetImageSearchUseCase
 import it.kimoterru.walls.domain.usecase.search.GetImageTopicsUseCase
@@ -30,11 +30,11 @@ class SearchViewModel @Inject constructor(
     private val getImageSearchUseCase: GetImageSearchUseCase
 ) : ViewModel() {
 
-    private val imageTopicsMutableLiveData = MutableLiveData<Resource<List<PhotoResponse>>>()
-    val imageTopicsLiveData: LiveData<Resource<List<PhotoResponse>>> = imageTopicsMutableLiveData
+    private val imageTopicsMutableLiveData = MutableLiveData<Resource<List<Photo>>>()
+    val imageTopicsLiveData: LiveData<Resource<List<Photo>>> = imageTopicsMutableLiveData
 
-    private val imageSearchMutableLiveData = MutableLiveData<Resource<SearchResponse>>()
-    val imageSearchLiveData: LiveData<Resource<SearchResponse>> = imageSearchMutableLiveData
+    private val imageSearchMutableLiveData = MutableLiveData<Resource<SearchPhoto>>()
+    val imageSearchLiveData: LiveData<Resource<SearchPhoto>> = imageSearchMutableLiveData
 
     var isLoading = false
     var isLastPage = false

@@ -1,27 +1,27 @@
 package it.kimoterru.walls.domain.repository
 
-import it.kimoterru.walls.data.remote.models.topic.TopicResponse
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
-import it.kimoterru.walls.data.remote.models.search.SearchResponse
+import it.kimoterru.walls.domain.models.topic.Topic
+import it.kimoterru.walls.domain.models.photo.Photo
+import it.kimoterru.walls.domain.models.search.SearchPhoto
 
 interface WallpaperRepository {
 
     suspend fun getLatestPhotos(
         clientId: String,
         page: Int,
-    ): List<PhotoResponse>
+    ): List<Photo>
 
     suspend fun getPhotoFromApiByID(
         id: String,
         clientId: String
-    ): PhotoResponse
+    ): Photo
 
     suspend fun getTopics(
         clientId: String,
         page: Int,
         per_page: Int,
         order_by: String,
-    ): List<TopicResponse>
+    ): List<Topic>
 
     suspend fun getImageTopics(
         id_or_slug: String,
@@ -29,7 +29,7 @@ interface WallpaperRepository {
         page: Int,
         per_page: Int,
         order_by: String
-    ): List<PhotoResponse>
+    ): List<Photo>
 
     suspend fun getImageColors(
         query: String,
@@ -38,7 +38,7 @@ interface WallpaperRepository {
         page: Int,
         per_page: Int,
         order_by: String
-    ): SearchResponse
+    ): SearchPhoto
 
     suspend fun getImageSearch(
         query: String,
@@ -46,13 +46,13 @@ interface WallpaperRepository {
         page: Int,
         per_page: Int,
         order_by: String,
-    ): SearchResponse
+    ): SearchPhoto
 
-    suspend fun getAllPhotosFromFavorite(): List<PhotoResponse>
+    suspend fun getAllPhotosFromFavorite(): List<Photo>
 
-    suspend fun getPhotoFromFavoriteByID(id: Int): PhotoResponse?
+    suspend fun getPhotoFromFavoriteByID(id: Int): Photo?
 
-    suspend fun insertPhoto(data: PhotoResponse)
+    suspend fun insertPhoto(data: Photo)
 
-    suspend fun deletePhoto(data: PhotoResponse)
+    suspend fun deletePhoto(data: Photo)
 }

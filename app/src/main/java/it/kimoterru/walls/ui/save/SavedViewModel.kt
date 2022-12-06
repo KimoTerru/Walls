@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.usecase.save.GetAllPhotosFromFavoriteUseCase
 import it.kimoterru.walls.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +17,8 @@ class SavedViewModel @Inject constructor(
     private val getAllPhotosFromFavoriteUseCase: GetAllPhotosFromFavoriteUseCase
 ) : ViewModel() {
 
-    private val photoMutableLiveData = MutableLiveData<Resource<List<PhotoResponse>>>()
-    val photoLiveData: LiveData<Resource<List<PhotoResponse>>> = photoMutableLiveData
+    private val photoMutableLiveData = MutableLiveData<Resource<List<Photo>>>()
+    val photoLiveData: LiveData<Resource<List<Photo>>> = photoMutableLiveData
 
     fun getAllPhotosFromFavorite() {
         photoMutableLiveData.postValue(Resource.loading())

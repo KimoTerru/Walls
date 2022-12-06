@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.data.remote.models.photo.PhotoResponse
-import it.kimoterru.walls.data.remote.models.topic.TopicResponse
+import it.kimoterru.walls.domain.models.photo.Photo
+import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.domain.usecase.home.GetLatestPhotosUseCase
 import it.kimoterru.walls.domain.usecase.home.GetTopicsUseCase
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
@@ -23,11 +23,11 @@ class HomeViewModel @Inject constructor(
     private val getTopicsUseCase: GetTopicsUseCase
 ) : ViewModel() {
 
-    private val homeResponseMutableLiveData = MutableLiveData<Resource<List<PhotoResponse>>>()
-    val homeResponseLiveData: LiveData<Resource<List<PhotoResponse>>> = homeResponseMutableLiveData
+    private val homeResponseMutableLiveData = MutableLiveData<Resource<List<Photo>>>()
+    val homeResponseLiveData: LiveData<Resource<List<Photo>>> = homeResponseMutableLiveData
 
-    private val topicsMutableLiveData = MutableLiveData<Resource<List<TopicResponse>>>()
-    val topicsLiveData: LiveData<Resource<List<TopicResponse>>> = topicsMutableLiveData
+    private val topicsMutableLiveData = MutableLiveData<Resource<List<Topic>>>()
+    val topicsLiveData: LiveData<Resource<List<Topic>>> = topicsMutableLiveData
 
     fun getHomeScreen() {
         homeResponseMutableLiveData.postValue(Resource.loading())
