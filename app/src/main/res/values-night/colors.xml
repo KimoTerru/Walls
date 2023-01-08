@@ -17,6 +17,7 @@
     <color name="my_text_color">#FFFFFFFF</color>
     <color name="my_bg_search_color">#333333</color>
     <color name="my_background_bottom_sheet">#FF000000</color>
+    <color name="my_day_night">#FF000000</color>
 
     <!--Wallpaper colors -->
     <color name="wp_black">#000000</color>

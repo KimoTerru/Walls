@@ -66,7 +66,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
-            SavedFragmentDirections.actionFragmentSavedToFragmentSelectedImage(
+            SavedFragmentDirections.actionFragmentSavedToFragmentDetailImage(
                 id, urlImageUser, saved, idFavoritePhoto
             )
         )

@@ -17,10 +17,10 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
-import it.kimoterru.walls.databinding.FragmentSelectedImageBinding
+import it.kimoterru.walls.databinding.FragmentDetailImageBinding
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.util.Constants.Companion.saved
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
@@ -29,22 +29,17 @@ import it.kimoterru.walls.util.showToast
 import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
-class SelectedImageFragment : Fragment(R.layout.fragment_selected_image) {
+class DetailImageFragment : Fragment(R.layout.fragment_detail_image) {
 
-    private val binding: FragmentSelectedImageBinding by viewBinding()
-    private val args: SelectedImageFragmentArgs by navArgs()
-    private val viewModel: SelectedImageViewModel by viewModels()
+    private val binding: FragmentDetailImageBinding by viewBinding()
+    private val args: DetailImageFragmentArgs by navArgs()
+    private val viewModel: DetailImageViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.getPhoto(args.idImage, args.idFavoritePhoto)
         initObservers()
         hideFragmentComponent()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getPhoto(args.idImage, args.idFavoritePhoto)
     }
 
     private fun hideFragmentComponent() {

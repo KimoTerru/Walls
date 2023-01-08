@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_saved -> showBottomNav()
                 R.id.fragment_profile -> showBottomNav()
 
-                R.id.fragment_selected_image -> hideBottomNav()
+                R.id.fragment_detail_image -> hideBottomNav()
                 R.id.fragment_empty_user_profile -> showBottomNav()
                 R.id.fragment_settings -> showBottomNav()
                 else -> hideBottomNav()

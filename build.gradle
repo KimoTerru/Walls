@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = '1.7.20'
+    ext.kotlin_version = '1.8.0'
 
     ext.androidx_core_version = '1.9.0'
     ext.androidx_appcompat_version = '1.5.1'
@@ -11,14 +11,14 @@ buildscript {
     ext.androidx_test_ext_version = '1.1.4'
     ext.androidx_test_espresso_version = '3.5.0'
 
-    ext.androidx_fragment_version = '1.5.4'
+    ext.androidx_fragment_version = '1.5.5'
     ext.androidx_lifecycle_version = '2.5.1'
     ext.kotlin_coroutines_version = '1.6.4'
 
     ext.glide_version = '4.13.2'
     ext.glide_transformations_version = '4.3.0'
     ext.retrofit_version = '2.9.0'
-    ext.hilt_version = '2.43.2'
+    ext.hilt_version = '2.44.2'
     ext.navigation_version = '2.5.3'
     ext.room_version = '2.4.3'
     ext.viewbinding_property_delegate_version = '1.5.6'

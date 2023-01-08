@@ -18,11 +18,12 @@ import it.kimoterru.walls.domain.usecase.detailI.InsertPhotoUseCase
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectedImageViewModel @Inject constructor(
+class DetailImageViewModel @Inject constructor(
     private val getPhotoFromFavoriteByIDUseCase: GetPhotoFromFavoriteByIDUseCase,
     private val getPhotoFromApiByIDUseCase: GetPhotoFromApiByIDUseCase,
     private val insertPhotoUseCase: InsertPhotoUseCase,

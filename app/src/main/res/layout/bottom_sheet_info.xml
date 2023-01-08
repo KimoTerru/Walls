@@ -41,7 +41,7 @@
             android:maxLines="2"
             android:text="Joe Example"
             android:textColor="@color/my_text_color"
-            android:textSize="27sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
 
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Montreal / Canada"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/info_user"
             app:layout_constraintStart_toStartOf="@+id/info_user"
             app:layout_constraintTop_toBottomOf="@+id/info_user" />

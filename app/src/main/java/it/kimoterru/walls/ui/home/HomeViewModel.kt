@@ -13,6 +13,7 @@ import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Constants.Companion.FIRST_PAGE
 import it.kimoterru.walls.util.Resource
 import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.util.TopicsOrder.POSITION
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +30,12 @@ class HomeViewModel @Inject constructor(
     private val topicsMutableLiveData = MutableLiveData<Resource<List<Topic>>>()
     val topicsLiveData: LiveData<Resource<List<Topic>>> = topicsMutableLiveData
 
-    fun getHomeScreen() {
+    init {
+        getHomeScreen()
+        getTopics(POSITION)
+    }
+
+    private fun getHomeScreen() {
         homeResponseMutableLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -42,7 +48,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getTopics(order: TopicsOrder) {
+    private fun getTopics(order: TopicsOrder) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val topicsData = getTopicsUseCase.invoke(

@@ -11,9 +11,9 @@ import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.util.Constants.Companion.colors
 import it.kimoterru.walls.util.Constants.Companion.notSaved
@@ -21,7 +21,6 @@ import it.kimoterru.walls.util.Constants.Companion.search
 import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Constants.Companion.zero
 import it.kimoterru.walls.util.Status.*
-import it.kimoterru.walls.util.TopicsOrder
 import it.kimoterru.walls.util.WallpaperClickListener
 import it.kimoterru.walls.util.isVisible
 import it.kimoterru.walls.util.visible
@@ -40,12 +39,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         initSearch()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getHomeScreen()
-        viewModel.getTopics(TopicsOrder.POSITION)
-    }
-
     private fun initObservers() {
         viewModel.homeResponseLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -53,13 +46,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                     displayLatest(it.data)
                     binding.homeBoxView.root.visible()
                     errorStateConnection(it.message.toString(), false)
-                    showLoadingAnim(false)
                 }
                 ERROR -> {
                     errorStateConnection(it.message.toString(), true)
-                    showLoadingAnim(false)
                 }
-                LOADING -> showLoadingAnim(true)
+                else -> {}
             }
         }
         viewModel.topicsLiveData.observe(viewLifecycleOwner) {
@@ -68,17 +59,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
                     displayTopics(it.data)
                     displayColors()
                     binding.homeBoxView.root.visible()
-                    showLoadingAnim(false)
                 }
                 /*ERROR -> showToast(it.message)*/
                 else -> {
                 }
             }
         }
-    }
-
-    private fun showLoadingAnim(show: Boolean) {
-        //binding.homeAnimationView.isVisible(show)
     }
 
     private fun errorStateConnection(error: String, show: Boolean) {
@@ -129,7 +115,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
-            HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
+            HomeFragmentDirections.actionFragmentHomeToFragmentDetailImage(
                 id, urlImageUser, notSaved, idFavoritePhoto
             )
         )

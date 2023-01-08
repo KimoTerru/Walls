@@ -51,4 +51,6 @@
     <string name="error_massage">Error 404</string>
     <string name="no_wallpaper">There is no wallpaper...</string>
 
+    <string name="wallpapers_available">wallpapers available</string>
+
 </resources>

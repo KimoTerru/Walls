@@ -37,7 +37,6 @@
             android:id="@+id/recyclerImageSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="SpeakableTextPresentCheck"
             tools:listitem="@layout/card_image_display" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

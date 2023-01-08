@@ -31,7 +31,6 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.whichSnippet(args.whichSnippet, args.query)
         initObservers()
         fragmentComponent()
         initRecycler()
@@ -47,7 +46,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
                 override fun loadMoreItems() {
                     viewModel.isLoading = true
                     viewModel.pagePhoto++
-                    viewModel.whichSnippet(args.whichSnippet, args.query)
+                    viewModel.addData()
                 }
 
                 override val isLastPage: Boolean
@@ -62,7 +61,8 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
     private fun fragmentComponent() {
         binding.nameSearch.text = args.tittle
         if (args.totalPhotos != 0) {
-            binding.sizeSaveWallpaper.text = args.totalPhotos.toString() + " wallpapers available"
+            binding.sizeSaveWallpaper.text =
+                args.totalPhotos.toString() + " " + getText(R.string.wallpapers_available)
             binding.sizeSaveWallpaper.visible()
         } else {
             binding.sizeSaveWallpaper.gone()
@@ -74,8 +74,9 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
         binding.searchSwipeRefreshLayout.apply {
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
-                viewModel.whichSnippet(args.whichSnippet, args.query)
+                viewModel.updateDate()
             }
+            setProgressBackgroundColorSchemeResource(R.color.my_day_night)
         }
     }
 
@@ -116,7 +117,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
 
     override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
         Navigation.findNavController(requireView()).navigate(
-            SearchFragmentDirections.actionFragmentAdapterToFragmentSelectedImage(
+            SearchFragmentDirections.actionFragmentSearchToFragmentDetailImage(
                 id, urlImageUser, notSaved, idFavoritePhoto
             )
         )

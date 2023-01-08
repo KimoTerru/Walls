@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.image.SelectedImageFragment">
+    tools:context=".ui.image.DetailImageFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/back_image"
@@ -22,6 +22,7 @@
             android:id="@+id/selected_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/my_day_night"
             android:scaleType="center" />
 
     </androidx.cardview.widget.CardView>
@@ -38,88 +39,40 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading" />
 
-    <androidx.cardview.widget.CardView
+    <ImageButton
         android:id="@+id/card_brush"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="38dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
+        android:background="@drawable/background_card_button"
+        android:src="@drawable/brush"
         app:layout_constraintBottom_toBottomOf="@id/back_image"
         app:layout_constraintLeft_toRightOf="@id/card_down"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="ContentDescription" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/back_brush"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/brush"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp"
-                android:src="@drawable/brush"
-                tools:ignore="ContentDescription" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <ImageButton
         android:id="@+id/card_down"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="38dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
+        android:background="@drawable/background_card_button"
+        android:src="@drawable/down"
         app:layout_constraintBottom_toBottomOf="@id/back_image"
         app:layout_constraintLeft_toRightOf="@id/card_info"
-        app:layout_constraintRight_toLeftOf="@id/card_brush">
+        app:layout_constraintRight_toLeftOf="@id/card_brush"
+        tools:ignore="ContentDescription" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/back_down"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/down"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp"
-                android:src="@drawable/down"
-                tools:ignore="ContentDescription" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <ImageButton
         android:id="@+id/card_info"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="38dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
+        android:background="@drawable/background_card_button"
+        android:src="@drawable/info"
         app:layout_constraintBottom_toBottomOf="@id/back_image"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/card_down">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/back_info"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp"
-                android:src="@drawable/info"
-                tools:ignore="ContentDescription" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintRight_toLeftOf="@id/card_down"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

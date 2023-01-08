@@ -1,9 +1,6 @@
 package it.kimoterru.walls.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.models.search.SearchPhoto
@@ -27,7 +24,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val getImageTopicsUseCase: GetImageTopicsUseCase,
     private val getImageColorsUseCase: GetImageColorsUseCase,
-    private val getImageSearchUseCase: GetImageSearchUseCase
+    private val getImageSearchUseCase: GetImageSearchUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val imageTopicsMutableLiveData = MutableLiveData<Resource<List<Photo>>>()
@@ -36,16 +34,33 @@ class SearchViewModel @Inject constructor(
     private val imageSearchMutableLiveData = MutableLiveData<Resource<SearchPhoto>>()
     val imageSearchLiveData: LiveData<Resource<SearchPhoto>> = imageSearchMutableLiveData
 
+    private val fragment = savedStateHandle.get<String>("whichSnippet")
+    private val query = savedStateHandle.get<String>("query")
+
+    init {
+        if (fragment!!.isNotEmpty() and query!!.isNotEmpty()) {
+            whichSnippet(fragment.toString(), query.toString())
+        }
+    }
+
     var isLoading = false
     var isLastPage = false
     var pagePhoto = 1
 
-    fun whichSnippet(fragment: String, query: String) {
+    private fun whichSnippet(fragment: String, query: String) {
         when (fragment) { // Determine which request
             topics -> getImageTopics(query, TopicsOrder.LATEST)
             colors -> getImageColors(query, query, TopicsOrder.LATEST)
             search -> getImageSearch(query, TopicsOrder.LATEST)
         }
+    }
+
+    fun updateDate() {
+        whichSnippet(fragment.toString(), query.toString())
+    }
+
+    fun addData() {
+        whichSnippet(fragment.toString(), query.toString())
     }
 
     private fun getImageTopics(id_or_slug: String, order: TopicsOrder) {

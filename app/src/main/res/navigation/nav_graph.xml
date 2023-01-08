@@ -11,11 +11,11 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image" />
-        <action
             android:id="@+id/action_fragment_home_to_fragment_search"
             app:destination="@id/fragment_search" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_detail_image"
+            app:destination="@id/fragment_detail_image" />
 
     </fragment>
 
@@ -24,12 +24,8 @@
         android:name="it.kimoterru.walls.ui.save.SavedFragment"
         tools:layout="@layout/fragment_saved">
         <action
-            android:id="@+id/action_fragment_saved_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_fragment_saved_to_fragment_detail_image"
+            app:destination="@id/fragment_detail_image" />
     </fragment>
 
     <fragment
@@ -52,9 +48,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_selected_image"
-        android:name="it.kimoterru.walls.ui.image.SelectedImageFragment"
-        tools:layout="@layout/fragment_selected_image">
+        android:id="@+id/fragment_detail_image"
+        android:name="it.kimoterru.walls.ui.image.DetailImageFragment"
+        tools:layout="@layout/fragment_detail_image">
         <argument
             android:name="id_image"
             app:argType="string" />
@@ -86,12 +82,8 @@
             android:name="whichSnippet"
             app:argType="string" />
         <action
-            android:id="@+id/action_fragment_adapter_to_fragment_selected_image"
-            app:destination="@id/fragment_selected_image"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_fragment_search_to_fragment_detail_image"
+            app:destination="@id/fragment_detail_image" />
     </fragment>
 
     <fragment
@@ -103,7 +95,6 @@
         android:id="@+id/fragment_settings"
         android:name="it.kimoterru.walls.ui.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
-
 
     <activity
         android:id="@+id/activity_about"
