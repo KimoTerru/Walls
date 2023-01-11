@@ -1,0 +1,270 @@
+Index: app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.home\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.view.inputmethod.EditorInfo\r\nimport android.widget.Toast\r\nimport androidx.core.widget.addTextChangedListener\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.Navigation\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.adapter.home.CategoriesAdapter\r\nimport it.kimoterru.walls.adapter.home.ColorAdapter\r\nimport it.kimoterru.walls.adapter.home.LatestAdapter\r\nimport it.kimoterru.walls.databinding.FragmentHomeBinding\r\nimport it.kimoterru.walls.models.categories.TopicItem\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\nimport it.kimoterru.walls.util.Status\r\nimport it.kimoterru.walls.util.TopicsOrder\r\n\r\n@AndroidEntryPoint\r\nclass HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick, WallpaperClickListener {\r\n    private var _binding: FragmentHomeBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private var viewModel: HomeViewModel? = null\r\n\r\n    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {\r\n        _binding = FragmentHomeBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)\r\n\r\n        initObservers()\r\n        initSearch()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        viewModel?.getHomeScreen()\r\n        viewModel?.getTopics(TopicsOrder.POSITION)\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayLatest(it.data)\r\n                    hideShimmerEffectLatestWallpapers()\r\n                }\r\n                Status.ERROR -> {\r\n                    noNetworkConnect()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n        viewModel?.topicsLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayTopics(it.data)\r\n                    hideShimmerEffectCategories()\r\n                    displayColors()\r\n                }\r\n                Status.ERROR -> {\r\n                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()\r\n                }\r\n                else -> {}\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun hideShimmerEffectLatestWallpapers() {\r\n        binding.shimmerLayout.stopShimmer()\r\n        binding.shimmerLayout.visibility = View.GONE\r\n    }\r\n\r\n    private fun hideShimmerEffectCategories() {\r\n        binding.shimmerLayoutCategories.stopShimmer()\r\n        binding.shimmerLayoutCategories.visibility = View.GONE\r\n\r\n        binding.shimmerLayoutColor.stopShimmer()\r\n        binding.shimmerLayoutColor.visibility = View.GONE\r\n    }\r\n\r\n    private fun noNetworkConnect() {\r\n        Navigation.findNavController(requireView()).navigate(R.id.action_fragment_home_to_fragment_no_internet)\r\n    }\r\n\r\n    private fun displayLatest(response: List<PhotoItem>?) {\r\n        binding.recyclerLatestWallpapers.adapter = LatestAdapter(response ?: listOf(), this, R.layout.card_image)\r\n    }\r\n\r\n    private fun displayColors() {\r\n        binding.recyclerBestColorTone.adapter = ColorAdapter(this, R.layout.card_color)\r\n    }\r\n\r\n    private fun displayTopics(list: List<TopicItem>?) {\r\n        binding.recyclerCategories.adapter = CategoriesAdapter(list!!, this)\r\n        binding.recyclerCategories.isNestedScrollingEnabled = false\r\n    }\r\n\r\n    private fun initSearch() {\r\n        binding.findImage.addTextChangedListener {\r\n            if (it.toString().isNotEmpty()) {\r\n                binding.searchImage.setImageResource(R.drawable.cancel)\r\n                binding.searchImage.setOnClickListener {\r\n                    binding.findImage.text.clear()\r\n                }\r\n            } else {\r\n                binding.searchImage.setImageResource(R.drawable.search)\r\n            }\r\n        }\r\n        binding.findImage.setOnEditorActionListener { _, actionId, _ ->\r\n            if (actionId == EditorInfo.IME_ACTION_SEARCH) {\r\n                val query: String = binding.findImage.text.toString()\r\n                if (query.isNotEmpty()) {\r\n                    Navigation.findNavController(requireView())\r\n                        .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentSearch(query))\r\n                } else {\r\n                    Toast.makeText(context, \"Empty!\", Toast.LENGTH_LONG).show()\r\n                }\r\n                true\r\n            } else false\r\n        }\r\n    }\r\n\r\n    override fun onWallpaperClick(\r\n        id: String,\r\n        urlImage: String,\r\n        urlDownload: String,\r\n        created: String,\r\n        updated: String,\r\n        userName: String,\r\n        name: String\r\n    ) {\r\n        Navigation.findNavController(requireView())\r\n            .navigate(\r\n                HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(\r\n                    id,\r\n                    urlImage,\r\n                    urlDownload,\r\n                    created,\r\n                    updated,\r\n                    userName,\r\n                    name\r\n                ))\r\n    }\r\n\r\n    override fun onColorClick(name: String) {\r\n        Navigation.findNavController(requireView())\r\n            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentColors(\r\n                name\r\n            ))\r\n    }\r\n\r\n    override fun onCategoryClick(name: String, tittle: String, description: String) {\r\n        Navigation.findNavController(requireView())\r\n            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(\r\n                name,\r\n                tittle,\r\n                description\r\n            ))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	
++++ b/app/src/main/java/it/kimoterru/walls/ui/home/HomeFragment.kt	
+@@ -160,12 +160,12 @@
+             ))
+     }
+ 
+-    override fun onCategoryClick(name: String, tittle: String, description: String) {
++    override fun onCategoryClick(name: String, tittle: String, sizeWallpaper: Int) {
+         Navigation.findNavController(requireView())
+             .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(
+                 name,
+                 tittle,
+-                description
++                sizeWallpaper
+             ))
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/navigation/nav_graph.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/nav_graph\"\r\n    app:startDestination=\"@id/fragment_home\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_home\"\r\n        android:name=\"it.kimoterru.walls.ui.home.HomeFragment\"\r\n        android:label=\"@string/home\"\r\n        tools:layout=\"@layout/fragment_home\">\r\n        <action\r\n            android:id=\"@+id/action_fragment_home_to_fragment_no_internet\"\r\n            app:destination=\"@id/fragment_no_internet\" />\r\n        <action\r\n            android:id=\"@+id/action_fragment_home_to_fragment_selected_image\"\r\n            app:destination=\"@id/fragment_selected_image\" />\r\n        <action\r\n            android:id=\"@+id/action_fragment_home_to_fragment_categories\"\r\n            app:destination=\"@id/fragment_categories\" />\r\n        <action\r\n            android:id=\"@+id/action_fragment_home_to_fragment_colors\"\r\n            app:destination=\"@id/fragment_colors\" />\r\n        <action\r\n            android:id=\"@+id/action_fragment_home_to_fragment_search\"\r\n            app:destination=\"@id/fragment_search\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_saved\"\r\n        android:name=\"it.kimoterru.walls.ui.save.SavedFragment\"\r\n        tools:layout=\"@layout/fragment_saved\">\r\n        <action\r\n            android:id=\"@+id/action_fragment_saved_to_fragment_empty_saved\"\r\n            app:destination=\"@id/fragment_empty_saved\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_profile\"\r\n        android:name=\"it.kimoterru.walls.ui.profile.ProfileFragment\"\r\n        tools:layout=\"@layout/fragment_profile\">\r\n        <action\r\n            android:id=\"@+id/action_fragment_profile_to_fragment_empty_user_profile\"\r\n            app:destination=\"@id/fragment_empty_user_profile\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_no_internet\"\r\n        android:name=\"it.kimoterru.walls.ui.networkConnection.NoInternetConnectionFragment\"\r\n        tools:layout=\"@layout/fragment_no_internet_connection\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_empty_saved\"\r\n        android:name=\"it.kimoterru.walls.ui.save.EmptySavedFragment\"\r\n        tools:layout=\"@layout/fragment_empty_saved_wallpaper\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_selected_image\"\r\n        android:name=\"it.kimoterru.walls.ui.image.SelectedImageFragment\"\r\n        tools:layout=\"@layout/fragment_selected_image\">\r\n        <argument\r\n            android:name=\"id_image\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"url_image\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"url_download\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"created_Image\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"updated_Image\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"userName_image\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"name_image\"\r\n            app:argType=\"string\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_categories\"\r\n        android:name=\"it.kimoterru.walls.ui.category.CategoryFragment\"\r\n        tools:layout=\"@layout/fragment_categories\">\r\n        <argument\r\n            android:name=\"slug\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"tittle\"\r\n            app:argType=\"string\" />\r\n        <argument\r\n            android:name=\"description\"\r\n            app:argType=\"string\" />\r\n        <action\r\n            android:id=\"@+id/action_fragment_categories_to_fragment_selected_image\"\r\n            app:destination=\"@id/fragment_selected_image\"\r\n            app:enterAnim=\"@android:anim/fade_in\"\r\n            app:exitAnim=\"@anim/nav_default_exit_anim\"\r\n            app:popEnterAnim=\"@android:anim/fade_in\"\r\n            app:popExitAnim=\"@anim/nav_default_pop_exit_anim\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_colors\"\r\n        android:name=\"it.kimoterru.walls.ui.color.ColorsFragment\"\r\n        tools:layout=\"@layout/fragment_colors\">\r\n\r\n        <action\r\n            android:id=\"@+id/action_fragment_colors_to_fragment_selected_image\"\r\n            app:destination=\"@id/fragment_selected_image\"\r\n            app:enterAnim=\"@android:anim/fade_in\"\r\n            app:exitAnim=\"@anim/nav_default_exit_anim\"\r\n            app:popEnterAnim=\"@android:anim/fade_in\"\r\n            app:popExitAnim=\"@anim/nav_default_pop_exit_anim\" />\r\n        <argument\r\n            android:name=\"tittle\"\r\n            app:argType=\"string\" />\r\n    </fragment>\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_empty_user_profile\"\r\n        android:name=\"it.kimoterru.walls.ui.profile.EmptyUserFragment\"\r\n        tools:layout=\"@layout/fragment_empty_user_profile\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/fragment_search\"\r\n        android:name=\"it.kimoterru.walls.ui.search.SearchFragment\"\r\n        tools:layout=\"@layout/fragment_search\" >\r\n        <argument\r\n            android:name=\"query\"\r\n            app:argType=\"string\" />\r\n        <action\r\n            android:id=\"@+id/action_fragment_search_to_fragment_selected_image\"\r\n            app:destination=\"@id/fragment_selected_image\" />\r\n    </fragment>\r\n\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/nav_graph.xml b/app/src/main/res/navigation/nav_graph.xml
+--- a/app/src/main/res/navigation/nav_graph.xml	
++++ b/app/src/main/res/navigation/nav_graph.xml	
+@@ -93,8 +93,8 @@
+             android:name="tittle"
+             app:argType="string" />
+         <argument
+-            android:name="description"
+-            app:argType="string" />
++            android:name="sizeWallpaper"
++            app:argType="integer" />
+         <action
+             android:id="@+id/action_fragment_categories_to_fragment_selected_image"
+             app:destination="@id/fragment_selected_image"
+Index: app/src/main/res/layout/fragment_categories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.core.widget.NestedScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:fillViewport=\"true\"\r\n    android:overScrollMode=\"never\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/category\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginHorizontal=\"20dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:ellipsize=\"end\"\r\n            android:maxLines=\"2\"\r\n            android:text=\"category\"\r\n            android:textColor=\"@color/black\"\r\n            android:textSize=\"38sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/description\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginHorizontal=\"20dp\"\r\n            android:text=\"From epic drone shots to inspiring moments in nature, find free HD wallpapers worthy of your mobile and desktop screens. Finally.\"\r\n            android:textSize=\"16sp\"\r\n            app:layout_constraintRight_toRightOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/category\" />\r\n\r\n        <androidx.recyclerview.widget.RecyclerView\r\n            android:id=\"@+id/recycler_image_category\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_marginHorizontal=\"10dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:orientation=\"vertical\"\r\n            app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@id/description\"\r\n            app:spanCount=\"2\"\r\n            tools:listitem=\"@layout/card_image_display\" />\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n</androidx.core.widget.NestedScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_categories.xml b/app/src/main/res/layout/fragment_categories.xml
+--- a/app/src/main/res/layout/fragment_categories.xml	
++++ b/app/src/main/res/layout/fragment_categories.xml	
+@@ -1,57 +1,57 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:fillViewport="true"
+-    android:overScrollMode="never">
+-
+-    <androidx.constraintlayout.widget.ConstraintLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent">
++    android:layout_height="match_parent">
+ 
+-        <TextView
+-            android:id="@+id/category"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginHorizontal="20dp"
+-            android:layout_marginTop="20dp"
+-            android:ellipsize="end"
+-            android:maxLines="2"
+-            android:text="category"
+-            android:textColor="@color/black"
+-            android:textSize="38sp"
+-            android:textStyle="bold"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toTopOf="parent" />
++    <TextView
++        android:id="@+id/category"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="20dp"
++        android:layout_marginTop="20dp"
++        android:ellipsize="end"
++        android:maxLines="2"
++        android:text="category"
++        android:textColor="@color/black"
++        android:textSize="35sp"
++        android:textStyle="bold"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+-        <TextView
+-            android:id="@+id/description"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginHorizontal="20dp"
+-            android:text="From epic drone shots to inspiring moments in nature, find free HD wallpapers worthy of your mobile and desktop screens. Finally."
+-            android:textSize="16sp"
+-            app:layout_constraintRight_toRightOf="parent"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toBottomOf="@+id/category" />
++    <TextView
++        android:id="@+id/size_wallpaper"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="20dp"
++        android:text="36"
++        android:textSize="20sp"
++        app:layout_constraintRight_toRightOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/category" />
+ 
+-        <androidx.recyclerview.widget.RecyclerView
+-            android:id="@+id/recycler_image_category"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_marginHorizontal="10dp"
+-            android:layout_marginTop="8dp"
+-            android:orientation="vertical"
+-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toBottomOf="@id/description"
+-            app:spanCount="2"
+-            tools:listitem="@layout/card_image_display" />
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="4dp"
++        android:text="wallpaper available"
++        android:textSize="18sp"
++        app:layout_constraintBottom_toBottomOf="@+id/size_wallpaper"
++        app:layout_constraintStart_toEndOf="@+id/size_wallpaper"
++        app:layout_constraintTop_toBottomOf="@+id/category" />
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/recycler_image_category"
++        android:layout_width="match_parent"
++        android:layout_height="0dp"
++        android:layout_marginHorizontal="10dp"
++        android:layout_marginTop="8dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@id/size_wallpaper"
++        tools:listitem="@layout/card_image_display" />
+ 
+-    </androidx.constraintlayout.widget.ConstraintLayout>
+-
+-</androidx.core.widget.NestedScrollView>
+\ No newline at end of file
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/it/kimoterru/walls/adapter/home/CategoriesAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.adapter.home\r\n\r\nimport android.graphics.drawable.Drawable\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ImageView\r\nimport android.widget.TextView\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport com.bumptech.glide.load.DataSource\r\nimport com.bumptech.glide.load.engine.GlideException\r\nimport com.bumptech.glide.request.RequestListener\r\nimport com.bumptech.glide.request.target.Target\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.models.categories.TopicItem\r\n\r\nclass CategoriesAdapter(\r\n    private val categories: List<TopicItem>,\r\n    private val listener: WallpaperClickListener,\r\n) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {\r\n\r\n    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {\r\n        val categoriesView: ImageView = view.findViewById(R.id.card_categories)\r\n        val nameView: TextView = view.findViewById(R.id.name)\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n        val view =\r\n            LayoutInflater.from(parent.context).inflate(R.layout.card_categories, parent, false)\r\n        return ViewHolder(view)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n        val item = categories[position]\r\n        Glide.with(holder.categoriesView)\r\n            .load(item.coverPhoto.urls.thumb)\r\n            .listener(object : RequestListener<Drawable> {\r\n                override fun onLoadFailed(\r\n                    e: GlideException?,\r\n                    model: Any?,\r\n                    target: Target<Drawable>?,\r\n                    isFirstResource: Boolean\r\n                ): Boolean {\r\n                    e?.printStackTrace()\r\n                    return false\r\n                }\r\n\r\n                override fun onResourceReady(\r\n                    resource: Drawable?,\r\n                    model: Any?,\r\n                    target: Target<Drawable>?,\r\n                    dataSource: DataSource?,\r\n                    isFirstResource: Boolean\r\n                ): Boolean {\r\n                    return false\r\n                }\r\n\r\n            })\r\n            .into(holder.categoriesView)\r\n        holder.nameView.text = item.title\r\n        holder.categoriesView.setOnClickListener {\r\n            listener.onCategoryClick(item.slug, item.title, item.description)\r\n        }\r\n    }\r\n\r\n    override fun getItemCount() = categories.size\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/adapter/home/CategoriesAdapter.kt b/app/src/main/java/it/kimoterru/walls/adapter/home/CategoriesAdapter.kt
+--- a/app/src/main/java/it/kimoterru/walls/adapter/home/CategoriesAdapter.kt	
++++ b/app/src/main/java/it/kimoterru/walls/adapter/home/CategoriesAdapter.kt	
+@@ -61,7 +61,7 @@
+             .into(holder.categoriesView)
+         holder.nameView.text = item.title
+         holder.categoriesView.setOnClickListener {
+-            listener.onCategoryClick(item.slug, item.title, item.description)
++            listener.onCategoryClick(item.slug, item.title, item.totalPhotos)
+         }
+     }
+ 
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/bg_search.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/brush.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_repeat.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_set_image.xml\" value=\"0.2169230769230769\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/cancel.xml\" value=\"0.19722222222222222\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/close.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/down.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/download.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/empty_user.xml\" value=\"0.2203125\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/emptybox.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/feedback.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/helper.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/home.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_background.xml\" value=\"0.2203125\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_random.xml\" value=\"0.18076923076923077\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/next.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_travelling.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi_.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/overlay_gradient_topic.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/search.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml\" value=\"0.12\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories_shimmer_effect.xml\" value=\"0.40428211586901763\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color_shimmer_effect.xml\" value=\"0.18518518518518517\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_category.xml\" value=\"0.1\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_color.xml\" value=\"0.14018691588785046\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_display.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_saved.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_search.xml\" value=\"0.20416666666666666\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_shimmer_effect.xml\" value=\"0.20416666666666666\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml\" value=\"0.5076142131979695\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragmen_random_mode_greeting.xml\" value=\"0.1675213675213675\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml\" value=\"0.1198707592891761\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_colors.xml\" value=\"0.15228426395939088\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_user_profile.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_no_internet_connection.xml\" value=\"0.16\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_profile.xml\" value=\"0.16\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_random_mode.xml\" value=\"0.1675213675213675\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_splash_screen.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/menu/main_bottom_menu.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml\" value=\"0.2203125\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml\" value=\"0.2203125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -45,7 +45,7 @@
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml" value="0.25" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml" value="0.5076142131979695" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragmen_random_mode_greeting.xml" value="0.1675213675213675" />
+-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.1198707592891761" />
++        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.22" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_colors.xml" value="0.15228426395939088" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml" value="0.2" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml" value="0.22" />
+Index: app/src/main/java/it/kimoterru/walls/ui/category/CategoryViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.category\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\nimport it.kimoterru.walls.repo.WallpaperRepository\r\nimport it.kimoterru.walls.util.Constants\r\nimport it.kimoterru.walls.util.Resource\r\nimport it.kimoterru.walls.util.TopicsOrder\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\nimport javax.inject.Inject\r\n\r\n@HiltViewModel\r\nclass CategoryViewModel @Inject constructor(private val repository: WallpaperRepository) :\r\n    ViewModel() {\r\n    val imageTopicsLiveData = MutableLiveData<Resource<List<PhotoItem>>>()\r\n\r\n    fun getImageTopics(id_or_slug: String, order: TopicsOrder) {\r\n        imageTopicsLiveData.postValue(Resource.loading())\r\n        viewModelScope.launch(Dispatchers.IO) {\r\n            try {\r\n                val result = repository.getImageTopics(\r\n                    id_or_slug, Constants.CLIENT_ID, 30, order.query\r\n                )\r\n                imageTopicsLiveData.postValue(Resource.success(result))\r\n            } catch (e: Exception) {\r\n                e.printStackTrace()\r\n                imageTopicsLiveData.postValue(Resource.error(e.message ?: \"none\"))\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/category/CategoryViewModel.kt b/app/src/main/java/it/kimoterru/walls/ui/category/CategoryViewModel.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/category/CategoryViewModel.kt	
++++ b/app/src/main/java/it/kimoterru/walls/ui/category/CategoryViewModel.kt	
+@@ -23,7 +23,7 @@
+         viewModelScope.launch(Dispatchers.IO) {
+             try {
+                 val result = repository.getImageTopics(
+-                    id_or_slug, Constants.CLIENT_ID, 30, order.query
++                    id_or_slug, Constants.CLIENT_ID, 10, order.query
+                 )
+                 imageTopicsLiveData.postValue(Resource.success(result))
+             } catch (e: Exception) {
+Index: app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.category\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.core.text.HtmlCompat\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.Navigation\r\nimport androidx.navigation.fragment.navArgs\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.adapter.category.CategoryAdapter\r\nimport it.kimoterru.walls.databinding.FragmentCategoriesBinding\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\nimport it.kimoterru.walls.util.Status\r\nimport it.kimoterru.walls.util.TopicsOrder\r\n\r\n@AndroidEntryPoint\r\nclass CategoryFragment : Fragment(R.layout.fragment_categories),\r\n    WallpaperClickListener.WallpaperClick {\r\n    private var _binding: FragmentCategoriesBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private val args: CategoryFragmentArgs by navArgs()\r\n    private var viewModel: CategoryViewModel? = null\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?,\r\n    ): View {\r\n        _binding = FragmentCategoriesBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)\r\n\r\n        initObservers()\r\n        setFragmentComponent()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        viewModel?.getImageTopics(args.slug, TopicsOrder.LATEST)\r\n    }\r\n\r\n    private fun setFragmentComponent() {\r\n        val description = HtmlCompat.fromHtml(args.description, HtmlCompat.FROM_HTML_MODE_COMPACT)\r\n        binding.category.text = args.tittle\r\n        binding.description.text = description.toString()\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel?.imageTopicsLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayImage(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()\r\n                }\r\n                else -> {\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun displayImage(response: List<PhotoItem>?) {\r\n        binding.recyclerImageCategory.adapter =\r\n            CategoryAdapter(response ?: listOf(), this, R.layout.card_image_display)\r\n        binding.recyclerImageCategory.isNestedScrollingEnabled = false\r\n    }\r\n\r\n    override fun onWallpaperClick(\r\n        id: String,\r\n        urlImage: String,\r\n        urlDownload: String,\r\n        created: String,\r\n        updated: String,\r\n        userName: String,\r\n        name: String,\r\n    ) {\r\n        Navigation.findNavController(requireView())\r\n            .navigate(\r\n                CategoryFragmentDirections.actionFragmentCategoriesToFragmentSelectedImage(\r\n                    id,\r\n                    urlImage,\r\n                    urlDownload,\r\n                    created,\r\n                    updated,\r\n                    userName,\r\n                    name\r\n                ))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt	
++++ b/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt	
+@@ -5,11 +5,11 @@
+ import android.view.View
+ import android.view.ViewGroup
+ import android.widget.Toast
+-import androidx.core.text.HtmlCompat
+ import androidx.fragment.app.Fragment
+ import androidx.lifecycle.ViewModelProvider
+ import androidx.navigation.Navigation
+ import androidx.navigation.fragment.navArgs
++import androidx.recyclerview.widget.StaggeredGridLayoutManager
+ import dagger.hilt.android.AndroidEntryPoint
+ import it.kimoterru.walls.R
+ import it.kimoterru.walls.adapter.WallpaperClickListener
+@@ -51,9 +51,8 @@
+     }
+ 
+     private fun setFragmentComponent() {
+-        val description = HtmlCompat.fromHtml(args.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+         binding.category.text = args.tittle
+-        binding.description.text = description.toString()
++        binding.sizeWallpaper.text = args.sizeWallpaper.toString()
+     }
+ 
+     private fun initObservers() {
+@@ -72,9 +71,11 @@
+     }
+ 
+     private fun displayImage(response: List<PhotoItem>?) {
++        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
++        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+         binding.recyclerImageCategory.adapter =
+             CategoryAdapter(response ?: listOf(), this, R.layout.card_image_display)
+-        binding.recyclerImageCategory.isNestedScrollingEnabled = false
++        binding.recyclerImageCategory.layoutManager = sGrid
+     }
+ 
+     override fun onWallpaperClick(

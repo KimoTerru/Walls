@@ -1,0 +1,128 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/bg_search.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/brush.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_repeat.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_set_image.xml\" value=\"0.2169230769230769\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/cancel.xml\" value=\"0.19722222222222222\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/close.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/down.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/download.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/empty_user.xml\" value=\"0.2203125\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/emptybox.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/feedback.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/helper.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/home.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_launcher_background.xml\" value=\"0.2203125\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/ic_random.xml\" value=\"0.18076923076923077\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/info.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/next.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_travelling.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/no_wifi_.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/overlay_gradient_topic.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/search.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml\" value=\"0.12\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories_shimmer_effect.xml\" value=\"0.40428211586901763\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color_shimmer_effect.xml\" value=\"0.18518518518518517\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_category.xml\" value=\"0.1\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_color.xml\" value=\"0.14018691588785046\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_display.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_saved.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_search.xml\" value=\"0.20416666666666666\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_image_shimmer_effect.xml\" value=\"0.20416666666666666\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml\" value=\"0.5076142131979695\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragmen_random_mode_greeting.xml\" value=\"0.1675213675213675\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml\" value=\"0.5\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_colors.xml\" value=\"0.15228426395939088\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_user_profile.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_home.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_no_internet_connection.xml\" value=\"0.16\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_profile.xml\" value=\"0.16\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_random_mode.xml\" value=\"0.1675213675213675\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_splash_screen.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/menu/main_bottom_menu.xml\" value=\"0.19322916666666667\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml\" value=\"0.2203125\" />\r\n        <entry key=\"..\\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml\" value=\"0.2203125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -6,6 +6,7 @@
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/bg_search.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable-v24/pre_view.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/about.xml" value="0.209375" />
++        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.16962025316455695" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/brush.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_repeat.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/button_set_image.xml" value="0.2169230769230769" />
+@@ -30,6 +31,7 @@
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/drawable/user.xml" value="0.209375" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_main.xml" value="0.12" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/activity_selected_image.xml" value="0.25" />
++        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.33" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories.xml" value="0.33" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_categories_shimmer_effect.xml" value="0.40428211586901763" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/card_color.xml" value="0.18" />
+@@ -45,7 +47,7 @@
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_info_selected_image.xml" value="0.25" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/dialog_set_selected_image.xml" value="0.5076142131979695" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragmen_random_mode_greeting.xml" value="0.1675213675213675" />
+-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.5" />
++        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_categories.xml" value="0.22" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_colors.xml" value="0.15228426395939088" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_download.xml" value="0.2" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_empty_saved_wallpaper.xml" value="0.22" />
+@@ -56,7 +58,7 @@
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_random_mode.xml" value="0.1675213675213675" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_saved.xml" value="0.19322916666666667" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_search.xml" value="0.2" />
+-        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.25" />
++        <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_selected_image.xml" value="0.22" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/layout/fragment_splash_screen.xml" value="0.18" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/menu/main_bottom_menu.xml" value="0.19322916666666667" />
+         <entry key="..\:/Users/KimoTerru/AndroidStudioProjects/Walls/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2203125" />
+Index: app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package it.kimoterru.walls.ui.category\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.Navigation\r\nimport androidx.navigation.fragment.navArgs\r\nimport androidx.recyclerview.widget.StaggeredGridLayoutManager\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport it.kimoterru.walls.R\r\nimport it.kimoterru.walls.adapter.WallpaperClickListener\r\nimport it.kimoterru.walls.adapter.category.CategoryAdapter\r\nimport it.kimoterru.walls.databinding.FragmentCategoriesBinding\r\nimport it.kimoterru.walls.models.photo.PhotoItem\r\nimport it.kimoterru.walls.util.Status\r\nimport it.kimoterru.walls.util.TopicsOrder\r\n\r\n@AndroidEntryPoint\r\nclass CategoryFragment : Fragment(R.layout.fragment_categories),\r\n    WallpaperClickListener.WallpaperClick {\r\n    private var _binding: FragmentCategoriesBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private val args: CategoryFragmentArgs by navArgs()\r\n    private var viewModel: CategoryViewModel? = null\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?,\r\n    ): View {\r\n        _binding = FragmentCategoriesBinding.inflate(inflater)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        viewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)\r\n\r\n        initObservers()\r\n        setFragmentComponent()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        viewModel?.getImageTopics(args.slug, TopicsOrder.LATEST)\r\n    }\r\n\r\n    private fun setFragmentComponent() {\r\n        binding.category.text = args.tittle\r\n        binding.sizeSaveWallpaper.text = args.totalPhotos.toString()\r\n    }\r\n\r\n    private fun initObservers() {\r\n        viewModel?.imageTopicsLiveData?.observe(viewLifecycleOwner, {\r\n            when (it.status) {\r\n                Status.SUCCESS -> {\r\n                    displayImage(it.data)\r\n                }\r\n                Status.ERROR -> {\r\n                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()\r\n                }\r\n                else -> {\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun displayImage(response: List<PhotoItem>?) {\r\n        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)\r\n        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS\r\n        binding.recyclerImageCategory.layoutManager = sGrid\r\n\r\n        binding.recyclerImageCategory.adapter =\r\n            CategoryAdapter(response ?: listOf(), this, R.layout.card_image_display)\r\n    }\r\n\r\n    override fun onWallpaperClick(\r\n        id: String,\r\n        urlImage: String,\r\n        urlDownload: String,\r\n        created: String,\r\n        updated: String,\r\n        userName: String,\r\n        name: String,\r\n    ) {\r\n        Navigation.findNavController(requireView())\r\n            .navigate(\r\n                CategoryFragmentDirections.actionFragmentCategoriesToFragmentSelectedImage(\r\n                    id,\r\n                    urlImage,\r\n                    urlDownload,\r\n                    created,\r\n                    updated,\r\n                    userName,\r\n                    name\r\n                ))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt b/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt
+--- a/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt	
++++ b/app/src/main/java/it/kimoterru/walls/ui/category/CategoryFragment.kt	
+@@ -6,7 +6,7 @@
+ import android.view.ViewGroup
+ import android.widget.Toast
+ import androidx.fragment.app.Fragment
+-import androidx.lifecycle.ViewModelProvider
++import androidx.fragment.app.viewModels
+ import androidx.navigation.Navigation
+ import androidx.navigation.fragment.navArgs
+ import androidx.recyclerview.widget.StaggeredGridLayoutManager
+@@ -26,7 +26,7 @@
+     private val binding get() = _binding!!
+ 
+     private val args: CategoryFragmentArgs by navArgs()
+-    private var viewModel: CategoryViewModel? = null
++    private val viewModel: CategoryViewModel by viewModels()
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater,
+@@ -39,7 +39,6 @@
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+-        viewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
+ 
+         initObservers()
+         setFragmentComponent()
+@@ -47,7 +46,7 @@
+ 
+     override fun onResume() {
+         super.onResume()
+-        viewModel?.getImageTopics(args.slug, TopicsOrder.LATEST)
++        viewModel.getImageTopics(args.slug, TopicsOrder.LATEST)
+     }
+ 
+     private fun setFragmentComponent() {
+@@ -56,7 +55,7 @@
+     }
+ 
+     private fun initObservers() {
+-        viewModel?.imageTopicsLiveData?.observe(viewLifecycleOwner, {
++        viewModel.imageTopicsLiveData.observe(viewLifecycleOwner, {
+             when (it.status) {
+                 Status.SUCCESS -> {
+                     displayImage(it.data)
+@@ -79,25 +78,10 @@
+             CategoryAdapter(response ?: listOf(), this, R.layout.card_image_display)
+     }
+ 
+-    override fun onWallpaperClick(
+-        id: String,
+-        urlImage: String,
+-        urlDownload: String,
+-        created: String,
+-        updated: String,
+-        userName: String,
+-        name: String,
+-    ) {
++    override fun onWallpaperClick(id: String) {
+         Navigation.findNavController(requireView())
+             .navigate(
+-                CategoryFragmentDirections.actionFragmentCategoriesToFragmentSelectedImage(
+-                    id,
+-                    urlImage,
+-                    urlDownload,
+-                    created,
+-                    updated,
+-                    userName,
+-                    name
+-                ))
++                CategoryFragmentDirections.actionFragmentCategoriesToFragmentSelectedImage(id)
++            )
+     }
+ }
+\ No newline at end of file
