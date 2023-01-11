@@ -34,8 +34,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.image.DetailImageActivity"
+            android:exported="true"
+            android:theme="@style/DetailActivityStyle"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.about.AboutActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             tools:ignore="LockedOrientationActivity" />
     </application>
 

@@ -30,16 +30,18 @@ class DetailImageViewModel @Inject constructor(
     private val deletePhotoUseCase: DeletePhotoUseCase
 ) : ViewModel() {
 
-    private val photoMutableLiveData = MutableLiveData<Resource<Photo>>()
+    private val photoMutableLiveData = MutableLiveData<Resource<Photo>>(Resource.loading())
     val photoLiveData: LiveData<Resource<Photo>> = photoMutableLiveData
 
-    fun getPhoto(id: String, id_photo: Int) {
+    fun getPhoto(id: String, idLocalPhoto: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val photoDataBASE = getPhotoFromFavoriteByIDUseCase.invoke(id_photo)
-                if (photoDataBASE != null) {
-                    photoMutableLiveData.postValue(Resource.success(photoDataBASE))
+                val photoFromDataBASE = getPhotoFromFavoriteByIDUseCase.invoke(idLocalPhoto)
+                if (photoFromDataBASE != null) {
+                    delay(700)
+                    photoMutableLiveData.postValue(Resource.success(photoFromDataBASE))
                 } else {
+                    delay(500)
                     val photoDataAPI = getPhotoFromApiByIDUseCase.invoke(id, CLIENT_ID)
                     photoMutableLiveData.postValue(Resource.success(photoDataAPI))
                 }
@@ -65,15 +67,15 @@ class DetailImageViewModel @Inject constructor(
         dm.enqueue(request)
     }
 
-    fun saveToFavorite(photo: Photo) {
-        viewModelScope.launch {
-            insertPhotoUseCase.invoke(photo)
-        }
+    fun saveToFavorite(photo: Photo) = viewModelScope.launch {
+        insertPhotoUseCase.invoke(photo)
     }
 
-    fun deleteToFavorites(photo: Photo) {
-        viewModelScope.launch {
-            deletePhotoUseCase.invoke(photo)
-        }
+    fun deleteToFavorites(photo: Photo) = viewModelScope.launch {
+        deletePhotoUseCase.invoke(photo)
+    }
+
+    fun showButtonDelete(idLocalPhoto: Int?): Boolean {
+        return idLocalPhoto != 0
     }
 }

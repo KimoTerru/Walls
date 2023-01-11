@@ -22,5 +22,5 @@ data class ExifEntity(
     val focal_length: String? = null,
 
     @ColumnInfo(name = "iso_cam_exif")
-    val iso: Int? = null,
+    val iso: String? = null,
 )

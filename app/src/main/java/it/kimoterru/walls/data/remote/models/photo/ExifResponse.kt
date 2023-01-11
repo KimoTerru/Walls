@@ -22,5 +22,5 @@ data class ExifResponse(
     val focal_length: String? = null,
 
     @SerializedName("iso")
-    val iso: Int? = null,
+    val iso: String? = null,
 )

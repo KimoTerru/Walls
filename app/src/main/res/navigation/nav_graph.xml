@@ -14,8 +14,8 @@
             android:id="@+id/action_fragment_home_to_fragment_search"
             app:destination="@id/fragment_search" />
         <action
-            android:id="@+id/action_fragment_home_to_fragment_detail_image"
-            app:destination="@id/fragment_detail_image" />
+            android:id="@+id/action_fragment_home_to_activity_detail_image"
+            app:destination="@id/activity_detail_image" />
 
     </fragment>
 
@@ -24,8 +24,8 @@
         android:name="it.kimoterru.walls.ui.save.SavedFragment"
         tools:layout="@layout/fragment_saved">
         <action
-            android:id="@+id/action_fragment_saved_to_fragment_detail_image"
-            app:destination="@id/fragment_detail_image" />
+            android:id="@+id/action_fragment_saved_to_activity_detail_image"
+            app:destination="@id/activity_detail_image" />
     </fragment>
 
     <fragment
@@ -47,23 +47,20 @@
             app:destination="@id/activity_about" />
     </fragment>
 
-    <fragment
-        android:id="@+id/fragment_detail_image"
-        android:name="it.kimoterru.walls.ui.image.DetailImageFragment"
-        tools:layout="@layout/fragment_detail_image">
+    <activity
+        android:id="@+id/activity_detail_image"
+        android:name="it.kimoterru.walls.ui.image.DetailImageActivity"
+        tools:layout="@layout/activity_detail_image">
         <argument
-            android:name="id_image"
+            android:name="idNetworkPhoto"
             app:argType="string" />
+        <argument
+            android:name="idLocalPhoto"
+            app:argType="integer" />
         <argument
             android:name="urlImageUser"
             app:argType="string" />
-        <argument
-            android:name="favoritePhoto"
-            app:argType="string" />
-        <argument
-            android:name="idFavoritePhoto"
-            app:argType="integer" />
-    </fragment>
+    </activity>
 
     <fragment
         android:id="@+id/fragment_search"
@@ -82,8 +79,8 @@
             android:name="whichSnippet"
             app:argType="string" />
         <action
-            android:id="@+id/action_fragment_search_to_fragment_detail_image"
-            app:destination="@id/fragment_detail_image" />
+            android:id="@+id/action_fragment_search_to_activity_detail_image"
+            app:destination="@id/activity_detail_image" />
     </fragment>
 
     <fragment

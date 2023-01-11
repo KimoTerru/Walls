@@ -29,4 +29,10 @@
         <item name="colorControlActivated">@color/blue</item>
     </style>
 
+    <style name="DetailActivityStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
 </resources>

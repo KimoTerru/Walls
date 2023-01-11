@@ -24,6 +24,7 @@
     <string name="totalPhotos">36 wallpapers available</string>
     <string name="help_center">Help Center</string>
     <string name="jonny">Jonny</string>
+    <string name="unknown">Unknown</string>
 
     <string name="unsplash" translatable="false">Unsplash</string>
     <string name="unsplash_url" translatable="false">https://unsplash.com/?utm_source=resplash&amp;utm_medium=referral&amp;utm_campaign=api-credit</string>

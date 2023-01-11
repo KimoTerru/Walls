@@ -16,7 +16,6 @@ import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.util.Constants.Companion.colors
-import it.kimoterru.walls.util.Constants.Companion.notSaved
 import it.kimoterru.walls.util.Constants.Companion.search
 import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Constants.Companion.zero
@@ -113,10 +112,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         }
     }
 
-    override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
+    override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {
         Navigation.findNavController(requireView()).navigate(
-            HomeFragmentDirections.actionFragmentHomeToFragmentDetailImage(
-                id, urlImageUser, notSaved, idFavoritePhoto
+            HomeFragmentDirections.actionFragmentHomeToActivityDetailImage(
+                idNetworkPhoto, idLocalPhoto, urlImageUser
             )
         )
     }

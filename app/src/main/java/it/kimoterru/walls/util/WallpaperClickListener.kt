@@ -3,7 +3,7 @@ package it.kimoterru.walls.util
 interface WallpaperClickListener {
     interface WallpaperClick {
         fun onWallpaperClick(
-            id: String, urlImageUser: String, idFavoritePhoto: Int
+            idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String
         )
     }
 

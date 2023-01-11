@@ -1,18 +1,15 @@
 package it.kimoterru.walls.data.local.model.photo
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "photoItem")
+@Entity(tableName = "photoItem", indices = [Index(value = ["id"], unique = true)])
 data class PhotoEntity(
 
     @ColumnInfo(name = "id")
     val id: String? = null,
 
     @PrimaryKey(autoGenerate = true)
-    var id_photo_is_local: Int,
+    val id_photo_is_local: Int = 0,
 
     @ColumnInfo(name = "created_at")
     val createdAt: String? = null,

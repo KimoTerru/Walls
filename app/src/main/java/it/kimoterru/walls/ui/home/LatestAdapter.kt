@@ -36,8 +36,8 @@ class LatestAdapter(
         holder.wallpaperCardView.setOnClickListener {
             listener.onWallpaperClick(
                 item.id!!,
-                item.user?.profileImage?.large!!,
-                item.id_photo_is_local
+                item.id_photo_is_local,
+                item.user?.profileImage?.large!!
             )
         }
     }

@@ -10,7 +10,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSavedBinding
-import it.kimoterru.walls.util.Constants.Companion.saved
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.WallpaperClickListener
@@ -28,13 +27,16 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getAllPhotosFromFavorite()
         initObservers()
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         binding.recyclerSavedWallpaperView.layoutManager = sGrid
         binding.recyclerSavedWallpaperView.adapter = savedAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllPhotosFromFavorite()
     }
 
     private fun initObservers() {
@@ -64,10 +66,10 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
         binding.recyclerSavedWallpaperView.visible()
     }
 
-    override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
+    override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {
         Navigation.findNavController(requireView()).navigate(
-            SavedFragmentDirections.actionFragmentSavedToFragmentDetailImage(
-                id, urlImageUser, saved, idFavoritePhoto
+            SavedFragmentDirections.actionFragmentSavedToActivityDetailImage(
+                idNetworkPhoto, idLocalPhoto, urlImageUser
             )
         )
     }

@@ -115,10 +115,10 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
         } // A request for color is immediately made
     }
 
-    override fun onWallpaperClick(id: String, urlImageUser: String, idFavoritePhoto: Int) {
+    override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {
         Navigation.findNavController(requireView()).navigate(
-            SearchFragmentDirections.actionFragmentSearchToFragmentDetailImage(
-                id, urlImageUser, notSaved, idFavoritePhoto
+            SearchFragmentDirections.actionFragmentSearchToActivityDetailImage(
+                idNetworkPhoto, idLocalPhoto, urlImageUser
             )
         )
     }

@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.navArgs
+import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -17,27 +17,27 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
+import it.kimoterru.walls.databinding.ActivityDetailImageBinding
 import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.BottomSheetInfoBinding
-import it.kimoterru.walls.databinding.FragmentDetailImageBinding
 import it.kimoterru.walls.domain.models.photo.Photo
-import it.kimoterru.walls.util.Constants.Companion.saved
-import it.kimoterru.walls.util.Status.ERROR
-import it.kimoterru.walls.util.Status.SUCCESS
+import it.kimoterru.walls.util.Status.*
 import it.kimoterru.walls.util.gone
-import it.kimoterru.walls.util.showToast
+import it.kimoterru.walls.util.invisible
 import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
-class DetailImageFragment : Fragment(R.layout.fragment_detail_image) {
+class DetailImageActivity : AppCompatActivity() {
 
-    private val binding: FragmentDetailImageBinding by viewBinding()
-    private val args: DetailImageFragmentArgs by navArgs()
+    private val binding: ActivityDetailImageBinding by viewBinding(CreateMethod.INFLATE)
+    private val args: DetailImageActivityArgs by navArgs()
     private val viewModel: DetailImageViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getPhoto(args.idImage, args.idFavoritePhoto)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        viewModel.getPhoto(args.idNetworkPhoto, args.idLocalPhoto)
         initObservers()
         hideFragmentComponent()
     }
@@ -55,28 +55,31 @@ class DetailImageFragment : Fragment(R.layout.fragment_detail_image) {
     }
 
     private fun initObservers() {
-        viewModel.photoLiveData.observe(viewLifecycleOwner) {
-            binding.progressBar.visible()
+        viewModel.photoLiveData.observe(this) {
             when (it.status) {
                 SUCCESS -> {
                     it.data?.let { it1 -> setImage(it1) }
                     it.data?.let { it1 -> onClick(it1) }
                 }
-                ERROR -> showToast(it.message)
+                ERROR -> {
+                    binding.animBar.invisible()
+                    binding.textErrorUnderAnim.apply {
+                        text = it.message
+                        visible()
+                    }
+                }
                 else -> {}
             }
         }
     }
 
     private fun setImage(data: Photo) {
-        Glide.with(binding.selectedImage).load(data.urls?.full)
+        Glide.with(binding.detailImage).load(data.urls?.regular)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    showToast(e?.message)
-                    binding.progressBar.visible()
                     hideFragmentComponent()
                     return false
                 }
@@ -85,20 +88,19 @@ class DetailImageFragment : Fragment(R.layout.fragment_detail_image) {
                     resource: Drawable?, model: Any?, target: Target<Drawable>?,
                     dataSource: DataSource?, isFirstResource: Boolean
                 ): Boolean {
-                    binding.progressBar.gone()
+                    binding.animBar.gone()
                     showFragmentComponent()
                     return false
                 }
-            }).into(binding.selectedImage)
+            }).into(binding.detailImage)
     }
 
     @SuppressLint("SetTextI18n", "NewApi")
     private fun onClick(data: Photo) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
-            // TODO: 30.12.2021  Добавить возможность установки
             val intent = Intent(Intent.ACTION_SET_WALLPAPER)
-            startActivity(Intent.createChooser(intent, "Select Wallpaper")) //Временно
+            startActivity(Intent.createChooser(intent, "Select Wallpaper"))
 
             /*val file = File(Environment.DIRECTORY_PICTURES + "Walls" + fileName)
             val path = Environment.getExternalStorageState(file)
@@ -109,18 +111,18 @@ class DetailImageFragment : Fragment(R.layout.fragment_detail_image) {
             this.startActivity(Intent.createChooser(intent, "Set as:"))*/
         }
         binding.cardDown.setOnClickListener {
-            val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogApplyToTheme)
+            val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogApplyToTheme)
             val bindingBottomSheet = BottomSheetDownloadBinding.inflate(layoutInflater)
             dialog.setContentView(bindingBottomSheet.root)
 
             bindingBottomSheet.let {
                 it.saveToDownloads.setOnClickListener {
-                    viewModel.downloadPhoto(fileName, data.links?.download!!, requireActivity())
+                    viewModel.downloadPhoto(fileName, data.links?.download!!,this)
                 }
                 it.saveToFavorite.setOnClickListener {
                     viewModel.saveToFavorite(data)
                 }
-                if (args.favoritePhoto == saved) {
+                if (viewModel.showButtonDelete(args.idLocalPhoto)) {
                     it.saveToFavorite.gone()
                     it.deleteToFavorites.visible()
                     it.deleteToFavorites.setOnClickListener {
@@ -131,27 +133,27 @@ class DetailImageFragment : Fragment(R.layout.fragment_detail_image) {
             dialog.show()
         }
         binding.cardInfo.setOnClickListener {
-            val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
+            val dialog = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
             val bindingBottomSheet = BottomSheetInfoBinding.inflate(layoutInflater)
             dialog.setContentView(bindingBottomSheet.root)
 
             bindingBottomSheet.let {
                 //all views in bindingBottomSheet
-                Glide.with(it.imageInfoUser).load(args.urlImageUser).into(it.imageInfoUser)
+                Glide.with(it.imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(it.imageInfoUser)
                 it.infoUser.text = data.user?.name
-                it.infoLocation.text = "${data.location?.city} - ${data.location?.country}"
+                it.infoLocation.text = "${data.location?.city ?: getText(R.string.unknown)} - ${data.location?.country ?: getText(R.string.unknown)}"
                 it.resolutionInfo.text = "${data.width} x ${data.height}"
                 it.createdAtInfo.text = data.createdAt
                 it.colorInfo.text = data.color
                 it.downInfo.text = data.downloads.toString()
                 it.likesInfo.text = data.likes.toString()
 
-                it.makeCam.text = data.exif?.make ?: "null"
-                it.modelCam.text = data.exif?.model ?: "null"
-                it.exposureTimeCam.text = data.exif?.exposure_time
-                it.apertureCam.text = "f/" + data.exif?.aperture
-                it.focalLengthCam.text = data.exif?.focal_length + "mm"
-                it.isoCam.text = data.exif?.iso.toString()
+                it.makeCam.text = data.exif?.make ?: getText(R.string.unknown)
+                it.modelCam.text = data.exif?.model ?: getText(R.string.unknown)
+                it.exposureTimeCam.text = "${data.exif?.exposure_time ?: getText(R.string.unknown)}s"
+                it.apertureCam.text = "f/${data.exif?.aperture ?: getText(R.string.unknown)}"
+                it.focalLengthCam.text = "${data.exif?.focal_length ?: getText(R.string.unknown)}mm"
+                it.isoCam.text = data.exif?.iso ?: getText(R.string.unknown)
             }
             dialog.show()
         }

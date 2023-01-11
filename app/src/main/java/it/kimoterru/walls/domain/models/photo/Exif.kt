@@ -7,5 +7,5 @@ data class Exif(
     val exposure_time: String? = null,
     val aperture: String? = null,
     val focal_length: String? = null,
-    val iso: Int? = null,
+    val iso: String? = null,
 )
