@@ -1,28 +1,32 @@
 package it.kimoterru.walls.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import by.kirich1409.viewbindingdelegate.CreateMethod
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.ActivityMainBinding
+import it.kimoterru.walls.util.gone
+import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by viewBinding(CreateMethod.INFLATE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupBottomNav()
     }
 
     private fun setupBottomNav() {
-        val navController = findNavController(R.id.nav_host)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+        val navController = navHostFragment.navController
         binding.mainBottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -31,20 +35,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_saved -> showBottomNav()
                 R.id.fragment_profile -> showBottomNav()
 
-                R.id.fragment_selected_image -> hideBottomNav()
-                R.id.fragment_no_internet -> showBottomNav()
-                R.id.fragment_empty_saved -> showBottomNav()
                 R.id.fragment_empty_user_profile -> showBottomNav()
+                R.id.fragment_settings -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
     }
 
     private fun showBottomNav() {
-        binding.mainBottomNav.visibility = View.VISIBLE
+        binding.mainBottomNav.visible()
     }
 
     private fun hideBottomNav() {
-        binding.mainBottomNav.visibility = View.GONE
+        binding.mainBottomNav.gone()
     }
 }

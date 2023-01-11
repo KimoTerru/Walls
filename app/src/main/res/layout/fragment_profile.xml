@@ -7,52 +7,58 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/back_image_profile"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/name_profile"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/image_profile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/image_profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/pre_view" />
-
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground" />
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/name_profile"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/jonny"
-        android:textColor="@color/black"
-        android:textSize="44sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/back_image_profile"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_image_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_image_profile">
 
-    <TextView
-        android:id="@+id/email_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/jonnyboy"
-        android:textSize="22sp"
-        app:layout_constraintLeft_toRightOf="@id/back_image_profile"
-        app:layout_constraintTop_toBottomOf="@id/name_profile" />
+        <TextView
+            android:id="@+id/name_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/jonny"
+            android:textColor="@color/my_text_color"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/email_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/jonnyboy"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/saved_profile"
@@ -60,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/you_saved"
-        android:textColor="@color/black"
+        android:textColor="@color/my_text_color"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/back_image_profile"
@@ -81,9 +87,9 @@
         android:id="@+id/recycler_saved_wallpaper_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="30dp"
+        android:clipToPadding="false"
         android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -91,19 +97,67 @@
         tools:listitem="@layout/card_image" />
 
     <LinearLayout
-        android:id="@+id/about"
+        android:id="@+id/settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="210dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_saved_wallpaper_profile">
+        app:layout_constraintTop_toBottomOf="@id/saved_profile">
 
         <ImageView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/settings" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight="16"
+            android:text="Settings"
+            android:textColor="@color/my_text_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/next" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/shadow_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings" />
+
+    <LinearLayout
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shadow_layout">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/about" />
 
         <TextView
@@ -113,7 +167,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="16"
             android:text="@string/about_us"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -132,7 +186,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
         android:background="@color/shadow_line"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -141,17 +194,17 @@
     <LinearLayout
         android:id="@+id/help_center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="90dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shadow_layout_one">
 
         <ImageView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/helper" />
 
         <TextView
@@ -161,7 +214,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="16"
             android:text="@string/help_center"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -170,6 +223,7 @@
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/next" />
 
     </LinearLayout>
@@ -179,7 +233,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
         android:background="@color/shadow_line"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -188,17 +241,17 @@
     <LinearLayout
         android:id="@+id/feedback"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="90dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shadow_layout_two">
 
         <ImageView
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/feedback" />
 
         <TextView
@@ -208,7 +261,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="16"
             android:text="@string/feedback"
-            android:textColor="@color/black"
+            android:textColor="@color/my_text_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 

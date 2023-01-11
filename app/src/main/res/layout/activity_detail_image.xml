@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/my_day_night"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animBar"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
+
+    <TextView
+        android:id="@+id/text_error_under_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_massage"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/my_text_color"
+        app:layout_constraintTop_toBottomOf="@id/animBar"
+        app:layout_constraintRight_toRightOf="@id/animBar"
+        app:layout_constraintLeft_toLeftOf="@id/animBar"/>
+
+    <ImageButton
+        android:id="@+id/card_brush"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/background_card_button"
+        android:src="@drawable/brush"
+        app:layout_constraintBottom_toBottomOf="@id/card_down"
+        app:layout_constraintLeft_toRightOf="@id/card_down"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/card_down"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/background_card_button"
+        android:src="@drawable/down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/card_info"
+        app:layout_constraintRight_toLeftOf="@id/card_brush"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/card_info"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/background_card_button"
+        android:src="@drawable/info"
+        app:layout_constraintBottom_toBottomOf="@id/card_down"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/card_down"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

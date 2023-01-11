@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/back_info_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_info_user"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_info_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_info_user"
+        app:layout_constraintTop_toTopOf="@+id/back_info_user">
+
+        <TextView
+            android:id="@+id/info_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Joe Example"
+            android:textColor="@color/my_text_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/info_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Montreal / Canada"
+            android:textSize="14sp"
+            android:textColor="@color/my_text_color"
+            app:layout_constraintEnd_toEndOf="@+id/info_user"
+            app:layout_constraintStart_toStartOf="@+id/info_user"
+            app:layout_constraintTop_toBottomOf="@+id/info_user" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/info_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/info"
+        android:textColor="@color/my_text_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/back_info_user"
+        app:layout_constraintTop_toBottomOf="@+id/back_info_user" />
+
+    <LinearLayout
+        android:id="@+id/linear_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="@+id/info_text"
+        app:layout_constraintRight_toLeftOf="@id/linear_data"
+        app:layout_constraintTop_toBottomOf="@+id/info_text">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image ID"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resolution"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Likes"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Color"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Downloads"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_data"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/linear_info"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_text">
+
+        <TextView
+            android:id="@+id/id_image_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dwu85P9SOIk"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/resolution_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="2448 x 3264"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/created_at_info"
+            android:layout_width="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:layout_height="wrap_content"
+            android:text="2016-05-03T11:00:28-04:00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/likes_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="105"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/color_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="#6E633A"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/down_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="1345"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/camera_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:textColor="@color/my_text_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/linear_info"
+        app:layout_constraintTop_toBottomOf="@+id/linear_info" />
+
+    <LinearLayout
+        android:id="@+id/linear_info_cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="@+id/camera_info"
+        app:layout_constraintRight_toLeftOf="@id/linear_data_cam"
+        app:layout_constraintTop_toBottomOf="@+id/camera_info">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exposure time"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aperture"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Focal length"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ISO"
+            android:textColor="@color/my_text_color"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_data_cam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/linear_info_cam"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_info">
+
+        <TextView
+            android:id="@+id/make_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="Canon"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/model_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="Canon EOS 40D"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/exposure_time_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="0.011111111111111112"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/aperture_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="4.970854"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/focal_length_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="37"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/iso_cam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/my_text_color"
+            android:text="100"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

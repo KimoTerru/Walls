@@ -13,6 +13,12 @@
     <color name="blue">#5061D0</color>
     <color name="shadow_line">#19000000</color>
 
+    <!--View day color -->
+    <color name="my_text_color">#FF000000</color>
+    <color name="my_bg_search_color">#f0f1f3</color>
+    <color name="my_background_bottom_sheet">#FFFFFFFF</color>
+    <color name="my_day_night">#FFFFFFFF</color>
+
     <!--Wallpaper colors -->
     <color name="wp_black">#000000</color>
     <color name="wp_white">#FFFFFF</color>

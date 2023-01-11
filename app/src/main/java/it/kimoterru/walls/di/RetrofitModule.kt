@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import it.kimoterru.walls.network.ApiService
+import it.kimoterru.walls.data.remote.WallpaperService
+import it.kimoterru.walls.util.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -14,9 +15,9 @@ import javax.inject.Singleton
 object RetrofitModule {
     @Provides
     @Singleton
-    fun getService() : ApiService = Retrofit.Builder()
-        .baseUrl(ApiService.BASE_URL)
+    fun getService(): WallpaperService = Retrofit.Builder()
+        .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(ApiService::class.java)
+        .create(WallpaperService::class.java)
 }

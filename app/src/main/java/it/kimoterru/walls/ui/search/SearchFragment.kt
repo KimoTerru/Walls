@@ -1,95 +1,125 @@
 package it.kimoterru.walls.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.searsh.SearchAdapter
 import it.kimoterru.walls.databinding.FragmentSearchBinding
-import it.kimoterru.walls.models.search.SearchItem
-import it.kimoterru.walls.util.Status
-import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.util.*
+import it.kimoterru.walls.util.Constants.Companion.notSaved
+import it.kimoterru.walls.util.Status.*
 
+/*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search),
-    WallpaperClickListener.WallpaperClick {
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
+class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListener.WallpaperClick {
 
+    private val binding: FragmentSearchBinding by viewBinding()
     private val args: SearchFragmentArgs by navArgs()
-    private var viewModel: SearchViewModel? = null
+    private val viewModel: SearchViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentSearchBinding.inflate(inflater)
-        return binding.root
+    private val searchAdapter by lazy {
+        SearchAdapter(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.search.text = args.query
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         initObservers()
-        setFragmentComponent()
+        fragmentComponent()
+        initRecycler()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel?.getImageSearch(args.query, TopicsOrder.LATEST)
+    private fun initRecycler() {
+        val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.recyclerImageSearch.apply {
+            layoutManager = sGrid
+            adapter = searchAdapter
+            addOnScrollListener(object : PaginationScrollListener(sGrid) {
+                override fun loadMoreItems() {
+                    viewModel.isLoading = true
+                    viewModel.pagePhoto++
+                    viewModel.addData()
+                }
+
+                override val isLastPage: Boolean
+                    get() = viewModel.isLastPage
+                override val isLoading: Boolean
+                    get() = viewModel.isLoading
+            })
+        }
     }
 
-    private fun setFragmentComponent() {
-        binding.search.text = args.query
+    @SuppressLint("SetTextI18n")
+    private fun fragmentComponent() {
+        binding.nameSearch.text = args.tittle
+        if (args.totalPhotos != 0) {
+            binding.sizeSaveWallpaper.text =
+                args.totalPhotos.toString() + " " + getText(R.string.wallpapers_available)
+            binding.sizeSaveWallpaper.visible()
+        } else {
+            binding.sizeSaveWallpaper.gone()
+        }
+        setupSwipeRefreshLayout()
+    } //For any garbage associated with onViewCreated
+
+    private fun setupSwipeRefreshLayout() {
+        binding.searchSwipeRefreshLayout.apply {
+            setColorSchemeResources(R.color.wp_blue)
+            setOnRefreshListener {
+                viewModel.updateDate()
+            }
+            setProgressBackgroundColorSchemeResource(R.color.my_day_night)
+        }
     }
 
     private fun initObservers() {
-        viewModel?.imageLiveData?.observe(viewLifecycleOwner, {
+        viewModel.imageTopicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.SUCCESS -> {
-                    displayImage(it.data!!)
+                SUCCESS -> {
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
+                    viewModel.isLoading = false
+                    it.data?.let { list -> searchAdapter.addData(list) }
                 }
-                Status.ERROR -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                ERROR -> {
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
+                    showToast(it.message)
                 }
-                else -> {
+                LOADING -> {
+                    binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }
-        })
+        }
+        viewModel.imageSearchLiveData.observe(viewLifecycleOwner) {
+            when (it.status) {
+                SUCCESS -> {
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
+                    viewModel.isLoading = false
+                    it.data?.let { list -> searchAdapter.addData(list.resultsPhoto) }
+                }
+                ERROR -> {
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
+                    showToast(it.message)
+                }
+                LOADING -> {
+                    binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
+                }
+            }
+        } // A request for color is immediately made
     }
 
-    private fun displayImage(response: SearchItem) {
-        binding.recyclerImageSearch.adapter =
-            SearchAdapter(response, this, R.layout.card_image_display)
-        binding.recyclerImageSearch.isNestedScrollingEnabled = false
-    }
-
-    override fun onWallpaperClick(
-        id: String,
-        urlImage: String,
-        urlDownload: String,
-        created: String,
-        updated: String,
-        userName: String,
-        name: String,
-    ) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                SearchFragmentDirections.actionFragmentSearchToFragmentSelectedImage(
-                    id,
-                    urlImage,
-                    urlDownload,
-                    created,
-                    updated,
-                    userName,
-                    name
-                ))
+    override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {
+        Navigation.findNavController(requireView()).navigate(
+            SearchFragmentDirections.actionFragmentSearchToActivityDetailImage(
+                idNetworkPhoto, idLocalPhoto, urlImageUser
+            )
+        )
     }
 }

@@ -1,50 +1,63 @@
 package it.kimoterru.walls.ui.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.kimoterru.walls.models.categories.TopicItem
-import it.kimoterru.walls.models.photo.PhotoItem
-import it.kimoterru.walls.repo.WallpaperRepository
-import it.kimoterru.walls.util.Constants
+import it.kimoterru.walls.domain.models.photo.Photo
+import it.kimoterru.walls.domain.models.topic.Topic
+import it.kimoterru.walls.domain.usecase.home.GetLatestPhotosUseCase
+import it.kimoterru.walls.domain.usecase.home.GetTopicsUseCase
+import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
+import it.kimoterru.walls.util.Constants.Companion.FIRST_PAGE
 import it.kimoterru.walls.util.Resource
 import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.util.TopicsOrder.POSITION
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: WallpaperRepository) : ViewModel() {
-    val homeResponseLiveData = MutableLiveData<Resource<List<PhotoItem>>>()
-    val topicsLiveData = MutableLiveData<Resource<List<TopicItem>>>()
+class HomeViewModel @Inject constructor(
+    private val getLatestPhotosUseCase: GetLatestPhotosUseCase,
+    private val getTopicsUseCase: GetTopicsUseCase
+) : ViewModel() {
 
-    fun getHomeScreen() {
-        homeResponseLiveData.postValue(Resource.loading())
-        viewModelScope.launch {
+    private val homeResponseMutableLiveData = MutableLiveData<Resource<List<Photo>>>()
+    val homeResponseLiveData: LiveData<Resource<List<Photo>>> = homeResponseMutableLiveData
+
+    private val topicsMutableLiveData = MutableLiveData<Resource<List<Topic>>>()
+    val topicsLiveData: LiveData<Resource<List<Topic>>> = topicsMutableLiveData
+
+    init {
+        getHomeScreen()
+        getTopics(POSITION)
+    }
+
+    private fun getHomeScreen() {
+        homeResponseMutableLiveData.postValue(Resource.loading())
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = repository.getLatestPhotos(Constants.CLIENT_ID, 1)
-                homeResponseLiveData.postValue(Resource.success(result))
+                val result = getLatestPhotosUseCase.invoke(CLIENT_ID, FIRST_PAGE)
+                homeResponseMutableLiveData.postValue(Resource.success(result))
             } catch (e: Exception) {
                 e.printStackTrace()
-                homeResponseLiveData.postValue(Resource.error(e.message ?: "none"))
+                homeResponseMutableLiveData.postValue(Resource.error(e.message ?: "none"))
             }
         }
     }
 
-    fun getTopics(order: TopicsOrder) {
+    private fun getTopics(order: TopicsOrder) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val topicsData = repository.getTopics(
-                    Constants.CLIENT_ID,
-                    1,
-                    50,
-                    order.query
+                val topicsData = getTopicsUseCase.invoke(
+                    CLIENT_ID, FIRST_PAGE, 50, order.query
                 )
-                topicsLiveData.postValue(Resource.success(topicsData))
+                topicsMutableLiveData.postValue(Resource.success(topicsData))
             } catch (e: Exception) {
                 e.printStackTrace()
-                topicsLiveData.postValue(Resource.error(e.message.toString()))
+                topicsMutableLiveData.postValue(Resource.error(e.message.toString()))
             }
         }
     }

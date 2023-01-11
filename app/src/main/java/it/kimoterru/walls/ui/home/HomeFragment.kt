@@ -1,171 +1,139 @@
 package it.kimoterru.walls.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
-import it.kimoterru.walls.adapter.WallpaperClickListener
-import it.kimoterru.walls.adapter.home.CategoriesAdapter
-import it.kimoterru.walls.adapter.home.ColorAdapter
-import it.kimoterru.walls.adapter.home.LatestAdapter
+import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
-import it.kimoterru.walls.models.categories.TopicItem
-import it.kimoterru.walls.models.photo.PhotoItem
-import it.kimoterru.walls.util.Status
-import it.kimoterru.walls.util.TopicsOrder
+import it.kimoterru.walls.domain.models.photo.Photo
+import it.kimoterru.walls.domain.models.topic.Topic
+import it.kimoterru.walls.util.Constants.Companion.colors
+import it.kimoterru.walls.util.Constants.Companion.search
+import it.kimoterru.walls.util.Constants.Companion.topics
+import it.kimoterru.walls.util.Constants.Companion.zero
+import it.kimoterru.walls.util.Status.*
+import it.kimoterru.walls.util.WallpaperClickListener
+import it.kimoterru.walls.util.isVisible
+import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick, WallpaperClickListener {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick,
+    WallpaperClickListener.HomeFragment {
 
-    private var viewModel: HomeViewModel? = null
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentHomeBinding.inflate(inflater)
-        return binding.root
-    }
+    private val binding: FragmentHomeBinding by viewBinding()
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         initObservers()
         initSearch()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel?.getHomeScreen()
-        viewModel?.getTopics(TopicsOrder.POSITION)
-    }
-
     private fun initObservers() {
-        viewModel?.homeResponseLiveData?.observe(viewLifecycleOwner, {
+        viewModel.homeResponseLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.SUCCESS -> {
+                SUCCESS -> {
                     displayLatest(it.data)
-                    hideShimmerEffectLatestWallpapers()
+                    binding.homeBoxView.root.visible()
+                    errorStateConnection(it.message.toString(), false)
                 }
-                Status.ERROR -> {
-                    noNetworkConnect()
+                ERROR -> {
+                    errorStateConnection(it.message.toString(), true)
                 }
                 else -> {}
             }
-        })
-        viewModel?.topicsLiveData?.observe(viewLifecycleOwner, {
+        }
+        viewModel.topicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.SUCCESS -> {
+                SUCCESS -> {
                     displayTopics(it.data)
-                    hideShimmerEffectCategories()
                     displayColors()
+                    binding.homeBoxView.root.visible()
                 }
-                Status.ERROR -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                /*ERROR -> showToast(it.message)*/
+                else -> {
                 }
-                else -> {}
             }
-        })
+        }
     }
 
-    private fun hideShimmerEffectLatestWallpapers() {
-        binding.shimmerLayout.stopShimmer()
-        binding.shimmerLayout.visibility = View.GONE
+    private fun errorStateConnection(error: String, show: Boolean) {
+        binding.errorBoxView.root.isVisible(show)
+        binding.errorBoxView.errorMassageView.text = error
     }
 
-    private fun hideShimmerEffectCategories() {
-        binding.shimmerLayoutCategories.stopShimmer()
-        binding.shimmerLayoutCategories.visibility = View.GONE
-
-        binding.shimmerLayoutColor.stopShimmer()
-        binding.shimmerLayoutColor.visibility = View.GONE
-    }
-
-    private fun noNetworkConnect() {
-        Navigation.findNavController(requireView()).navigate(R.id.action_fragment_home_to_fragment_no_internet)
-    }
-
-    private fun displayLatest(response: List<PhotoItem>?) {
-        binding.recyclerLatestWallpapers.adapter = LatestAdapter(response ?: listOf(), this, R.layout.card_image)
+    private fun displayLatest(response: List<Photo>?) {
+        binding.homeBoxView.recyclerLatestWallpapers.adapter =
+            response?.let { LatestAdapter(it, this) }
     }
 
     private fun displayColors() {
-        binding.recyclerBestColorTone.adapter = ColorAdapter(this, R.layout.card_color)
+        binding.homeBoxView.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
     }
 
-    private fun displayTopics(list: List<TopicItem>?) {
-        binding.recyclerCategories.adapter = CategoriesAdapter(list!!, this)
-        binding.recyclerCategories.isNestedScrollingEnabled = false
+    private fun displayTopics(list: List<Topic>?) {
+        binding.homeBoxView.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
     }
 
     private fun initSearch() {
         binding.findImage.addTextChangedListener {
-            binding.searchImage.isVisible = it.toString().isEmpty()
-            binding.searchImage.setOnClickListener {
-                binding.findImage.setText("Let's try again!")
+            if (it.toString().isNotEmpty()) {
+                binding.searchImage.setImageResource(R.drawable.cancel)
+                binding.searchImage.setOnClickListener {
+                    binding.findImage.text.clear()
+                }
+            } else {
+                binding.searchImage.setImageResource(R.drawable.search)
             }
-            /*if (it.toString().isNotEmpty()) {
-                binding.searchImage.setImageResource(R.drawable.close)
-            }*/
-        } // FIXME: 04.09.2021
+        }
         binding.findImage.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query: String = binding.findImage.text.toString()
                 if (query.isNotEmpty()) {
-                    Navigation.findNavController(requireView())
-                        .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentSearch(query))
+                    Navigation.findNavController(requireView()).navigate(
+                        HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
+                            query, query, 0, search
+                        )
+                    )
                 } else {
-                    Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Empty!", Toast.LENGTH_LONG).show()
                 }
                 true
             } else false
         }
     }
 
-    override fun onWallpaperClick(
-        id: String,
-        urlImage: String,
-        urlDownload: String,
-        created: String,
-        updated: String,
-        userName: String,
-        name: String
-    ) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                HomeFragmentDirections.actionFragmentHomeToFragmentSelectedImage(
-                    id,
-                    urlImage,
-                    urlDownload,
-                    created,
-                    updated,
-                    userName,
-                    name
-                ))
+    override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {
+        Navigation.findNavController(requireView()).navigate(
+            HomeFragmentDirections.actionFragmentHomeToActivityDetailImage(
+                idNetworkPhoto, idLocalPhoto, urlImageUser
+            )
+        )
     }
 
     override fun onColorClick(name: String) {
-        Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentColors(
-                name
-            ))
+        Navigation.findNavController(requireView()).navigate(
+            HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
+                name, name, zero, colors
+            )
+        )
     }
 
-    override fun onCategoryClick(name: String, tittle: String, totalPhotos: Int) {
+    override fun onTopicClick(name: String, tittle: String, totalPhotos: Int) {
         Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionFragmentHomeToFragmentCategories(
-                name,
-                tittle,
-                totalPhotos
-            ))
+            .navigate(
+                HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
+                    name, tittle, totalPhotos, topics
+                )
+            )
     }
 }

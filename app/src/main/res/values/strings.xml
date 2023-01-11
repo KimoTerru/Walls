@@ -20,6 +20,38 @@
     <string name="empty">Empty!</string>
     <string name="about_us">About Us</string>
     <string name="feedback">Feedback</string>
+    <string name="search">Search</string>
+    <string name="totalPhotos">36 wallpapers available</string>
     <string name="help_center">Help Center</string>
     <string name="jonny">Jonny</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="unsplash" translatable="false">Unsplash</string>
+    <string name="unsplash_url" translatable="false">https://unsplash.com/?utm_source=resplash&amp;utm_medium=referral&amp;utm_campaign=api-credit</string>
+
+    <!-- About -->
+    <string name="about">About</string>
+    <string name="unsplash_summary">The best source of free wallpapers from the internet</string>
+
+    <string name="report_bug_title">Report Bug</string>
+    <string name="report_bug_summary">Report bugs or request new features</string>
+    <string name="github_title" translatable="false">GitHub</string>
+    <string name="github_summary">The code can be viewed on Github</string>
+    <string name="github_url" translatable="false">https://github.com/KimoTerru/Walls</string>
+    <string name="github_issues_url" translatable="false">https://github.com/kimoterru/walls/issues</string>
+    <string name="developer_title">Developer</string>
+
+    <string name="instagram" translatable="false">Instagram</string>
+    <string name="developer_instagram_username" translatable="false">\@kimoterru</string>
+    <string name="developer_instagram_url" translatable="false">https://www.instagram.com/kimoterru/</string>
+
+    <string name="telegram" translatable="false">Telegram</string>
+    <string name="developer_telegram_username" translatable="false">\@kimoterru</string>
+    <string name="developer_telegram_url" translatable="false">https://t.me/kimoterru</string>
+    <string name="saved">Saved</string>
+    <string name="error_massage">Error 404</string>
+    <string name="no_wallpaper">There is no wallpaper...</string>
+
+    <string name="wallpapers_available">wallpapers available</string>
+
 </resources>

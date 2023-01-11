@@ -1,11 +1,24 @@
 package it.kimoterru.walls.util
 
-import androidx.annotation.DrawableRes
 import it.kimoterru.walls.R
 
 class Constants {
     companion object {
-        const val CLIENT_ID = "NPk5uWaTODGbpS35GoQyu7WulRGLX1jsYgn0mkVKhc4"
+        const val CLIENT_ID =
+            "-x8-cfEo3m34xVKTZtPWrIuTN5YIbv6VRp_TcBtXEkA" //Access Key WallpaperApplication
+        const val BASE_URL = "https://api.unsplash.com/"
+        const val DATABASE_NAME = "photo_db.db"
+        const val PER_PAGE = 30 //Only 50 requests per hour 30 x 50 = 1500
+        const val SHOW_NEXT_PAGE_IMAGE_TIME_DELAY = 750L
+        const val FIRST_PAGE = 1
+        const val CROSS_FADE_DURATION = 350
+
+        const val topics = "topics"
+        const val colors = "colors"
+        const val search = "search"
+        const val saved = "saved"
+        const val notSaved = "notSaved"
+        const val zero = 0
     }
 }
 
