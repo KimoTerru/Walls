@@ -137,23 +137,22 @@ class DetailImageActivity : AppCompatActivity() {
             val bindingBottomSheet = BottomSheetInfoBinding.inflate(layoutInflater)
             dialog.setContentView(bindingBottomSheet.root)
 
-            bindingBottomSheet.let {
-                //all views in bindingBottomSheet
-                Glide.with(it.imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(it.imageInfoUser)
-                it.infoUser.text = data.user?.name
-                it.infoLocation.text = "${data.location?.city ?: getText(R.string.unknown)} - ${data.location?.country ?: getText(R.string.unknown)}"
-                it.resolutionInfo.text = "${data.width} x ${data.height}"
-                it.createdAtInfo.text = data.createdAt
-                it.colorInfo.text = data.color
-                it.downInfo.text = data.downloads.toString()
-                it.likesInfo.text = data.likes.toString()
+            bindingBottomSheet.apply {
+                Glide.with(imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(imageInfoUser)
+                infoUser.text = data.user?.name
+                infoLocation.text = "${data.location?.city ?: getText(R.string.unknown)} - ${data.location?.country ?: getText(R.string.unknown)}"
+                resolutionInfo.text = "${data.width} x ${data.height}"
+                createdAtInfo.text = data.createdAt
+                colorInfo.text = data.color
+                downInfo.text = data.downloads.toString()
+                likesInfo.text = data.likes.toString()
 
-                it.makeCam.text = data.exif?.make ?: getText(R.string.unknown)
-                it.modelCam.text = data.exif?.model ?: getText(R.string.unknown)
-                it.exposureTimeCam.text = "${data.exif?.exposure_time ?: getText(R.string.unknown)}s"
-                it.apertureCam.text = "f/${data.exif?.aperture ?: getText(R.string.unknown)}"
-                it.focalLengthCam.text = "${data.exif?.focal_length ?: getText(R.string.unknown)}mm"
-                it.isoCam.text = data.exif?.iso ?: getText(R.string.unknown)
+                makeCam.text = data.exif?.make ?: getText(R.string.unknown)
+                modelCam.text = data.exif?.model ?: getText(R.string.unknown)
+                exposureTimeCam.text = if (data.exif?.exposure_time != null) data.exif.exposure_time + "s" else getText(R.string.unknown)
+                apertureCam.text = if (data.exif?.aperture != null) "f/" + data.exif.aperture else getText(R.string.unknown)
+                focalLengthCam.text = if (data.exif?.focal_length != null) data.exif.focal_length + "mm" else getText(R.string.unknown)
+                isoCam.text = data.exif?.iso ?: getText(R.string.unknown)
             }
             dialog.show()
         }
