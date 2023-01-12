@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSearchBinding
 import it.kimoterru.walls.util.*
-import it.kimoterru.walls.util.Constants.Companion.notSaved
 import it.kimoterru.walls.util.Status.*
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
@@ -84,15 +83,24 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
         viewModel.imageTopicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
+                    binding.errorLayoutSearch.root.gone()
                     binding.searchSwipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
                     it.data?.let { list -> searchAdapter.addData(list) }
                 }
                 ERROR -> {
                     binding.searchSwipeRefreshLayout.isRefreshing = false
-                    showToast(it.message)
+                    binding.errorLayoutSearch.apply {
+                        root.visible()
+                        errorMassageView.text = it.message
+                        repeatButtonView.setOnClickListener {
+                            viewModel.updateDate()
+                        }
+                    }
+                    binding.searchSwipeRefreshLayout.isRefreshing = false
                 }
                 LOADING -> {
+                    binding.errorLayoutSearch.root.gone()
                     binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }
@@ -100,15 +108,23 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
         viewModel.imageSearchLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
+                    binding.errorLayoutSearch.root.gone()
                     binding.searchSwipeRefreshLayout.isRefreshing = false
                     viewModel.isLoading = false
                     it.data?.let { list -> searchAdapter.addData(list.resultsPhoto) }
                 }
                 ERROR -> {
                     binding.searchSwipeRefreshLayout.isRefreshing = false
-                    showToast(it.message)
+                    binding.errorLayoutSearch.apply {
+                        root.visible()
+                        errorMassageView.text = it.message
+                        repeatButtonView.setOnClickListener {
+                            viewModel.updateDate()
+                        }
+                    }
                 }
                 LOADING -> {
+                    binding.errorLayoutSearch.root.gone()
                     binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
                 }
             }

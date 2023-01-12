@@ -63,12 +63,18 @@ class DetailImageActivity : AppCompatActivity() {
                 }
                 ERROR -> {
                     binding.animBar.invisible()
-                    binding.textErrorUnderAnim.apply {
-                        text = it.message
-                        visible()
+                    binding.cardErrorLayout.apply {
+                        root.visible()
+                        errorMassageView.text = it.message.toString()
+                        repeatButtonView.setOnClickListener {
+                            viewModel.getPhoto(args.idNetworkPhoto, args.idLocalPhoto)
+                        }
                     }
                 }
-                else -> {}
+                LOADING -> {
+                    binding.cardErrorLayout.root.gone()
+                    binding.animBar.visible()
+                }
             }
         }
     }
@@ -88,6 +94,7 @@ class DetailImageActivity : AppCompatActivity() {
                     resource: Drawable?, model: Any?, target: Target<Drawable>?,
                     dataSource: DataSource?, isFirstResource: Boolean
                 ): Boolean {
+                    binding.cardErrorLayout.root.gone()
                     binding.animBar.gone()
                     showFragmentComponent()
                     return false
@@ -95,20 +102,12 @@ class DetailImageActivity : AppCompatActivity() {
             }).into(binding.detailImage)
     }
 
-    @SuppressLint("SetTextI18n", "NewApi")
+    @SuppressLint("SetTextI18n")
     private fun onClick(data: Photo) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
             val intent = Intent(Intent.ACTION_SET_WALLPAPER)
             startActivity(Intent.createChooser(intent, "Select Wallpaper"))
-
-            /*val file = File(Environment.DIRECTORY_PICTURES + "Walls" + fileName)
-            val path = Environment.getExternalStorageState(file)
-            val intent = Intent(Intent.ACTION_ATTACH_DATA)
-            intent.addCategory(Intent.CATEGORY_DEFAULT)
-            intent.setDataAndType(Uri.parse(path), "image/jpeg")
-            intent.putExtra("mimeType", "image/jpeg")
-            this.startActivity(Intent.createChooser(intent, "Set as:"))*/
         }
         binding.cardDown.setOnClickListener {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogApplyToTheme)
@@ -139,11 +138,11 @@ class DetailImageActivity : AppCompatActivity() {
 
             bindingBottomSheet.apply {
                 Glide.with(imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(imageInfoUser)
-                infoUser.text = data.user?.name
+                infoUser.text = data.user?.name ?: getText(R.string.unknown)
                 infoLocation.text = "${data.location?.city ?: getText(R.string.unknown)} - ${data.location?.country ?: getText(R.string.unknown)}"
                 resolutionInfo.text = "${data.width} x ${data.height}"
-                createdAtInfo.text = data.createdAt
-                colorInfo.text = data.color
+                createdAtInfo.text = data.createdAt ?: getText(R.string.unknown)
+                colorInfo.text = data.color ?: getText(R.string.unknown)
                 downInfo.text = data.downloads.toString()
                 likesInfo.text = data.likes.toString()
 

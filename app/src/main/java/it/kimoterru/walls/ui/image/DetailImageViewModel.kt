@@ -18,7 +18,6 @@ import it.kimoterru.walls.domain.usecase.detailI.InsertPhotoUseCase
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,18 +29,17 @@ class DetailImageViewModel @Inject constructor(
     private val deletePhotoUseCase: DeletePhotoUseCase
 ) : ViewModel() {
 
-    private val photoMutableLiveData = MutableLiveData<Resource<Photo>>(Resource.loading())
+    private val photoMutableLiveData = MutableLiveData<Resource<Photo>>()
     val photoLiveData: LiveData<Resource<Photo>> = photoMutableLiveData
 
     fun getPhoto(id: String, idLocalPhoto: Int) {
+        photoMutableLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val photoFromDataBASE = getPhotoFromFavoriteByIDUseCase.invoke(idLocalPhoto)
                 if (photoFromDataBASE != null) {
-                    delay(700)
                     photoMutableLiveData.postValue(Resource.success(photoFromDataBASE))
                 } else {
-                    delay(500)
                     val photoDataAPI = getPhotoFromApiByIDUseCase.invoke(id, CLIENT_ID)
                     photoMutableLiveData.postValue(Resource.success(photoDataAPI))
                 }
