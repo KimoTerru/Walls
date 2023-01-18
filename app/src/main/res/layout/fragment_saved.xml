@@ -24,7 +24,8 @@
         android:id="@+id/empty_box_view"
         layout="@layout/empty_saved_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_saved_wallpaper_view"

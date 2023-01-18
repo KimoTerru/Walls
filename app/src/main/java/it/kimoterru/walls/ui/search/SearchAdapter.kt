@@ -5,6 +5,8 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -16,9 +18,7 @@ import it.kimoterru.walls.util.WallpaperClickListener
 
 class SearchAdapter(
     private val listener: WallpaperClickListener.WallpaperClick
-) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
-
-    private var data = arrayListOf<Photo>()
+) : PagingDataAdapter<Photo, SearchAdapter.ViewHolder>(DiffUtilCallBack) {
 
     override fun getItemViewType(position: Int) = R.layout.card_image_display
 
@@ -29,27 +29,20 @@ class SearchAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        holder.bind(item)
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
-    fun addData(newData: List<Photo>) {
-        data.addAll(newData)
-        notifyDataSetChanged()
-    }
+    object DiffUtilCallBack : DiffUtil.ItemCallback<Photo>() {
+        override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    fun updateItems(updateData: List<Photo>) {
-        data.clear()
-        data.addAll(updateData)
-        notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem == newItem
+        }
     }
-
-    fun clearData() {
-        data.clear()
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = data.size
 
     class ViewHolder(view: View, private val listener: WallpaperClickListener.WallpaperClick) :
         RecyclerView.ViewHolder(view) {

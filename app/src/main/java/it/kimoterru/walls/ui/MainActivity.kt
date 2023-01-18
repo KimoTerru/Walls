@@ -33,10 +33,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.fragment_home -> showBottomNav()
                 R.id.fragment_saved -> showBottomNav()
-                R.id.fragment_profile -> showBottomNav()
-
-                R.id.fragment_empty_user_profile -> showBottomNav()
-                R.id.fragment_settings -> showBottomNav()
+                R.id.fragment_search -> hideBottomNav()
                 else -> hideBottomNav()
             }
         }

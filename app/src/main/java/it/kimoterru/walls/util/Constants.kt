@@ -4,8 +4,7 @@ import it.kimoterru.walls.R
 
 class Constants {
     companion object {
-        const val CLIENT_ID =
-            "-x8-cfEo3m34xVKTZtPWrIuTN5YIbv6VRp_TcBtXEkA" //Access Key WallpaperApplication
+        const val CLIENT_ID = "2Jlbb8ZW8_QzYzbwo8BbrVKCWE3QMel2kDWrU5z1oq0" //Access Key WallpaperApplication
         const val BASE_URL = "https://api.unsplash.com/"
         const val DATABASE_NAME = "photo_db.db"
         const val PER_PAGE = 30 //Only 50 requests per hour 30 x 50 = 1500

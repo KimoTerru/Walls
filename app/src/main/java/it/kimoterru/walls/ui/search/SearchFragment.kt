@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -14,6 +15,7 @@ import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSearchBinding
 import it.kimoterru.walls.util.*
 import it.kimoterru.walls.util.Status.*
+import kotlinx.coroutines.launch
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
@@ -41,18 +43,6 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
         binding.recyclerImageSearch.apply {
             layoutManager = sGrid
             adapter = searchAdapter
-            addOnScrollListener(object : PaginationScrollListener(sGrid) {
-                override fun loadMoreItems() {
-                    viewModel.isLoading = true
-                    viewModel.pagePhoto++
-                    viewModel.addData()
-                }
-
-                override val isLastPage: Boolean
-                    get() = viewModel.isLastPage
-                override val isLoading: Boolean
-                    get() = viewModel.isLoading
-            })
         }
     }
 
@@ -73,62 +63,23 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
         binding.searchSwipeRefreshLayout.apply {
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
-                viewModel.updateDate()
+                searchAdapter.refresh()
+                isRefreshing = false
             }
             setProgressBackgroundColorSchemeResource(R.color.my_day_night)
         }
     }
 
     private fun initObservers() {
-        viewModel.imageTopicsLiveData.observe(viewLifecycleOwner) {
-            when (it.status) {
-                SUCCESS -> {
-                    binding.errorLayoutSearch.root.gone()
-                    binding.searchSwipeRefreshLayout.isRefreshing = false
-                    viewModel.isLoading = false
-                    it.data?.let { list -> searchAdapter.addData(list) }
-                }
-                ERROR -> {
-                    binding.searchSwipeRefreshLayout.isRefreshing = false
-                    binding.errorLayoutSearch.apply {
-                        root.visible()
-                        errorMassageView.text = it.message
-                        repeatButtonView.setOnClickListener {
-                            viewModel.updateDate()
-                        }
-                    }
-                    binding.searchSwipeRefreshLayout.isRefreshing = false
-                }
-                LOADING -> {
-                    binding.errorLayoutSearch.root.gone()
-                    binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getImageSearch(
+                args.whichSnippet, args.query, args.query, TopicsOrder.LATEST.query
+            ).observe(viewLifecycleOwner) {
+                binding.errorLayoutSearch.root.gone()
+                binding.searchSwipeRefreshLayout.isRefreshing = false
+                searchAdapter.submitData(lifecycle, it)
             }
         }
-        viewModel.imageSearchLiveData.observe(viewLifecycleOwner) {
-            when (it.status) {
-                SUCCESS -> {
-                    binding.errorLayoutSearch.root.gone()
-                    binding.searchSwipeRefreshLayout.isRefreshing = false
-                    viewModel.isLoading = false
-                    it.data?.let { list -> searchAdapter.addData(list.resultsPhoto) }
-                }
-                ERROR -> {
-                    binding.searchSwipeRefreshLayout.isRefreshing = false
-                    binding.errorLayoutSearch.apply {
-                        root.visible()
-                        errorMassageView.text = it.message
-                        repeatButtonView.setOnClickListener {
-                            viewModel.updateDate()
-                        }
-                    }
-                }
-                LOADING -> {
-                    binding.errorLayoutSearch.root.gone()
-                    binding.searchSwipeRefreshLayout.isRefreshing = !viewModel.isLoading
-                }
-            }
-        } // A request for color is immediately made
     }
 
     override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {

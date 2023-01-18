@@ -1,6 +1,8 @@
 package it.kimoterru.walls.domain.usecase.search
 
-import it.kimoterru.walls.domain.models.search.SearchPhoto
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.repository.WallpaperRepository
 import javax.inject.Inject
 
@@ -9,12 +11,11 @@ class GetImageSearchUseCase @Inject constructor(
 ) {
 
     suspend fun invoke(
+        witchQuery: String,
         query: String,
-        clientId: String,
-        page: Int,
-        per_page: Int,
+        color: String,
         order_by: String,
-    ): SearchPhoto {
-        return repository.getImageSearch(query, clientId, page, per_page, order_by)
+    ): LiveData<PagingData<Photo>> {
+        return repository.getImageSearch(witchQuery, query, color, order_by)
     }
 }

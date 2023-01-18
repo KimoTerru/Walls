@@ -28,25 +28,6 @@
             app:destination="@id/activity_detail_image" />
     </fragment>
 
-    <fragment
-        android:id="@+id/fragment_profile"
-        android:name="it.kimoterru.walls.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_fragment_profile_to_fragment_empty_user_profile"
-            app:destination="@id/fragment_empty_user_profile" />
-        <action
-            android:id="@+id/action_fragment_profile_to_fragment_settings"
-            app:destination="@id/fragment_settings"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_fragment_profile_to_activity_about"
-            app:destination="@id/activity_about" />
-    </fragment>
-
     <activity
         android:id="@+id/activity_detail_image"
         android:name="it.kimoterru.walls.ui.image.DetailImageActivity"
@@ -82,20 +63,5 @@
             android:id="@+id/action_fragment_search_to_activity_detail_image"
             app:destination="@id/activity_detail_image" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragment_empty_user_profile"
-        android:name="it.kimoterru.walls.ui.profile.EmptyUserFragment"
-        tools:layout="@layout/fragment_empty_user_profile" />
-
-    <fragment
-        android:id="@+id/fragment_settings"
-        android:name="it.kimoterru.walls.ui.settings.SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
-
-    <activity
-        android:id="@+id/activity_about"
-        android:name="it.kimoterru.walls.ui.about.AboutActivity"
-        tools:layout="@layout/activity_about" />
 
 </navigation>

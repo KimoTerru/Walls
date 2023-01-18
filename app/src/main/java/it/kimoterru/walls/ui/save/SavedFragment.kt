@@ -49,7 +49,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
                 ERROR -> {
                     emptyPhotoInFavorite()
                 }
-                else -> emptyPhotoInFavorite()
+                else -> {}
             }
         }
     }

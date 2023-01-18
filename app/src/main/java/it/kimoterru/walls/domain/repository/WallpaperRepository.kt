@@ -1,5 +1,7 @@
 package it.kimoterru.walls.domain.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.models.search.SearchPhoto
@@ -23,30 +25,12 @@ interface WallpaperRepository {
         order_by: String,
     ): List<Topic>
 
-    suspend fun getImageTopics(
-        id_or_slug: String,
-        clientId: String,
-        page: Int,
-        per_page: Int,
-        order_by: String
-    ): List<Photo>
-
-    suspend fun getImageColors(
+    suspend fun getImageSearch(
+        witchQuery: String,
         query: String,
         color: String,
-        clientId: String,
-        page: Int,
-        per_page: Int,
-        order_by: String
-    ): SearchPhoto
-
-    suspend fun getImageSearch(
-        query: String,
-        clientId: String,
-        page: Int,
-        per_page: Int,
         order_by: String,
-    ): SearchPhoto
+    ): LiveData<PagingData<Photo>>
 
     suspend fun getAllPhotosFromFavorite(): List<Photo>
 

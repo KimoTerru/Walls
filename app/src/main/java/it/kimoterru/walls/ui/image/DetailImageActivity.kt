@@ -139,7 +139,7 @@ class DetailImageActivity : AppCompatActivity() {
             bindingBottomSheet.apply {
                 Glide.with(imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(imageInfoUser)
                 infoUser.text = data.user?.name ?: getText(R.string.unknown)
-                infoLocation.text = "${data.location?.city ?: getText(R.string.unknown)} - ${data.location?.country ?: getText(R.string.unknown)}"
+                infoLocation.text = "${data.location?.country ?: getText(R.string.unknown)} - ${data.location?.city ?: getText(R.string.unknown)}"
                 resolutionInfo.text = "${data.width} x ${data.height}"
                 createdAtInfo.text = data.createdAt ?: getText(R.string.unknown)
                 colorInfo.text = data.color ?: getText(R.string.unknown)

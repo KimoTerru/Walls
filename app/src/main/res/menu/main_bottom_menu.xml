@@ -12,9 +12,4 @@
         tools:ignore="MenuTitle"
         />
 
-    <item android:id="@+id/fragment_profile"
-        android:icon="@drawable/user"
-        tools:ignore="MenuTitle"
-        />
-
 </menu>
