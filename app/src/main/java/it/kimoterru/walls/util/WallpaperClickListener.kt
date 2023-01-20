@@ -8,6 +8,8 @@ interface WallpaperClickListener {
     }
 
     interface HomeFragment {
+        fun onLatestPhoto()
+
         fun onColorClick(
             name: String,
         )

@@ -9,6 +9,7 @@ import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.util.Constants.Companion.CLIENT_ID
 import it.kimoterru.walls.util.Constants.Companion.PER_PAGE
 import it.kimoterru.walls.util.Constants.Companion.colors
+import it.kimoterru.walls.util.Constants.Companion.latest
 import it.kimoterru.walls.util.Constants.Companion.search
 import it.kimoterru.walls.util.Constants.Companion.topics
 import retrofit2.HttpException
@@ -43,6 +44,9 @@ class PhotoPagingSource(
                 }
                 topics -> {
                     wallpaperService.getTopicImage(query, CLIENT_ID, pageNumber, PER_PAGE, order_by).map { it.toPhoto() }
+                }
+                latest -> {
+                    wallpaperService.getLatest(CLIENT_ID, pageNumber).map { it.toPhoto() }
                 }
                 else -> {}
             }

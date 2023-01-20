@@ -65,7 +65,6 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
                 searchAdapter.refresh()
-                isRefreshing = false
             }
             setProgressBackgroundColorSchemeResource(R.color.my_day_night)
         }

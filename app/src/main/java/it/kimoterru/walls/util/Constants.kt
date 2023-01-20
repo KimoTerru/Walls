@@ -18,6 +18,8 @@ class Constants {
         const val saved = "saved"
         const val notSaved = "notSaved"
         const val zero = 0
+        const val latest = "latest"
+        const val latestWallpapers = "Latest Wallpapers"
     }
 }
 
