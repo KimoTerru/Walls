@@ -30,8 +30,10 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
         initObservers()
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        binding.recyclerSavedWallpaperView.layoutManager = sGrid
-        binding.recyclerSavedWallpaperView.adapter = savedAdapter
+        binding.recyclerSavedWallpaperView.apply {
+            layoutManager = sGrid
+            adapter = savedAdapter
+        }
     }
 
     override fun onResume() {

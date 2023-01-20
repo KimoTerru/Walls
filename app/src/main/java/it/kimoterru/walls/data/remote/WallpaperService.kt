@@ -13,8 +13,8 @@ interface WallpaperService {
     suspend fun getLatest(
         @Query("client_id") clientId: String,
         @Query("page") page: Int,
-        //@Query("per_page") per_page: Int,
-        //@Query("order_by") order_by: String
+        @Query("per_page") per_page: Int,
+        @Query("order_by") order_by: String
     ): List<PhotoResponse>
 
     @GET("/photos")

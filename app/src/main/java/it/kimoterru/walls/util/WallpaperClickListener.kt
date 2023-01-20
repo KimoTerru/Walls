@@ -7,7 +7,15 @@ interface WallpaperClickListener {
         )
     }
 
+    interface LongClick{
+        fun onLongClick(
+            fileName: String, linkDownload: String,
+        )
+    }
+
     interface HomeFragment {
+        fun onLatestPhoto()
+
         fun onColorClick(
             name: String,
         )

@@ -20,14 +20,15 @@ import kotlinx.coroutines.launch
 
 /*This snippet should contain: Fragments - image from search, color range and topics*/
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListener.WallpaperClick {
+class SearchFragment : Fragment(R.layout.fragment_search),
+    WallpaperClickListener.WallpaperClick, WallpaperClickListener.LongClick {
 
     private val binding: FragmentSearchBinding by viewBinding()
     private val args: SearchFragmentArgs by navArgs()
     private val viewModel: SearchViewModel by viewModels()
 
     private val searchAdapter by lazy {
-        SearchAdapter(this)
+        SearchAdapter(this, this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +66,6 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
                 searchAdapter.refresh()
-                isRefreshing = false
             }
             setProgressBackgroundColorSchemeResource(R.color.my_day_night)
         }
@@ -99,5 +99,10 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
                 idNetworkPhoto, idLocalPhoto, urlImageUser
             )
         )
+    }
+
+    override fun onLongClick(fileName: String, linkDownload: String) {
+        showToast(getString(R.string.start_download))
+        viewModel.downloadPhoto(fileName, linkDownload, requireActivity())
     }
 }

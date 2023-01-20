@@ -16,7 +16,7 @@ import it.kimoterru.walls.util.WallpaperClickListener
 
 class LatestAdapter(
     val data: List<Photo>,
-    private val listener: WallpaperClickListener.WallpaperClick
+    private val listener: WallpaperClickListener.HomeFragment
 ) : RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,11 +37,7 @@ class LatestAdapter(
             .into(holder.wallpaperCardView)
             .clearOnDetach()
         holder.wallpaperCardView.setOnClickListener {
-            listener.onWallpaperClick(
-                item.id!!,
-                item.id_photo_is_local,
-                item.user?.profileImage?.large!!
-            )
+            listener.onLatestPhoto()
         }
     }
 

@@ -14,6 +14,7 @@ import it.kimoterru.walls.data.remote.WallpaperService
 import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.domain.repository.WallpaperRepository
+import it.kimoterru.walls.util.TopicsOrder
 import javax.inject.Inject
 
 class WallpaperRepositoryImpl @Inject constructor(
@@ -25,7 +26,7 @@ class WallpaperRepositoryImpl @Inject constructor(
         clientId: String,
         page: Int,
     ): List<Photo> {
-        return wallpaperService.getLatest(clientId, page).map { it.toPhoto() }
+        return wallpaperService.getLatest(clientId, page, 10, TopicsOrder.LATEST.query).map { it.toPhoto() }
     }
 
     override suspend fun getPhotoFromApiByID(
