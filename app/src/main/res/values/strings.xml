@@ -82,5 +82,6 @@
     <string name="info_user_example">Joe Example</string>
     <string name="options">Options:</string>
     <string name="delete">Delete</string>
+    <string name="swipe_to_Refresh">Swipe to Refresh</string>
 
 </resources>

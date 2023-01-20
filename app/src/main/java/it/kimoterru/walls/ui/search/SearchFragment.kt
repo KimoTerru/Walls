@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,9 +76,19 @@ class SearchFragment : Fragment(R.layout.fragment_search), WallpaperClickListene
             viewModel.getImageSearch(
                 args.whichSnippet, args.query, args.query, TopicsOrder.LATEST.query
             ).observe(viewLifecycleOwner) {
-                binding.errorLayoutSearch.root.gone()
-                binding.searchSwipeRefreshLayout.isRefreshing = false
-                searchAdapter.submitData(lifecycle, it)
+                searchAdapter.apply {
+                    submitData(lifecycle, it)
+                    addLoadStateListener {
+                        with(binding) {
+                            searchSwipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
+                            errorLayoutSearch.apply {
+                                root.isVisible(it.refresh is LoadState.Error)
+                                errorMassageView.text = getText(R.string.swipe_to_Refresh)
+                                repeatButtonView.gone()
+                            }
+                        }
+                    }
+                }
             }
         }
     }
