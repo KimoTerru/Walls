@@ -18,6 +18,7 @@
     <color name="my_bg_search_color">#f0f1f3</color>
     <color name="my_background_bottom_sheet">#FFFFFFFF</color>
     <color name="my_day_night">#FFFFFFFF</color>
+    <color name="midnight_gray">#212121</color>
 
     <!--Wallpaper colors -->
     <color name="wp_black">#000000</color>
