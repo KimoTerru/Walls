@@ -11,12 +11,15 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.usecase.search.GetImageSearchUseCase
+import it.kimoterru.walls.domain.usecase.search.InsertPhotoUseCase
 import it.kimoterru.walls.util.Constants.Companion.jpg
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getImageSearchUseCase: GetImageSearchUseCase
+    private val getImageSearchUseCase: GetImageSearchUseCase,
+    private val insertPhotoUseCase: InsertPhotoUseCase
 ) : ViewModel() {
 
     suspend fun getImageSearch(
@@ -43,5 +46,9 @@ class SearchViewModel @Inject constructor(
             "/Walls/$filePhoto"
         )
         dm.enqueue(request)
+    }
+
+    fun saveToFavorite(photo: Photo) = viewModelScope.launch {
+        insertPhotoUseCase.invoke(photo)
     }
 }

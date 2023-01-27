@@ -1,5 +1,8 @@
 package it.kimoterru.walls.util
 
+import com.airbnb.lottie.LottieAnimationView
+import it.kimoterru.walls.domain.models.photo.Photo
+
 interface WallpaperClickListener {
     interface WallpaperClick {
         fun onWallpaperClick(
@@ -9,7 +12,7 @@ interface WallpaperClickListener {
 
     interface LongClick{
         fun onLongClick(
-            fileName: String, linkDownload: String,
+            fileName: String, linkDownload: String, photo: Photo, lottieAnimationView: LottieAnimationView
         )
     }
 

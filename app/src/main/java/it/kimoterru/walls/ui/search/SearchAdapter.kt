@@ -1,6 +1,5 @@
 package it.kimoterru.walls.ui.search
 
-import android.animation.Animator
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -17,8 +16,6 @@ import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.ui.widget.AspectRatioImageView
 import it.kimoterru.walls.util.Constants.Companion.CROSS_FADE_DURATION
 import it.kimoterru.walls.util.WallpaperClickListener
-import it.kimoterru.walls.util.gone
-import it.kimoterru.walls.util.visible
 
 class SearchAdapter(
     private val listenerWallpaperClick: WallpaperClickListener.WallpaperClick,
@@ -77,22 +74,11 @@ class SearchAdapter(
                     )
                 }
                 setOnLongClickListener {
-                    downloadAnim.apply {
-                        visible()
-                        playAnimation()
-                        addAnimatorListener(object : Animator.AnimatorListener {
-                            override fun onAnimationRepeat(animation: Animator) {}
-                            override fun onAnimationCancel(animation: Animator) {}
-                            override fun onAnimationStart(animation: Animator) {}
-                            override fun onAnimationEnd(animation: Animator) {
-                                removeAnimatorListener(this)
-                                gone()
-                            }
-                        })
-                    }
                     listenerLongClick.onLongClick(
                         item.id!!,
-                        item.links?.download!!
+                        item.links?.download!!,
+                        item,
+                        downloadAnim
                     )
                     false
                 }

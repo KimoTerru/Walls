@@ -1,5 +1,6 @@
 package it.kimoterru.walls.ui.search
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
@@ -11,9 +12,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
+import it.kimoterru.walls.databinding.BottomSheetDownloadBinding
 import it.kimoterru.walls.databinding.FragmentSearchBinding
+import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.util.*
 import it.kimoterru.walls.util.Status.*
 import kotlinx.coroutines.launch
@@ -71,21 +76,19 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         }
     }
 
-    private fun initObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getImageSearch(
-                args.whichSnippet, args.query, args.query, TopicsOrder.LATEST.query
-            ).observe(viewLifecycleOwner) {
-                searchAdapter.apply {
-                    submitData(lifecycle, it)
-                    addLoadStateListener {
-                        with(binding) {
-                            searchSwipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
-                            errorLayoutSearch.apply {
-                                root.isVisible(it.refresh is LoadState.Error)
-                                errorMassageView.text = getText(R.string.swipe_to_Refresh)
-                                repeatButtonView.gone()
-                            }
+    private fun initObservers() = viewLifecycleOwner.lifecycleScope.launch {
+        viewModel.getImageSearch(
+            args.whichSnippet, args.query, args.query, TopicsOrder.LATEST.query
+        ).observe(viewLifecycleOwner) {
+            searchAdapter.apply {
+                submitData(lifecycle, it)
+                addLoadStateListener {
+                    with(binding) {
+                        searchSwipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
+                        errorLayoutSearch.apply {
+                            root.isVisible(it.refresh is LoadState.Error)
+                            errorMassageView.text = getText(R.string.swipe_to_Refresh)
+                            repeatButtonView.gone()
                         }
                     }
                 }
@@ -101,8 +104,38 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         )
     }
 
-    override fun onLongClick(fileName: String, linkDownload: String) {
-        showToast(getString(R.string.start_download))
-        viewModel.downloadPhoto(fileName, linkDownload, requireActivity())
+    override fun onLongClick(fileName: String, linkDownload: String, photo: Photo, lottieAnimationView: LottieAnimationView) {
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogApplyToTheme)
+        val bindingBottomSheet = BottomSheetDownloadBinding.inflate(layoutInflater)
+        dialog.setContentView(bindingBottomSheet.root)
+
+        bindingBottomSheet.let {
+            it.saveToDownloads.setOnClickListener {
+                setupAnimationOnLottie(lottieAnimationView, R.raw.download).playAnimation()
+                viewModel.downloadPhoto(fileName, linkDownload, requireActivity())
+            }
+            it.saveToFavorite.setOnClickListener {
+                setupAnimationOnLottie(lottieAnimationView, R.raw.done).playAnimation()
+                viewModel.saveToFavorite(photo)
+            }
+        }
+        dialog.show()
+    }
+
+    private fun setupAnimationOnLottie(lottieAnimationView: LottieAnimationView, animation: Int): LottieAnimationView {
+        return lottieAnimationView.apply {
+            visible()
+            playAnimation()
+            setAnimation(animation)
+            addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationRepeat(animation: Animator) {}
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationStart(animation: Animator) {}
+                override fun onAnimationEnd(animation: Animator) {
+                    removeAnimatorListener(this)
+                    gone()
+                }
+            })
+        }
     }
 }

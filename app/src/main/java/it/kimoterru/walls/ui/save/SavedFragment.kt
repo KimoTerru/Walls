@@ -5,11 +5,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import it.kimoterru.walls.R
 import it.kimoterru.walls.databinding.FragmentSavedBinding
+import it.kimoterru.walls.util.Constants.Companion.zero
 import it.kimoterru.walls.util.Status.ERROR
 import it.kimoterru.walls.util.Status.SUCCESS
 import it.kimoterru.walls.util.WallpaperClickListener
@@ -33,6 +36,21 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
         binding.recyclerSavedWallpaperView.apply {
             layoutManager = sGrid
             adapter = savedAdapter
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(zero, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder,
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    viewModel.deletePhotoFromDataBase(savedAdapter.getData(viewHolder.bindingAdapterPosition))
+                    savedAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
+                    viewModel.getAllPhotosFromFavorite()
+                }
+            }).attachToRecyclerView(this)
         }
     }
 

@@ -56,6 +56,10 @@ class SavedAdapter(
         }
     }
 
+    fun getData(index: Int): Photo {
+        return data.get(index = index)
+    }
+
     fun updateItems(updateData: List<Photo>) {
         data.clear()
         data.addAll(updateData)
