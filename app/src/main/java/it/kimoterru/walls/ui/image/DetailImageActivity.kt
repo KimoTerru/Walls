@@ -1,11 +1,14 @@
 package it.kimoterru.walls.ui.image
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.WallpaperManager
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import androidx.navigation.navArgs
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -80,7 +83,7 @@ class DetailImageActivity : AppCompatActivity() {
     }
 
     private fun setImage(data: Photo) {
-        Glide.with(binding.detailImage).load(data.urls?.regular)
+        Glide.with(binding.detailImage).load(data.urls?.full)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
@@ -106,8 +109,8 @@ class DetailImageActivity : AppCompatActivity() {
     private fun onClick(data: Photo) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SET_WALLPAPER)
-            startActivity(Intent.createChooser(intent, "Select Wallpaper"))
+            WallpaperManager.getInstance(this).setBitmap(binding.detailImage.drawToBitmap(config = Bitmap.Config.ARGB_8888))
+            Toast.makeText(this, getText(R.string.done), Toast.LENGTH_SHORT).show()
         }
         binding.cardDown.setOnClickListener {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogApplyToTheme)
@@ -143,8 +146,8 @@ class DetailImageActivity : AppCompatActivity() {
                 resolutionInfo.text = "${data.width} x ${data.height}"
                 createdAtInfo.text = data.createdAt ?: getText(R.string.unknown)
                 colorInfo.text = data.color ?: getText(R.string.unknown)
-                downInfo.text = data.downloads.toString()
-                likesInfo.text = data.likes.toString()
+                downInfo.text = if (data.downloads != null) data.downloads.toString() else getText(R.string.unknown)
+                likesInfo.text = if (data.likes != null) data.likes.toString() else getText(R.string.unknown)
 
                 makeCam.text = data.exif?.make ?: getText(R.string.unknown)
                 modelCam.text = data.exif?.model ?: getText(R.string.unknown)
