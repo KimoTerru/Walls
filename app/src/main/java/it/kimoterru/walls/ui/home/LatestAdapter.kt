@@ -1,5 +1,7 @@
 package it.kimoterru.walls.ui.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +16,7 @@ import it.kimoterru.walls.util.WallpaperClickListener
 
 class LatestAdapter(
     val data: List<Photo>,
-    private val listener: WallpaperClickListener.WallpaperClick
+    private val listener: WallpaperClickListener.HomeFragment
 ) : RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,15 +32,12 @@ class LatestAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         Glide.with(holder.wallpaperCardView).load(item.urls?.thumb)
+            .placeholder(ColorDrawable(Color.parseColor(item.color)))
             .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(holder.wallpaperCardView)
             .clearOnDetach()
         holder.wallpaperCardView.setOnClickListener {
-            listener.onWallpaperClick(
-                item.id!!,
-                item.id_photo_is_local,
-                item.user?.profileImage?.large!!
-            )
+            listener.onLatestPhoto()
         }
     }
 

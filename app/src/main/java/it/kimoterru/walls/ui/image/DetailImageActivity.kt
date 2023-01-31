@@ -1,11 +1,14 @@
 package it.kimoterru.walls.ui.image
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.WallpaperManager
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import androidx.navigation.navArgs
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -63,18 +66,24 @@ class DetailImageActivity : AppCompatActivity() {
                 }
                 ERROR -> {
                     binding.animBar.invisible()
-                    binding.textErrorUnderAnim.apply {
-                        text = it.message
-                        visible()
+                    binding.cardErrorLayout.apply {
+                        root.visible()
+                        errorMassageView.text = it.message.toString()
+                        repeatButtonView.setOnClickListener {
+                            viewModel.getPhoto(args.idNetworkPhoto, args.idLocalPhoto)
+                        }
                     }
                 }
-                else -> {}
+                LOADING -> {
+                    binding.cardErrorLayout.root.gone()
+                    binding.animBar.visible()
+                }
             }
         }
     }
 
     private fun setImage(data: Photo) {
-        Glide.with(binding.detailImage).load(data.urls?.regular)
+        Glide.with(binding.detailImage).load(data.urls?.full)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?, model: Any?, target: Target<Drawable>?,
@@ -88,6 +97,7 @@ class DetailImageActivity : AppCompatActivity() {
                     resource: Drawable?, model: Any?, target: Target<Drawable>?,
                     dataSource: DataSource?, isFirstResource: Boolean
                 ): Boolean {
+                    binding.cardErrorLayout.root.gone()
                     binding.animBar.gone()
                     showFragmentComponent()
                     return false
@@ -95,20 +105,12 @@ class DetailImageActivity : AppCompatActivity() {
             }).into(binding.detailImage)
     }
 
-    @SuppressLint("SetTextI18n", "NewApi")
+    @SuppressLint("SetTextI18n")
     private fun onClick(data: Photo) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SET_WALLPAPER)
-            startActivity(Intent.createChooser(intent, "Select Wallpaper"))
-
-            /*val file = File(Environment.DIRECTORY_PICTURES + "Walls" + fileName)
-            val path = Environment.getExternalStorageState(file)
-            val intent = Intent(Intent.ACTION_ATTACH_DATA)
-            intent.addCategory(Intent.CATEGORY_DEFAULT)
-            intent.setDataAndType(Uri.parse(path), "image/jpeg")
-            intent.putExtra("mimeType", "image/jpeg")
-            this.startActivity(Intent.createChooser(intent, "Set as:"))*/
+            WallpaperManager.getInstance(this).setBitmap(binding.detailImage.drawToBitmap(config = Bitmap.Config.ARGB_8888))
+            Toast.makeText(this, getText(R.string.done), Toast.LENGTH_SHORT).show()
         }
         binding.cardDown.setOnClickListener {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogApplyToTheme)
@@ -137,23 +139,22 @@ class DetailImageActivity : AppCompatActivity() {
             val bindingBottomSheet = BottomSheetInfoBinding.inflate(layoutInflater)
             dialog.setContentView(bindingBottomSheet.root)
 
-            bindingBottomSheet.let {
-                //all views in bindingBottomSheet
-                Glide.with(it.imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(it.imageInfoUser)
-                it.infoUser.text = data.user?.name
-                it.infoLocation.text = "${data.location?.city ?: getText(R.string.unknown)} - ${data.location?.country ?: getText(R.string.unknown)}"
-                it.resolutionInfo.text = "${data.width} x ${data.height}"
-                it.createdAtInfo.text = data.createdAt
-                it.colorInfo.text = data.color
-                it.downInfo.text = data.downloads.toString()
-                it.likesInfo.text = data.likes.toString()
+            bindingBottomSheet.apply {
+                Glide.with(imageInfoUser).load(args.urlImageUser).placeholder(R.drawable.ic_launcher_foreground).into(imageInfoUser)
+                infoUser.text = data.user?.name ?: getText(R.string.unknown)
+                infoLocation.text = "${data.location?.country ?: getText(R.string.unknown)} - ${data.location?.city ?: getText(R.string.unknown)}"
+                resolutionInfo.text = "${data.width} x ${data.height}"
+                createdAtInfo.text = data.createdAt ?: getText(R.string.unknown)
+                colorInfo.text = data.color ?: getText(R.string.unknown)
+                downInfo.text = if (data.downloads != null) data.downloads.toString() else getText(R.string.unknown)
+                likesInfo.text = if (data.likes != null) data.likes.toString() else getText(R.string.unknown)
 
-                it.makeCam.text = data.exif?.make ?: getText(R.string.unknown)
-                it.modelCam.text = data.exif?.model ?: getText(R.string.unknown)
-                it.exposureTimeCam.text = "${data.exif?.exposure_time ?: getText(R.string.unknown)}s"
-                it.apertureCam.text = "f/${data.exif?.aperture ?: getText(R.string.unknown)}"
-                it.focalLengthCam.text = "${data.exif?.focal_length ?: getText(R.string.unknown)}mm"
-                it.isoCam.text = data.exif?.iso ?: getText(R.string.unknown)
+                makeCam.text = data.exif?.make ?: getText(R.string.unknown)
+                modelCam.text = data.exif?.model ?: getText(R.string.unknown)
+                exposureTimeCam.text = if (data.exif?.exposure_time != null) data.exif.exposure_time + "s" else getText(R.string.unknown)
+                apertureCam.text = if (data.exif?.aperture != null) "f/" + data.exif.aperture else getText(R.string.unknown)
+                focalLengthCam.text = if (data.exif?.focal_length != null) data.exif.focal_length + "mm" else getText(R.string.unknown)
+                isoCam.text = data.exif?.iso ?: getText(R.string.unknown)
             }
             dialog.show()
         }

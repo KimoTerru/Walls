@@ -15,18 +15,17 @@ import it.kimoterru.walls.data.repository.getColors
 import it.kimoterru.walls.databinding.FragmentHomeBinding
 import it.kimoterru.walls.domain.models.photo.Photo
 import it.kimoterru.walls.domain.models.topic.Topic
+import it.kimoterru.walls.util.*
 import it.kimoterru.walls.util.Constants.Companion.colors
+import it.kimoterru.walls.util.Constants.Companion.latest
+import it.kimoterru.walls.util.Constants.Companion.latestWallpapers
 import it.kimoterru.walls.util.Constants.Companion.search
 import it.kimoterru.walls.util.Constants.Companion.topics
 import it.kimoterru.walls.util.Constants.Companion.zero
 import it.kimoterru.walls.util.Status.*
-import it.kimoterru.walls.util.WallpaperClickListener
-import it.kimoterru.walls.util.isVisible
-import it.kimoterru.walls.util.visible
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.WallpaperClick,
-    WallpaperClickListener.HomeFragment {
+class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.HomeFragment {
 
     private val binding: FragmentHomeBinding by viewBinding()
     private val viewModel: HomeViewModel by viewModels()
@@ -42,46 +41,61 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         viewModel.homeResponseLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
+                    binding.homeAnimView.gone()
                     displayLatest(it.data)
-                    binding.homeBoxView.root.visible()
                     errorStateConnection(it.message.toString(), false)
                 }
                 ERROR -> {
+                    binding.homeAnimView.gone()
                     errorStateConnection(it.message.toString(), true)
                 }
-                else -> {}
+                LOADING -> {
+                    binding.errorLayoutView.root.gone()
+                    binding.homeAnimView.visible()
+                }
             }
         }
         viewModel.topicsLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
                 SUCCESS -> {
+                    binding.homeAnimView.gone()
                     displayTopics(it.data)
                     displayColors()
-                    binding.homeBoxView.root.visible()
+                    binding.homeContentLayoutView.root.visible()
                 }
-                /*ERROR -> showToast(it.message)*/
-                else -> {
+                ERROR -> {
+                    binding.homeAnimView.gone()
+                    errorStateConnection(it.message.toString(), true)
+                }
+                LOADING -> {
+                    binding.errorLayoutView.root.gone()
+                    binding.homeAnimView.visible()
                 }
             }
         }
     }
 
     private fun errorStateConnection(error: String, show: Boolean) {
-        binding.errorBoxView.root.isVisible(show)
-        binding.errorBoxView.errorMassageView.text = error
+        binding.errorLayoutView.apply {
+            root.isVisible(show)
+            errorMassageView.text = error
+            repeatButtonView.setOnClickListener {
+                viewModel.updateData()
+            }
+        }
     }
 
     private fun displayLatest(response: List<Photo>?) {
-        binding.homeBoxView.recyclerLatestWallpapers.adapter =
+        binding.homeContentLayoutView.recyclerLatestWallpapers.adapter =
             response?.let { LatestAdapter(it, this) }
     }
 
     private fun displayColors() {
-        binding.homeBoxView.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
+        binding.homeContentLayoutView.recyclerBestColorTone.adapter = ColorAdapter(getColors(), this)
     }
 
     private fun displayTopics(list: List<Topic>?) {
-        binding.homeBoxView.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
+        binding.homeContentLayoutView.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
     }
 
     private fun initSearch() {
@@ -112,10 +126,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Wa
         }
     }
 
-    override fun onWallpaperClick(idNetworkPhoto: String, idLocalPhoto: Int, urlImageUser: String) {
+    override fun onLatestPhoto() {
         Navigation.findNavController(requireView()).navigate(
-            HomeFragmentDirections.actionFragmentHomeToActivityDetailImage(
-                idNetworkPhoto, idLocalPhoto, urlImageUser
+            HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
+                latest, latestWallpapers, zero, latest
             )
         )
     }

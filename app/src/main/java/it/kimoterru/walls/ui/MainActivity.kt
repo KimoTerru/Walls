@@ -2,6 +2,7 @@ package it.kimoterru.walls.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by viewBinding(CreateMethod.INFLATE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupBottomNav()
@@ -33,10 +35,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.fragment_home -> showBottomNav()
                 R.id.fragment_saved -> showBottomNav()
-                R.id.fragment_profile -> showBottomNav()
-
-                R.id.fragment_empty_user_profile -> showBottomNav()
-                R.id.fragment_settings -> showBottomNav()
+                R.id.fragment_search -> hideBottomNav()
                 else -> hideBottomNav()
             }
         }

@@ -20,7 +20,8 @@
             android:id="@+id/image_info_user"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/ic_launcher_foreground"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
 
     </androidx.cardview.widget.CardView>
 
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Joe Example"
+            android:text="@string/info_user_example"
             android:textColor="@color/my_text_color"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -49,7 +50,7 @@
             android:id="@+id/info_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Montreal / Canada"
+            android:text="@string/info_location_example"
             android:textSize="14sp"
             android:textColor="@color/my_text_color"
             app:layout_constraintEnd_toEndOf="@+id/info_user"
@@ -81,42 +82,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Image ID"
+            android:text="@string/image_id"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Resolution"
+            android:text="@string/resolution"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Created"
+            android:text="@string/created"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Likes"
+            android:text="@string/likes"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Color"
+            android:text="@string/color"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Downloads"
+            android:text="@string/downloads"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
@@ -126,7 +127,7 @@
         android:id="@+id/linear_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="66dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toRightOf="@id/linear_info"
         app:layout_constraintRight_toRightOf="parent"
@@ -135,33 +136,37 @@
         <TextView
             android:id="@+id/id_image_info"
             android:layout_width="wrap_content"
+            android:maxLines="1"
             android:layout_height="wrap_content"
-            android:text="Dwu85P9SOIk"
+            android:text="@string/id_image_info_example"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/resolution_info"
+            android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="2448 x 3264"
+            android:text="@string/resolution_info_example"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/created_at_info"
             android:layout_width="wrap_content"
+            android:maxLines="1"
             android:textColor="@color/my_text_color"
             android:layout_height="wrap_content"
-            android:text="2016-05-03T11:00:28-04:00"
+            android:text="@string/created_at_info_example"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/likes_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:textColor="@color/my_text_color"
-            android:text="105"
+            android:text="@string/likes_info_example"
             android:textSize="16sp" />
 
         <TextView
@@ -169,7 +174,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="#6E633A"
+            android:text="@string/color_info_example"
+            android:maxLines="1"
             android:textSize="16sp" />
 
         <TextView
@@ -177,7 +183,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="1345"
+            android:text="@string/down_info_example"
+            android:maxLines="1"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -186,7 +193,7 @@
         android:id="@+id/camera_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Camera"
+        android:text="@string/camera"
         android:textColor="@color/my_text_color"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -205,42 +212,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Make"
+            android:text="@string/make"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Model"
+            android:text="@string/model"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exposure time"
+            android:text="@string/exposure_time"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aperture"
+            android:text="@string/aperture"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Focal length"
+            android:text="@string/focal_length"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ISO"
+            android:text="@string/iso"
             android:textColor="@color/my_text_color"
             android:textSize="16sp" />
 
@@ -250,7 +257,7 @@
         android:id="@+id/linear_data_cam"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="44dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toRightOf="@id/linear_info_cam"
         app:layout_constraintRight_toRightOf="parent"
@@ -261,7 +268,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="Canon"
+            android:text="@string/make_cam_example"
+            android:maxLines="1"
             android:textSize="16sp" />
 
         <TextView
@@ -269,7 +277,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="Canon EOS 40D"
+            android:text="@string/model_cam_example"
+            android:maxLines="1"
             android:textSize="16sp" />
 
         <TextView
@@ -277,7 +286,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="0.011111111111111112"
+            android:text="@string/exposure_time_cam_example"
+            android:maxLines="1"
             android:textSize="16sp" />
 
         <TextView
@@ -285,7 +295,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="4.970854"
+            android:maxLines="1"
+            android:text="@string/aperture_cam_example"
             android:textSize="16sp" />
 
         <TextView
@@ -293,7 +304,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="37"
+            android:maxLines="1"
+            android:text="@string/focal_length_cam_example"
             android:textSize="16sp" />
 
         <TextView
@@ -301,7 +313,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/my_text_color"
-            android:text="100"
+            android:maxLines="1"
+            android:text="@string/iso_cam_example"
             android:textSize="16sp" />
 
     </LinearLayout>

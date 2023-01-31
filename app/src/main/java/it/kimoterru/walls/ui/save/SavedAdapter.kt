@@ -18,7 +18,7 @@ class SavedAdapter(
     private val listener: WallpaperClickListener.WallpaperClick,
 ) : RecyclerView.Adapter<SavedAdapter.ViewHolder>() {
 
-    private var data = mutableListOf<Photo>()
+    private var data = arrayListOf<Photo>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: AspectRatioImageView = view.findViewById(R.id.card_image_display)
@@ -36,19 +36,28 @@ class SavedAdapter(
         val item = data[position]
 
         holder.image.setAspectRatio(item.width, item.height)
+
         Glide.with(holder.image).load(item.urls?.thumb)
             .placeholder(ColorDrawable(Color.parseColor(item.color)))
             .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(holder.image)
             .clearOnDetach()
 
-        holder.image.setOnClickListener {
-            listener.onWallpaperClick(
-                item.id!!,
-                item.id_photo_is_local,
-                item.user?.profileImage?.large!!
-            )
+        holder.apply {
+            image.apply {
+                setOnClickListener {
+                    listener.onWallpaperClick(
+                        item.id!!,
+                        item.id_photo_is_local,
+                        item.user?.profileImage?.large!!
+                    )
+                }
+            }
         }
+    }
+
+    fun getData(index: Int): Photo {
+        return data.get(index = index)
     }
 
     fun updateItems(updateData: List<Photo>) {

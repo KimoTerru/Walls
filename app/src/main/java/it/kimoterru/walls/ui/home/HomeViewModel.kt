@@ -35,6 +35,11 @@ class HomeViewModel @Inject constructor(
         getTopics(POSITION)
     }
 
+    fun updateData() {
+        getHomeScreen()
+        getTopics(POSITION)
+    }
+
     private fun getHomeScreen() {
         homeResponseMutableLiveData.postValue(Resource.loading())
         viewModelScope.launch(Dispatchers.IO) {

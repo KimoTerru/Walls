@@ -5,7 +5,10 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import it.kimoterru.walls.R
@@ -15,46 +18,44 @@ import it.kimoterru.walls.util.Constants.Companion.CROSS_FADE_DURATION
 import it.kimoterru.walls.util.WallpaperClickListener
 
 class SearchAdapter(
-    private val listener: WallpaperClickListener.WallpaperClick
-) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
-
-    private var data = arrayListOf<Photo>()
+    private val listenerWallpaperClick: WallpaperClickListener.WallpaperClick,
+    private val listenerLongClick: WallpaperClickListener.LongClick
+) : PagingDataAdapter<Photo, SearchAdapter.ViewHolder>(DiffUtilCallBack) {
 
     override fun getItemViewType(position: Int) = R.layout.card_image_display
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(viewType, parent, false), listener
+            LayoutInflater.from(parent.context).inflate(viewType, parent, false),
+            listenerWallpaperClick,
+            listenerLongClick
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        holder.bind(item)
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
-    fun addData(newData: List<Photo>) {
-        data.addAll(newData)
-        notifyDataSetChanged()
+    object DiffUtilCallBack : DiffUtil.ItemCallback<Photo>() {
+        override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem == newItem
+        }
     }
 
-    fun updateItems(updateData: List<Photo>) {
-        data.clear()
-        data.addAll(updateData)
-        notifyDataSetChanged()
-    }
-
-    fun clearData() {
-        data.clear()
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = data.size
-
-    class ViewHolder(view: View, private val listener: WallpaperClickListener.WallpaperClick) :
-        RecyclerView.ViewHolder(view) {
+    class ViewHolder(
+        view: View,
+        private val listenerWallpaperClick: WallpaperClickListener.WallpaperClick,
+        private val listenerLongClick: WallpaperClickListener.LongClick
+    ) : RecyclerView.ViewHolder(view) {
 
         private val image: AspectRatioImageView = view.findViewById(R.id.card_image_display)
+        private val downloadAnim: LottieAnimationView = view.findViewById(R.id.download_anim_view)
 
         fun bind(item: Photo) {
             image.setAspectRatio(item.width, item.height)
@@ -64,12 +65,23 @@ class SearchAdapter(
                 .transition(DrawableTransitionOptions.withCrossFade(CROSS_FADE_DURATION))
                 .into(image).clearOnDetach()
 
-            image.setOnClickListener {
-                listener.onWallpaperClick(
-                    item.id!!,
-                    item.id_photo_is_local,
-                    item.user?.profileImage?.large!!
-                )
+            image.apply {
+                setOnClickListener {
+                    listenerWallpaperClick.onWallpaperClick(
+                        item.id!!,
+                        item.id_photo_is_local,
+                        item.user?.profileImage?.large!!
+                    )
+                }
+                setOnLongClickListener {
+                    listenerLongClick.onLongClick(
+                        item.id!!,
+                        item.links?.download!!,
+                        item,
+                        downloadAnim
+                    )
+                    false
+                }
             }
         }
     }

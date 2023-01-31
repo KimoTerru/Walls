@@ -53,5 +53,38 @@
     <string name="no_wallpaper">There is no wallpaper...</string>
 
     <string name="wallpapers_available">wallpapers available</string>
+    <string name="iso_cam_example">100</string>
+    <string name="focal_length_cam_example">37</string>
+    <string name="aperture_cam_example">4.970854</string>
+    <string name="exposure_time_cam_example">0.011</string>
+    <string name="model_cam_example">Canon EOS 40D</string>
+    <string name="make_cam_example">Canon</string>
+    <string name="iso">ISO</string>
+    <string name="focal_length">Focal length</string>
+    <string name="aperture">Aperture</string>
+    <string name="exposure_time">Exposure time</string>
+    <string name="model">Model</string>
+    <string name="make">Make</string>
+    <string name="camera">Camera</string>
+    <string name="down_info_example">1345</string>
+    <string name="color_info_example">#6E633A</string>
+    <string name="likes_info_example">105</string>
+    <string name="created_at_info_example">2016-05-03T11:00:28-04:00</string>
+    <string name="resolution_info_example">2448 x 3264</string>
+    <string name="id_image_info_example">Dwu85P9SOIk</string>
+    <string name="downloads">Downloads</string>
+    <string name="color">Color</string>
+    <string name="likes">Likes</string>
+    <string name="created">Created</string>
+    <string name="resolution">Resolution</string>
+    <string name="image_id">Image ID</string>
+    <string name="info_location_example">Montreal / Canada</string>
+    <string name="info_user_example">Joe Example</string>
+    <string name="options">Options:</string>
+    <string name="delete">Delete</string>
+    <string name="swipe_to_Refresh">Swipe to Refresh</string>
+    <string name="wait_a_second">Wait a second...</string>
+    <string name="start_download">Start download</string>
+    <string name="done">Done</string>
 
 </resources>

@@ -8,7 +8,7 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/error_animation_view"
-        android:layout_width="300dp"
+        android:layout_width="400dp"
         android:layout_height="300dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
@@ -16,11 +16,21 @@
 
     <TextView
         android:id="@+id/error_massage_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginHorizontal="20dp"
         android:text="@string/error_massage"
         android:textColor="@color/my_text_color"
-        android:textSize="22sp" />
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/repeat_button_view"
+        android:layout_marginTop="5dp"
+        android:text="@string/repeat"
+        app:backgroundTint="@color/blue"
+        android:background="@drawable/background_card_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
