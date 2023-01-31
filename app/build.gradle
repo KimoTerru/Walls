@@ -96,9 +96,6 @@ dependencies {
     // Swipe refresh layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
 
-    // Shimmer effect
-    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
-
     // Splash API
     implementation "androidx.core:core-splashscreen:$splashscreen_version"
 }

@@ -4,7 +4,7 @@ buildscript {
 
     ext.androidx_core_version = '1.9.0'
     ext.androidx_appcompat_version = '1.6.0'
-    ext.android_material_version = '1.7.0'
+    ext.android_material_version = '1.8.0'
     ext.androidx_constraintlayout_version = '2.1.4'
     ext.androidx_preference_version = '1.2.0'
     ext.junit_version = '4.13.2'
@@ -26,7 +26,6 @@ buildscript {
     ext.paging_version = '3.1.1'
     ext.photo_view_version = '2.3.0'
     ext.swipe_refresh_layout_version = '1.1.0'
-    ext.shimmer_version = '0.5.0'
     ext.splashscreen_version = '1.0.0'
 
     repositories {
