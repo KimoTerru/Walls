@@ -3,6 +3,7 @@ package it.kimoterru.walls.ui.search
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,7 +24,7 @@ import it.kimoterru.walls.util.*
 import it.kimoterru.walls.util.Status.*
 import kotlinx.coroutines.launch
 
-/*This snippet should contain: Fragments - image from search, color range and topics*/
+/*This snippet should contain: Fragments - image from search, latest, color range and topics*/
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search),
     WallpaperClickListener.WallpaperClick, WallpaperClickListener.LongClick {
@@ -70,7 +71,10 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         binding.searchSwipeRefreshLayout.apply {
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
-                searchAdapter.refresh()
+                Handler().postDelayed({
+                    searchAdapter.refresh()
+                    isRefreshing = false
+                }, 350) // Need something that shows the animation of this view
             }
             setProgressBackgroundColorSchemeResource(R.color.my_day_night)
         }

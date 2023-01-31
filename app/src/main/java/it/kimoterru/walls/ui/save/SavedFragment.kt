@@ -46,7 +46,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    viewModel.deletePhotoFromDataBase(savedAdapter.getData(viewHolder.bindingAdapterPosition))
+                    viewModel.deletePhotoFromDataBase(savedAdapter.getPhotoByPosition(viewHolder.bindingAdapterPosition))
                     savedAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
                     viewModel.getAllPhotosFromFavorite()
                 }

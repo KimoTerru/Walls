@@ -56,8 +56,8 @@ class SavedAdapter(
         }
     }
 
-    fun getData(index: Int): Photo {
-        return data.get(index = index)
+    fun getPhotoByPosition(position: Int): Photo {
+        return data.get(index = position)
     }
 
     fun updateItems(updateData: List<Photo>) {
