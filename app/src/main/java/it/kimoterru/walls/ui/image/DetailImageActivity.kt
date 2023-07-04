@@ -107,6 +107,7 @@ class DetailImageActivity : AppCompatActivity() {
     private fun onClick(data: Photo) {
         val fileName = data.id + ".jpg"
         binding.cardBrush.setOnClickListener {
+            Toast.makeText(this, getText(R.string.waiting), Toast.LENGTH_SHORT).show()
             WallpaperManager.getInstance(this).setBitmap(binding.detailImage.drawToBitmap(config = Bitmap.Config.ARGB_8888))
             Toast.makeText(this, getText(R.string.done), Toast.LENGTH_SHORT).show()
         }

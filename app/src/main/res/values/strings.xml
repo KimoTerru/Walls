@@ -52,5 +52,6 @@
     <string name="swipe_to_Refresh">Swipe to Refresh</string>
     <string name="done">Done</string>
     <string name="topics">Topics</string>
+    <string name="waiting">Wait a minute…</string>
 
 </resources>

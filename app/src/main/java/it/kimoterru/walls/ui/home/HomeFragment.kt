@@ -98,20 +98,20 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Ho
         binding.homeContentLayoutView.recyclerTopic.adapter = list?.let { TopicAdapter(it, this) }
     }
 
-    private fun initSearch() {
-        binding.findImage.addTextChangedListener {
+    private fun initSearch() = binding.findImage.apply {
+        addTextChangedListener {
             if (it.toString().isNotEmpty()) {
                 binding.searchImage.setImageResource(R.drawable.cancel)
                 binding.searchImage.setOnClickListener {
-                    binding.findImage.text.clear()
+                    binding.findImage.text?.clear()
                 }
             } else {
                 binding.searchImage.setImageResource(R.drawable.search)
             }
         }
-        binding.findImage.setOnEditorActionListener { _, actionId, _ ->
+        setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val query: String = binding.findImage.text.toString()
+                val query: String = text.toString()
                 if (query.trim().isNotEmpty()) {
                     Navigation.findNavController(requireView()).navigate(
                         HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
