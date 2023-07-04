@@ -19,7 +19,7 @@
             android:id="@+id/name_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:maxLines="2"
@@ -30,9 +30,9 @@
 
         <TextView
             android:id="@+id/size_save_wallpaper"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="16dp"
             android:text="@string/totalPhotos"
             android:textSize="16sp" />
 
@@ -40,7 +40,7 @@
             android:id="@+id/search_swipeRefresh_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp">
 
             <androidx.recyclerview.widget.RecyclerView

@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -50,7 +51,16 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         binding.recyclerImageSearch.apply {
             layoutManager = sGrid
-            adapter = searchAdapter
+            adapter = searchAdapter.apply {
+                addLoadStateListener {
+                    binding.searchSwipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
+                    binding.errorLayoutSearch.apply {
+                        root.isVisible(it.refresh is LoadState.Error)
+                        errorMassageView.text = getText(R.string.swipe_to_Refresh)
+                        repeatButtonView.gone()
+                    }
+                }
+            }
         }
     }
 
@@ -71,7 +81,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         binding.searchSwipeRefreshLayout.apply {
             setColorSchemeResources(R.color.wp_blue)
             setOnRefreshListener {
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     searchAdapter.refresh()
                     isRefreshing = false
                 }, 350) // Need something that shows the animation of this view
@@ -84,19 +94,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         viewModel.getImageSearch(
             args.whichSnippet, args.query, args.query, TopicsOrder.LATEST.query
         ).observe(viewLifecycleOwner) {
-            searchAdapter.apply {
-                submitData(lifecycle, it)
-                addLoadStateListener {
-                    with(binding) {
-                        searchSwipeRefreshLayout.isRefreshing = it.refresh is LoadState.Loading
-                        errorLayoutSearch.apply {
-                            root.isVisible(it.refresh is LoadState.Error)
-                            errorMassageView.text = getText(R.string.swipe_to_Refresh)
-                            repeatButtonView.gone()
-                        }
-                    }
-                }
-            }
+            searchAdapter.submitData(lifecycle, it)
         }
     }
 
@@ -115,11 +113,11 @@ class SearchFragment : Fragment(R.layout.fragment_search),
 
         bindingBottomSheet.let {
             it.saveToDownloads.setOnClickListener {
-                setupAnimationOnLottie(lottieAnimationView, R.raw.download).playAnimation()
-                viewModel.downloadPhoto(fileName, linkDownload, requireActivity())
+                setupAnimationOnLottie(lottieAnimationView, R.raw.download_animation).playAnimation()
+                viewModel.downloadPhoto(fileName, linkDownload)
             }
             it.saveToFavorite.setOnClickListener {
-                setupAnimationOnLottie(lottieAnimationView, R.raw.done).playAnimation()
+                setupAnimationOnLottie(lottieAnimationView, R.raw.favorite_animation).playAnimation()
                 viewModel.saveToFavorite(photo)
             }
         }

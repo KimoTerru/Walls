@@ -57,27 +57,25 @@ class DetailImageActivity : AppCompatActivity() {
         binding.cardInfo.visible()
     }
 
-    private fun initObservers() {
-        viewModel.photoLiveData.observe(this) {
-            when (it.status) {
-                SUCCESS -> {
-                    it.data?.let { it1 -> setImage(it1) }
-                    it.data?.let { it1 -> onClick(it1) }
-                }
-                ERROR -> {
-                    binding.animBar.invisible()
-                    binding.cardErrorLayout.apply {
-                        root.visible()
-                        errorMassageView.text = it.message.toString()
-                        repeatButtonView.setOnClickListener {
-                            viewModel.getPhoto(args.idNetworkPhoto, args.idLocalPhoto)
-                        }
+    private fun initObservers() = viewModel.photoLiveData.observe(this) {
+        when (it.status) {
+            SUCCESS -> {
+                it.data?.let { it1 -> setImage(it1) }
+                it.data?.let { it1 -> onClick(it1) }
+            }
+            ERROR -> {
+                binding.animBar.invisible()
+                binding.cardErrorLayout.apply {
+                    root.visible()
+                    errorMassageView.text = it.message.toString()
+                    repeatButtonView.setOnClickListener {
+                        viewModel.getPhoto(args.idNetworkPhoto, args.idLocalPhoto)
                     }
                 }
-                LOADING -> {
-                    binding.cardErrorLayout.root.gone()
-                    binding.animBar.visible()
-                }
+            }
+            LOADING -> {
+                binding.cardErrorLayout.root.gone()
+                binding.animBar.visible()
             }
         }
     }
@@ -119,7 +117,7 @@ class DetailImageActivity : AppCompatActivity() {
 
             bindingBottomSheet.let {
                 it.saveToDownloads.setOnClickListener {
-                    viewModel.downloadPhoto(fileName, data.links?.download!!,this)
+                    viewModel.downloadPhoto(fileName, data.links?.download!!)
                 }
                 it.saveToFavorite.setOnClickListener {
                     viewModel.saveToFavorite(data)

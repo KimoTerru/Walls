@@ -95,7 +95,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Ho
     }
 
     private fun displayTopics(list: List<Topic>?) {
-        binding.homeContentLayoutView.recyclerCategories.adapter = list?.let { TopicAdapter(it, this) }
+        binding.homeContentLayoutView.recyclerTopic.adapter = list?.let { TopicAdapter(it, this) }
     }
 
     private fun initSearch() {
@@ -112,14 +112,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), WallpaperClickListener.Ho
         binding.findImage.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query: String = binding.findImage.text.toString()
-                if (query.isNotEmpty()) {
+                if (query.trim().isNotEmpty()) {
                     Navigation.findNavController(requireView()).navigate(
                         HomeFragmentDirections.actionFragmentHomeToFragmentSearch(
-                            query, query, 0, search
+                            query, query, zero, search
                         )
                     )
                 } else {
-                    Toast.makeText(context, "Empty!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, getText(R.string.empty_request), Toast.LENGTH_LONG).show()
                 }
                 true
             } else false

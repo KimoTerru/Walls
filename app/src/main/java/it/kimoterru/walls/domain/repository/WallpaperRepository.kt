@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import it.kimoterru.walls.domain.models.topic.Topic
 import it.kimoterru.walls.domain.models.photo.Photo
-import it.kimoterru.walls.domain.models.search.SearchPhoto
 
 interface WallpaperRepository {
 

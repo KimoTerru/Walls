@@ -24,10 +24,10 @@ class HomeViewModel @Inject constructor(
     private val getTopicsUseCase: GetTopicsUseCase
 ) : ViewModel() {
 
-    private val homeResponseMutableLiveData = MutableLiveData<Resource<List<Photo>>>()
+    private val homeResponseMutableLiveData = MutableLiveData<Resource<List<Photo>>>(Resource.loading())
     val homeResponseLiveData: LiveData<Resource<List<Photo>>> = homeResponseMutableLiveData
 
-    private val topicsMutableLiveData = MutableLiveData<Resource<List<Topic>>>()
+    private val topicsMutableLiveData = MutableLiveData<Resource<List<Topic>>>(Resource.loading())
     val topicsLiveData: LiveData<Resource<List<Topic>>> = topicsMutableLiveData
 
     init {
@@ -40,30 +40,13 @@ class HomeViewModel @Inject constructor(
         getTopics(POSITION)
     }
 
-    private fun getHomeScreen() {
-        homeResponseMutableLiveData.postValue(Resource.loading())
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val result = getLatestPhotosUseCase.invoke(CLIENT_ID, FIRST_PAGE)
-                homeResponseMutableLiveData.postValue(Resource.success(result))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                homeResponseMutableLiveData.postValue(Resource.error(e.message ?: "none"))
-            }
-        }
+    private fun getHomeScreen() = viewModelScope.launch(Dispatchers.IO) {
+        val result = getLatestPhotosUseCase.invoke(CLIENT_ID, FIRST_PAGE)
+        homeResponseMutableLiveData.postValue(result)
     }
 
-    private fun getTopics(order: TopicsOrder) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val topicsData = getTopicsUseCase.invoke(
-                    CLIENT_ID, FIRST_PAGE, 50, order.query
-                )
-                topicsMutableLiveData.postValue(Resource.success(topicsData))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                topicsMutableLiveData.postValue(Resource.error(e.message.toString()))
-            }
-        }
+    private fun getTopics(order: TopicsOrder) = viewModelScope.launch(Dispatchers.IO) {
+        val topicsData = getTopicsUseCase.invoke(CLIENT_ID, FIRST_PAGE, 50, order.query)
+        topicsMutableLiveData.postValue(topicsData)
     }
 }

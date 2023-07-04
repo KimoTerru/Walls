@@ -22,20 +22,17 @@ class SavedViewModel @Inject constructor(
     private val photoMutableLiveData = MutableLiveData<Resource<List<Photo>>>(Resource.loading())
     val photoLiveData: LiveData<Resource<List<Photo>>> = photoMutableLiveData
 
-    fun getAllPhotosFromFavorite() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val photoData = getAllPhotosFromFavoriteUseCase.invoke()
-                if (photoData.isNotEmpty()) {
-                    photoMutableLiveData.postValue(Resource.success(photoData))
-                } else {
-                    photoMutableLiveData.postValue(Resource.error("none"))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                photoMutableLiveData.postValue(Resource.error(e.message ?: "none"))
-            }
-        }
+    init {
+        getAllPhotosFromFavorite()
+    }
+
+    private fun getAllPhotosFromFavorite() = viewModelScope.launch(Dispatchers.IO) {
+        val photoData = getAllPhotosFromFavoriteUseCase.invoke()
+        photoMutableLiveData.postValue(photoData)
+    }
+
+    fun updateAllPhotosFromFavorite() {
+        getAllPhotosFromFavorite()
     }
 
     fun deletePhotoFromDataBase(photo: Photo) = viewModelScope.launch {

@@ -30,7 +30,9 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initObservers()
+
         val sGrid = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         sGrid.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         binding.recyclerSavedWallpaperView.apply {
@@ -46,9 +48,9 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    viewModel.deletePhotoFromDataBase(savedAdapter.getPhotoByPosition(viewHolder.bindingAdapterPosition))
-                    savedAdapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
-                    viewModel.getAllPhotosFromFavorite()
+                    savedAdapter.notifyItemRemoved(viewHolder.layoutPosition)
+                    viewModel.deletePhotoFromDataBase(savedAdapter.getPhotoByPosition(viewHolder.layoutPosition))
+                    viewModel.updateAllPhotosFromFavorite()
                 }
             }).attachToRecyclerView(this)
         }
@@ -56,7 +58,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved), WallpaperClickListener.
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllPhotosFromFavorite()
+        viewModel.updateAllPhotosFromFavorite()
     }
 
     private fun initObservers() {

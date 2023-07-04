@@ -1,0 +1,380 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5750d2b3d4e9ff4b3cb0278e7227d071",
+    "entities": [
+      {
+        "tableName": "photoItem",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT, `id_photo_is_local` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `created_at` TEXT, `updated_at` TEXT, `width` INTEGER, `height` INTEGER, `color` TEXT, `downloads` INTEGER, `blur_hash` TEXT, `likes` INTEGER, `liked_by_user` INTEGER, `publicDomain` INTEGER, `description` TEXT, `altDescription` TEXT, `make_cam_exif` TEXT, `model_cam_exif` TEXT, `name_cam_exif` TEXT, `exposure_time_cam_exif` TEXT, `aperture_cam_exif` TEXT, `focal_length_cam_exif` TEXT, `iso_cam_exif` TEXT, `city_location` TEXT, `country_location` TEXT, `raw_photo_urls` TEXT, `full_photo_urls` TEXT, `regular_photo_urls` TEXT, `small_photo_urls` TEXT, `thumb_photo_urls` TEXT, `self_photo_links` TEXT, `html_photo_links` TEXT, `download_photo_links` TEXT, `download_location_photo_links` TEXT, `id_user` TEXT, `updated_at_user` TEXT, `username_user` TEXT, `name_user` TEXT, `firstName_user` TEXT, `lastName_user` TEXT, `portfolio_url_user` TEXT, `bio_user` TEXT, `location_user` TEXT, `total_likes_user` INTEGER, `total_photos_user` INTEGER, `acceptedTos_user` INTEGER, `total_collections_user` INTEGER, `instagram_username_user` TEXT, `twitter_username_user` TEXT, `large_photoImage` TEXT, `medium_photoImage` TEXT, `small_photoImage` TEXT, `self_user_links` TEXT, `html_user_links` TEXT, `photos_user_links` TEXT, `likes_user_links` TEXT, `portfolio_user_links` TEXT, `following_user_links` TEXT, `followers_user_links` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_photo_is_local",
+            "columnName": "id_photo_is_local",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "downloads",
+            "columnName": "downloads",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "blurHash",
+            "columnName": "blur_hash",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "likes",
+            "columnName": "likes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "likedByUser",
+            "columnName": "liked_by_user",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publicDomain",
+            "columnName": "publicDomain",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "altDescription",
+            "columnName": "altDescription",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.make",
+            "columnName": "make_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.model",
+            "columnName": "model_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.name",
+            "columnName": "name_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.exposure_time",
+            "columnName": "exposure_time_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.aperture",
+            "columnName": "aperture_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.focal_length",
+            "columnName": "focal_length_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exif.iso",
+            "columnName": "iso_cam_exif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "location.city",
+            "columnName": "city_location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "location.country",
+            "columnName": "country_location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "urls.raw",
+            "columnName": "raw_photo_urls",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "urls.full",
+            "columnName": "full_photo_urls",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "urls.regular",
+            "columnName": "regular_photo_urls",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "urls.small",
+            "columnName": "small_photo_urls",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "urls.thumb",
+            "columnName": "thumb_photo_urls",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.self",
+            "columnName": "self_photo_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.html",
+            "columnName": "html_photo_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.download",
+            "columnName": "download_photo_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.downloadLocation",
+            "columnName": "download_location_photo_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.id",
+            "columnName": "id_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.updatedAt",
+            "columnName": "updated_at_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.username",
+            "columnName": "username_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.name",
+            "columnName": "name_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.firstName",
+            "columnName": "firstName_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.lastName",
+            "columnName": "lastName_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.portfolioUrl",
+            "columnName": "portfolio_url_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.bio",
+            "columnName": "bio_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.location",
+            "columnName": "location_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.totalLikes",
+            "columnName": "total_likes_user",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.totalPhotos",
+            "columnName": "total_photos_user",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.acceptedTos",
+            "columnName": "acceptedTos_user",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.totalCollections",
+            "columnName": "total_collections_user",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.instagramUsername",
+            "columnName": "instagram_username_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.twitterUsername",
+            "columnName": "twitter_username_user",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.profileImage.large",
+            "columnName": "large_photoImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.profileImage.medium",
+            "columnName": "medium_photoImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.profileImage.small",
+            "columnName": "small_photoImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.self",
+            "columnName": "self_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.html",
+            "columnName": "html_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.photos",
+            "columnName": "photos_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.likes",
+            "columnName": "likes_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.portfolio",
+            "columnName": "portfolio_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.following",
+            "columnName": "following_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user.links.followers",
+            "columnName": "followers_user_links",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id_photo_is_local"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_photoItem_id",
+            "unique": true,
+            "columnNames": [
+              "id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_photoItem_id` ON `${TABLE_NAME}` (`id`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5750d2b3d4e9ff4b3cb0278e7227d071')"
+    ]
+  }
+}

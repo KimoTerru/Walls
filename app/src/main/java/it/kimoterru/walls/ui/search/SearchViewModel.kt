@@ -1,10 +1,10 @@
 package it.kimoterru.walls.ui.search
 
+import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -19,8 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getImageSearchUseCase: GetImageSearchUseCase,
-    private val insertPhotoUseCase: InsertPhotoUseCase
-) : ViewModel() {
+    private val insertPhotoUseCase: InsertPhotoUseCase,
+    private val context: Application
+) : AndroidViewModel(context) {
 
     suspend fun getImageSearch(
         witchQuery: String,
@@ -33,9 +34,9 @@ class SearchViewModel @Inject constructor(
         ).cachedIn(viewModelScope)
     }
 
-    fun downloadPhoto(fileName: String, linkDownload: String, requireActivity: FragmentActivity) {
+    fun downloadPhoto(fileName: String, linkDownload: String) {
         val filePhoto = fileName + jpg
-        val dm: DownloadManager = requireActivity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val dm: DownloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(Uri.parse(linkDownload))
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
         request.setTitle(filePhoto)

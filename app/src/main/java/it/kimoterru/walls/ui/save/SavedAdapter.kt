@@ -63,7 +63,6 @@ class SavedAdapter(
     fun updateItems(updateData: List<Photo>) {
         data.clear()
         data.addAll(updateData)
-        notifyDataSetChanged()
     }
 
     override fun getItemCount() = data.size

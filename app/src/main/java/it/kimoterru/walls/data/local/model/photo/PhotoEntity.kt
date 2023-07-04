@@ -53,11 +53,6 @@ data class PhotoEntity(
     @Embedded
     val location: LocationEntity? = null,
 
-    /*val tags: List<TagsResponse>? = null,*/
-
-    /* @Embedded
-     val currentUserCollections: List<UserCollectionEntity>,*/
-
     @Embedded
     val urls: PhotoUrlsEntity? = null,
 

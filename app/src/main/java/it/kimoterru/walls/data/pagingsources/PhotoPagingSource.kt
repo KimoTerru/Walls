@@ -33,25 +33,15 @@ class PhotoPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
         return try {
             val pageNumber = params.key ?: 1
-            val response = when(witchQuery) {
-                search -> {
-                    wallpaperService.getSearchImage(
-                        query, CLIENT_ID, pageNumber, PER_PAGE, order_by
-                    ).toSearchPhoto().resultsPhoto
-                }
-                colors -> {
-                    wallpaperService.getColorImage(query, color, CLIENT_ID, pageNumber, PER_PAGE, order_by).toSearchPhoto().resultsPhoto
-                }
-                topics -> {
-                    wallpaperService.getTopicImage(query, CLIENT_ID, pageNumber, PER_PAGE, order_by).map { it.toPhoto() }
-                }
-                latest -> {
-                    wallpaperService.getLatest(CLIENT_ID, pageNumber, PER_PAGE, order_by).map { it.toPhoto() }
-                }
-                else -> {}
+            val response: List<Photo> = when(witchQuery) {
+                search -> wallpaperService.getSearchImage(query, CLIENT_ID, pageNumber, PER_PAGE, order_by).toSearchPhoto().resultsPhoto
+                colors -> wallpaperService.getColorImage(query, color, CLIENT_ID, pageNumber, PER_PAGE, order_by).toSearchPhoto().resultsPhoto
+                topics -> wallpaperService.getTopicImage(query, CLIENT_ID, pageNumber, PER_PAGE, order_by).map { it.toPhoto() }
+                latest -> wallpaperService.getLatest(CLIENT_ID, pageNumber, PER_PAGE, order_by).map { it.toPhoto() }
+                else -> emptyList()
             }
             LoadResult.Page(
-                data = response as List<Photo>,
+                data = response,
                 prevKey = null,
                 nextKey = pageNumber.plus(1)
             )

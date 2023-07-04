@@ -17,8 +17,6 @@ data class Photo(
     val altDescription: String? = null,
     val exif: Exif? = null,
     val location: Location? = null,
-    /*val tags: List<TagsResponse>? = null,*/
-    /*val currentUserCollections: List<UserCollection>,*/
     val urls: PhotoUrls? = null,
     val links: PhotoLinks? = null,
     val user: User? = null,

@@ -51,12 +51,6 @@ data class PhotoResponse(
     @SerializedName("location")
     val location: LocationResponse? = null,
 
-    /*@SerializedName("tags")
-    val tags: List<TagsResponse>? = null,*/
-
-    /* @SerializedName("current_user_collections")
-     val currentUserCollections: List<UserCollectionResponse>,*/
-
     @SerializedName("urls")
     val urls: PhotoUrlsResponse? = null,
 

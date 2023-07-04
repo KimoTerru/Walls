@@ -2,55 +2,22 @@
     <string name="app_name">Walls</string>
     <string name="download">Download</string>
     <string name="home">Home</string>
-    <string name="best_of_the_month">Best of the month</string>
     <string name="latest_wallpapers">Latest wallpapers</string>
     <string name="the_color_tone">The color tone</string>
-    <string name="profile">Profile</string>
     <string name="find_wallpaper">Find Wallpaper…</string>
     <string name="categories">Categories</string>
-    <string name="apply">Apply</string>
     <string name="info">Info</string>
     <string name="save">Save</string>
-    <string name="no_internet_connection">No internet connection!</string>
     <string name="repeat">Repeat</string>
-    <string name="revolution">it\'s revolution Jonny</string>
-    <string name="jonnyboy">jonnyboy@gmail.com</string>
-    <string name="more">More</string>
-    <string name="you_saved">You Saved</string>
-    <string name="empty">Empty!</string>
-    <string name="about_us">About Us</string>
-    <string name="feedback">Feedback</string>
     <string name="search">Search</string>
     <string name="totalPhotos">36 wallpapers available</string>
-    <string name="help_center">Help Center</string>
-    <string name="jonny">Jonny</string>
     <string name="unknown">Unknown</string>
 
-    <string name="unsplash" translatable="false">Unsplash</string>
-    <string name="unsplash_url" translatable="false">https://unsplash.com/?utm_source=resplash&amp;utm_medium=referral&amp;utm_campaign=api-credit</string>
+    <string name="empty_request">Empty request</string>
 
-    <!-- About -->
-    <string name="about">About</string>
-    <string name="unsplash_summary">The best source of free wallpapers from the internet</string>
-
-    <string name="report_bug_title">Report Bug</string>
-    <string name="report_bug_summary">Report bugs or request new features</string>
-    <string name="github_title" translatable="false">GitHub</string>
-    <string name="github_summary">The code can be viewed on Github</string>
-    <string name="github_url" translatable="false">https://github.com/KimoTerru/Walls</string>
-    <string name="github_issues_url" translatable="false">https://github.com/kimoterru/walls/issues</string>
-    <string name="developer_title">Developer</string>
-
-    <string name="instagram" translatable="false">Instagram</string>
-    <string name="developer_instagram_username" translatable="false">\@kimoterru</string>
-    <string name="developer_instagram_url" translatable="false">https://www.instagram.com/kimoterru/</string>
-
-    <string name="telegram" translatable="false">Telegram</string>
-    <string name="developer_telegram_username" translatable="false">\@kimoterru</string>
-    <string name="developer_telegram_url" translatable="false">https://t.me/kimoterru</string>
     <string name="saved">Saved</string>
     <string name="error_massage">Error 404</string>
-    <string name="no_wallpaper">There is no wallpaper...</string>
+    <string name="no_wallpaper">There is no wallpaper…</string>
 
     <string name="wallpapers_available">wallpapers available</string>
     <string name="iso_cam_example">100</string>
@@ -69,7 +36,7 @@
     <string name="down_info_example">1345</string>
     <string name="color_info_example">#6E633A</string>
     <string name="likes_info_example">105</string>
-    <string name="created_at_info_example">2016-05-03T11:00:28-04:00</string>
+    <string name="created_at_info_example">2016–05–03T11:00:28–04:00</string>
     <string name="resolution_info_example">2448 x 3264</string>
     <string name="id_image_info_example">Dwu85P9SOIk</string>
     <string name="downloads">Downloads</string>
@@ -83,8 +50,7 @@
     <string name="options">Options:</string>
     <string name="delete">Delete</string>
     <string name="swipe_to_Refresh">Swipe to Refresh</string>
-    <string name="wait_a_second">Wait a second...</string>
-    <string name="start_download">Start download</string>
     <string name="done">Done</string>
+    <string name="topics">Topics</string>
 
 </resources>

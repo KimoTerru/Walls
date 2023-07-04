@@ -8,7 +8,7 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/error_animation_view"
-        android:layout_width="400dp"
+        android:layout_width="380dp"
         android:layout_height="300dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"

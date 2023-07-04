@@ -23,4 +23,5 @@ data class ExifResponse(
 
     @SerializedName("iso")
     val iso: String? = null,
+
 )
