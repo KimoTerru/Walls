@@ -11,7 +11,7 @@
     <color name="blue">#5061D0</color>
 
     <!--View day color -->
-    <color name="my_text_color">#757783</color>
+    <color name="my_text_color">#FF000000 </color>
     <color name="my_bg_search_color">#f0f1f3</color>
     <color name="my_background_bottom_sheet">#FFFFFFFF</color>
     <color name="my_day_night">#FFFFFFFF</color>
